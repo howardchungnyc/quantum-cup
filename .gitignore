@@ -171,6 +171,7 @@ cython_debug/
 **/build
 
 # misc
+scratch-paper.txt
 .DS_Store
 .env.local
 .env.development.local

@@ -1,36 +1,49 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import Construct from "./Construct.js";
-import ErrorNotification from "./ErrorNotification";
 import "./App.css";
+import Nav from "./Nav";
+import MainPage from "./MainPage";
+import SignupForm from "./SignupForm";
 
 function App() {
-  const [launchInfo, setLaunchInfo] = useState([]);
-  const [error, setError] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showNav, setShowNav] = useState(false);
 
-  useEffect(() => {
-    async function getData() {
-      let url = `${process.env.REACT_APP_API_HOST}/api/launch-details`;
-      console.log("fastapi url: ", url);
-      let response = await fetch(url);
-      console.log("------- hello? -------");
-      let data = await response.json();
+  /**
+   * Handles the closing of the alert.
+   */
+  function handleAlertClose() {
+    setShowAlert(false);
+    setAlertMessage('');
+  };
 
-      if (response.ok) {
-        console.log("got launch data!");
-        setLaunchInfo(data.launch_details);
-      } else {
-        console.log("drat! something happened");
-        setError(data.message);
-      }
-    }
-    getData();
-  }, []);
+  /**
+   * Sets the alert message and shows the alert. This is a dismissable alert.
+   *
+   * @param {String} message - The message to display in the alert.
+   */
+  function setAlert(message) {
+    setAlertMessage(message);
+    setShowAlert(true);
+  }
 
   return (
-    <div>
-      <ErrorNotification error={error} />
-      <Construct info={launchInfo} />
-    </div>
+    <BrowserRouter>
+      <Nav showNav={showNav} />
+      {showAlert && (
+        <div className="alert alert-danger alert-dismissible fade show" role="alert">
+          {alertMessage}
+          <button type="button" className="btn-close" aria-label="Close" onClick={handleAlertClose}></button>
+        </div>
+      )}
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<MainPage setShowNav={setShowNav} />} />
+          <Route path="/signup" element={<SignupForm setAlert={setAlert} setShowNav={setShowNav} />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

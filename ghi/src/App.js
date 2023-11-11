@@ -8,6 +8,7 @@ import SignupForm from "./signup/SignupForm";
 function App() {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
+  const [type, setType] = useState('');
 
   /**
    * Handles the closing of the alert.
@@ -21,9 +22,15 @@ function App() {
    * Sets the alert message and shows the alert. This is a dismissable alert.
    *
    * @param {String} message - The message to display in the alert.
+   * @param {Boolean} success - Whether the alert is a success or error alert.
    */
-  function setAlert(message) {
+  function setAlert(message, success = false) {
     setAlertMessage(message);
+    if (success) {
+      setType('alert-success');
+    } else {
+      setType('alert-danger');
+    }
     setShowAlert(true);
   }
 
@@ -31,7 +38,7 @@ function App() {
     <BrowserRouter>
       <Nav />
       {showAlert && (
-        <div className="alert alert-danger alert-dismissible fade show" role="alert">
+        <div className={"alert " + type + " alert-dismissible fade show"} role="alert">
           {alertMessage}
           <button type="button" className="btn-close" aria-label="Close" onClick={handleAlertClose}></button>
         </div>

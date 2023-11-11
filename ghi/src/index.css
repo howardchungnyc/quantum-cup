@@ -1,13 +1,67 @@
+:root {
+  /* App's Colors */
+  --color-light-text: #D5C49C;
+  --color-theme-light: #D5C49C;
+  --color-theme-dark: #290809;
+  --color-buttons: #D04A2E;
+}
+
+
+/**  Navbar Styling  **/
+
+.navbar {
+  background-color: var(--color-theme-light);
+  color: var(--color-light-text);
+}
+
+.navbar-brand,
+.nav-link {
+  color: var(--color-theme-dark);
+}
+
+.navbar img {
+  height: 55px;
+  margin-right: 1rem;
+  border-radius: 10px;
+}
+
+
+/* Body Styling */
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  background-color: var(--color-theme-light);  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.hero-interaction {
+  background-color: var(--color-theme-dark);
+  color: var(--color-light-text);
+}
+
+.hero-interaction .btn {
+  background-color: var(--color-buttons);
+  color: var(--color-theme-light);
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  margin: 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Footer Styling */
+
+footer {
+  background-color: var(--color-theme-light);
+  color: var(--color-theme-dark);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+footer span {
+  color: var(--color-theme-dark);
 }

@@ -3,15 +3,18 @@ import React from "react";
 
 function MainPage() {
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col">
-          <h1 className="text-center">Quantun Cup</h1>
+    <div>
+      <div className="d-flex flex-column flex-md-row">
+        <div className="d-flex justify-content-center align-items-center hero-interaction flex-column col-12 col-md-6 ">
+          <img src="/img/logo_dark_bg.png" alt="coffee logo" width={"33%"}></img>
+          <div className="h4 my-5">A unique community of coffee enthusiasts</div>
+          <div className="d-flex">
+            <a className="btn" href="/signup">Sign Up</a>
+            <a className="btn" href="/login">Login</a>
+          </div>
         </div>
-      </div>
-      <div className="row">
-        <div className="col">
-          <p className="text-center">Welcome to Quantun Cup, the best place to buy coffee online!</p>
+        <div className="col-12 col-md-6">
+          <img src="/img/hero_img.png" alt="coffee" width={"100%"}></img>
         </div>
       </div>
     </div>

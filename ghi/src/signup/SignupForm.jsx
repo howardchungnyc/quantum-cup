@@ -5,12 +5,12 @@ function SignupForm() {
     <div className="container">
       <div className="row">
         <div className="col">
-          <h1 className="text-center">Signup</h1>
+          <h1 className="text-center">Sign Up</h1>
         </div>
       </div>
       <div className="row">
         <div className="col">
-          <form>
+          <form id="sign-up-form">
             <div className="mb-3">
               <label htmlFor="firstName" className="form-label">First Name</label>
               <input type="text" className="form-control" id="firstName" />
@@ -31,7 +31,7 @@ function SignupForm() {
               <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
               <input type="password" className="form-control" id="confirmPassword" />
             </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button className="btn">Sign Up</button>
           </form>
         </div>
       </div>

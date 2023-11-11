@@ -2,9 +2,12 @@ import { NavLink } from 'react-router-dom';
 
 function Nav() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-custom-color mb-3">
+    <nav className="navbar navbar-expand-lg mb-3">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">Quantun Cup</NavLink>
+        <NavLink className="navbar-brand" to="/">
+          <img src='/img/logo_dark_bg.png' height={"60px"} alt='logo' />
+          Quantun Cup
+        </NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>

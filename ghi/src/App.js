@@ -1,14 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from "react";
-import "./App.css";
+import { useState } from "react";
 import Nav from "./Nav";
 import MainPage from "./MainPage";
-import SignupForm from "./SignupForm";
+import Footer from './Footer';
+import SignupForm from "./signup/SignupForm";
 
 function App() {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-  const [showNav, setShowNav] = useState(false);
 
   /**
    * Handles the closing of the alert.
@@ -30,19 +29,20 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Nav showNav={showNav} />
+      <Nav />
       {showAlert && (
         <div className="alert alert-danger alert-dismissible fade show" role="alert">
           {alertMessage}
           <button type="button" className="btn-close" aria-label="Close" onClick={handleAlertClose}></button>
         </div>
       )}
-      <div className="container">
+      <div>
         <Routes>
-          <Route path="/" element={<MainPage setShowNav={setShowNav} />} />
-          <Route path="/signup" element={<SignupForm setAlert={setAlert} setShowNav={setShowNav} />} />
+          <Route path="/" element={<MainPage />} />
+          <Route path="/signup" element={<SignupForm setAlert={setAlert} />} />
         </Routes>
       </div>
+      <Footer />
     </BrowserRouter>
   );
 }

@@ -38,7 +38,7 @@ function App() {
       )}
       <div>
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<MainPage setAlert={setAlert} />} />
           <Route path="/signup" element={<SignupForm setAlert={setAlert} />} />
         </Routes>
       </div>

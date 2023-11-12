@@ -31,6 +31,7 @@ function App() {
     } else {
       setType('alert-danger');
     }
+    window.scrollTo(0, 0);
     setShowAlert(true);
   }
 

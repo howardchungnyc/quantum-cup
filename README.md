@@ -139,3 +139,41 @@ in GitLab.
 Merge a change into main to kick off the initial deploy. Once the build pipeline
 finishes you should be able to see an "under construction" page on your GitLab
 pages site.
+
+
+##########################
+
+# Module3 Project - Quantum Cup
+
+
+
+## API Documentation
+### User Signup
+* Endpoint path: `/signup`
+* Endpoint method: `POST`
+* Query parameters: None
+* Headers: None
+* Request shape (JSON):
+    ```json
+    {
+        "username": "string",
+        "password": "string",
+        "email": "string"
+    }
+    ```
+* Response: `User created successfully`
+  * Response shape (JSON):
+      ```json
+      {
+          "username": "string",
+          "password": "string",
+          "email": "string"
+      }
+      ```
+* Response: `Failed to create user`
+  * Response shape (JSON):
+      ```json
+      {
+          "detail": "string"
+      }
+      ```

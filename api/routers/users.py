@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
-from queries.users import UserRegistration, UserRepository, Buyer
+from queries.users import UserRegistration, UserRepository, Buyer, Error
+from typing import Union
 
 router = APIRouter()
 
@@ -14,9 +15,8 @@ def logout():
     pass
 
 
-@router.post("/signup")
+@router.post("/signup", response_model=Union[Buyer, Error])
 def signup(
     user: UserRegistration, repo: UserRepository = Depends()
 ) -> dict[str, str] | Buyer:
-    res: dict[str, str] | Buyer = repo.create(user)
-    return res
+    return repo.create(user)

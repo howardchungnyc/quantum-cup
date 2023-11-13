@@ -7,6 +7,9 @@ from .passwd import hashPassword
 
 DATABASE_URL: str | None = os.environ.get("DATABASE_URL")
 
+class Error(BaseModel):
+    detail: str
+
 class User(BaseModel):
     username: str
     password: str

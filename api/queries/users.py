@@ -1,8 +1,9 @@
-import hashlib
 import os
 from pymongo import MongoClient
 from pydantic import BaseModel
 from fastapi import HTTPException
+from .passwd import hashPassword
+
 
 DATABASE_URL: str | None = os.environ.get("DATABASE_URL")
 
@@ -43,9 +44,7 @@ class UserRepository:
             usr_dict = user.dict()
             usr_dict.pop("role")
             # never store passwords in plain text, use a hash function
-            usr_dict["password"] = hashlib.sha512(
-                usr_dict["password"].encode()
-            ).hexdigest()
+            usr_dict["password"] = hashPassword(usr_dict["password"])
             if user.role == "buyer":
                 # check if the username already exists in the database
                 if db.buyers.find_one({"username": user.username}):

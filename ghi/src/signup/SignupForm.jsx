@@ -46,12 +46,12 @@ function SignupForm({ setAlert }) {
           window.location.href = `/${role}`;
         } else {
           return response.json().then((json) => {
-            throw new Error(json.message || "Something went wrong");
+            throw new Error(json.detail || "Something went wrong");
           });
         }
       })
       .catch((error) => {
-        setAlert("Error: " + error.detail);
+        setAlert(String(error));
       });
   }
 

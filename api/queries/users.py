@@ -2,6 +2,7 @@ import hashlib
 import os
 from pymongo import MongoClient
 from pydantic import BaseModel
+from fastapi import HTTPException
 
 DATABASE_URL: str | None = os.environ.get("DATABASE_URL")
 
@@ -37,9 +38,7 @@ class UserRepository:
         :param user: UserRegistration object
         :return: User object
         """
-        client = None
-        try:
-            client = MongoClient(DATABASE_URL)
+        with MongoClient(DATABASE_URL) as client:
             db = client["quantumcup"]
             usr_dict = user.dict()
             usr_dict.pop("role")
@@ -50,19 +49,16 @@ class UserRepository:
             if user.role == "buyer":
                 # check if the username already exists in the database
                 if db.buyers.find_one({"username": user.username}):
-                    return {"detail": "Username already exists"}
+                    raise HTTPException(status_code=400,
+                                        detail="Username already exists")
                 entry_id = db.buyers.insert_one(usr_dict).inserted_id
                 return Buyer(id=str(entry_id), **usr_dict)
             else:
                 # check if the username already exists in the database
                 if db.vendors.find_one({"username": user.username}):
-                    return {"detail": "Username already exists"}
+                    raise HTTPException(status_code=400,
+                                        detail="Username already exists")
                 entry_id = db.vendors.insert_one(usr_dict).inserted_id
                 return Buyer(
                     id=str(entry_id), **usr_dict
                 )  # use Buyer for consistency
-        except Exception as e:
-            return {"detail": str(e)}
-        finally:
-            if client is not None:
-                client.close()

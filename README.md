@@ -14,9 +14,9 @@ tasks for this week.
 
 ## Deliverables
 
-- [ ] Wire-frame diagrams
-- [ ] API documentation
-- [ ] Project is deployed to Caprover (BE, DB) & GitLab-pages (FE)
+- [X] Wire-frame diagrams
+- [X] API documentation
+- [-] Project is deployed to Caprover (BE, DB) & GitLab-pages (FE)
 - [ ] GitLab issue board is setup and in use (or project management tool of choice)
 - [ ] Journals
 
@@ -145,6 +145,11 @@ pages site.
 
 # Module3 Project - Quantum Cup
 
+## Database Information
+### Name: quantumcup
+### Tables (collections):
+* buyers
+* vendors
 
 
 ## API Documentation
@@ -155,19 +160,31 @@ pages site.
 * Headers: None
 * Request shape (JSON):
     ```json
-    {
-        "username": "string",
-        "password": "string",
-        "email": "string"
-    }
+      {
+          "role": "str",
+          "username": "str",
+          "password": "str",
+          "email": "str",
+          "fullname": "str",
+          "street": "str",
+          "city": "str",
+          "state": "str",
+          "zipcode": "int"
+      }
     ```
 * Response: `User created successfully`
   * Response shape (JSON):
       ```json
       {
-          "username": "string",
-          "password": "string",
-          "email": "string"
+          "id": "str",
+          "username": "str",
+          "password": "str",
+          "email": "str",
+          "fullname": "str",
+          "street": "str",
+          "city": "str",
+          "state": "str",
+          "zipcode": "int"
       }
       ```
 * Response: `Failed to create user`

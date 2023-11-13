@@ -22,6 +22,7 @@ function SignupForm({ setAlert }) {
       return;
     }
     const data = {
+      role,
       username,
       password,
       email,
@@ -31,14 +32,7 @@ function SignupForm({ setAlert }) {
       state,
       zipcode
     }
-    // If role is set to seller do a POST to localhost:8000/api/sellers,
-    // otherwise do a POST to localhost:8000/api/buyers
-    let URL = '';
-    if (role === 'buyer') {
-      URL = 'http://localhost:8000/api/buyers';
-    } else if (role === 'seller') {
-      URL = 'http://localhost:8000/api/sellers';
-    }
+    const URL = 'http://localhost:8000/signup';
     fetch(URL, {
       method: 'POST',
       headers: {
@@ -57,7 +51,7 @@ function SignupForm({ setAlert }) {
         }
       })
       .catch((error) => {
-        setAlert("Error: " + error.message);
+        setAlert("Error: " + error.detail);
       });
   }
 

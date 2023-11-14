@@ -4,6 +4,7 @@ from pydantic import BaseModel
 class Error(BaseModel):
     detail: str
 
+
 class User(BaseModel):
     username: str
     password: str
@@ -26,4 +27,3 @@ class Buyer(User):
 
 class Vendor(User):
     id: str
-

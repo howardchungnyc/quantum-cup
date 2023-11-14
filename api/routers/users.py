@@ -10,9 +10,11 @@ router = APIRouter()
 def login():
     pass
 
+
 @router.post("/logout")
 def logout():
     pass
+
 
 @router.post("/signup", response_model=Union[Buyer, Error])
 def signup(

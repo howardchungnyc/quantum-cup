@@ -1,6 +1,6 @@
 import os
 from pymongo import MongoClient
-from models import UserRegistration, User, Buyer, Vendor
+from models import UserRegistration, Buyer
 from fastapi import HTTPException
 from .passwd import hashPassword
 
@@ -25,15 +25,17 @@ class UserRepository:
             if user.role == "buyer":
                 # check if the username already exists in the database
                 if db.buyers.find_one({"username": user.username}):
-                    raise HTTPException(status_code=400,
-                                        detail="Username already exists")
+                    raise HTTPException(
+                        status_code=400, detail="Username already exists"
+                    )
                 entry_id = db.buyers.insert_one(usr_dict).inserted_id
                 return Buyer(id=str(entry_id), **usr_dict)
             else:
                 # check if the username already exists in the database
                 if db.vendors.find_one({"username": user.username}):
-                    raise HTTPException(status_code=400,
-                                        detail="Username already exists")
+                    raise HTTPException(
+                        status_code=400, detail="Username already exists"
+                    )
                 entry_id = db.vendors.insert_one(usr_dict).inserted_id
                 return Buyer(
                     id=str(entry_id), **usr_dict

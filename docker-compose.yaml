@@ -3,6 +3,7 @@ services:
   fastapi:
     environment:
       CORS_HOST: http://localhost:3000
+      DATABASE_URL: ${DATABASE_URL}
     build:
       context: api
       dockerfile: Dockerfile.dev

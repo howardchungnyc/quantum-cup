@@ -1,37 +1,11 @@
 import os
 from pymongo import MongoClient
-from pydantic import BaseModel
+from models import UserRegistration, User, Buyer, Vendor
 from fastapi import HTTPException
 from .passwd import hashPassword
 
 
 DATABASE_URL: str | None = os.environ.get("DATABASE_URL")
-
-class Error(BaseModel):
-    detail: str
-
-class User(BaseModel):
-    username: str
-    password: str
-    email: str
-    fullname: str
-    street: str
-    city: str
-    state: str
-    zipcode: int
-
-
-# Data model for the user registration POST request
-class UserRegistration(User):
-    role: str
-
-
-class Buyer(User):
-    id: str
-
-
-class Vendor(User):
-    id: str
 
 
 class UserRepository:

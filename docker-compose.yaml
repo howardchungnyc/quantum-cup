@@ -4,6 +4,7 @@ services:
     environment:
       CORS_HOST: http://localhost:3000
       DATABASE_URL: ${DATABASE_URL}
+      SIGNING_KEY: ${SIGNING_KEY}
     build:
       context: api
       dockerfile: Dockerfile.dev

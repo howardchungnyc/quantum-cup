@@ -1,42 +1,59 @@
-import os
-from pymongo import MongoClient
-from models import UserRegistration, Buyer
-from fastapi import HTTPException
-from .passwd import hashPassword
+from models.users import AccountIn, AccountOutWithHashedPassword
+from .client import Queries
 
 
-DATABASE_URL: str | None = os.environ.get("DATABASE_URL")
+# DATABASE_URL: str | None = os.environ.get("DATABASE_URL")
 
 
-class UserRepository:
-    def create(self, user: UserRegistration) -> dict[str, str] | Buyer:
+class DuplicateAccountError(ValueError):
+    pass
+
+
+# Class representing queries related to user accounts
+class AccountQueries(Queries):
+    # MongoDB collection name for accounts
+    collection_name = "accounts"
+
+    def create(self, info: AccountIn, hashed_password: str):
         """
-        Creates a new user in the database
+                Create a new account in the database.
 
-        :param user: UserRegistration object
-        :return: User object
+                :param info: AccountIn object containing account information
+                :param hashed_password: Hashed password for the account
+                :return: Created account information
+                :raises DuplicateAccountError: If an account with the
+        same username already exists
         """
-        with MongoClient(DATABASE_URL) as client:
-            db = client["quantumcup"]
-            usr_dict = user.dict()
-            usr_dict.pop("role")
-            # never store passwords in plain text, use a hash function
-            usr_dict["password"] = hashPassword(usr_dict["password"])
-            if user.role == "buyer":
-                # check if the username already exists in the database
-                if db.buyers.find_one({"username": user.username}):
-                    raise HTTPException(
-                        status_code=400, detail="Username already exists"
-                    )
-                entry_id = db.buyers.insert_one(usr_dict).inserted_id
-                return Buyer(id=str(entry_id), **usr_dict)
-            else:
-                # check if the username already exists in the database
-                if db.vendors.find_one({"username": user.username}):
-                    raise HTTPException(
-                        status_code=400, detail="Username already exists"
-                    )
-                entry_id = db.vendors.insert_one(usr_dict).inserted_id
-                return Buyer(
-                    id=str(entry_id), **usr_dict
-                )  # use Buyer for consistency
+        account = info.dict()
+        # Check if an account with the same username already exists
+        if self.get_one_by_username(account["username"]) is not None:
+            raise DuplicateAccountError
+
+        # Set hashed password, remove plain text password, and insert
+        # the account
+        account["hashed_password"] = hashed_password
+        del account["password"]
+        self.collection.insert_one(account)
+
+        # Assign a string representation of the MongoDB ObjectId as the account
+        # ID
+        account["id"] = str(account["_id"])
+        return account
+
+    def get_one_by_username(self, username: str):
+        """
+        Get an account by username.
+
+        :param username: Username of the account
+        :return: Account information or None if not found
+        """
+        result = self.collection.find_one({"username": username})
+
+        # If no account is found, return None
+        if result is None:
+            return None
+
+        # Assign a string representation of the MongoDB ObjectId as the account
+        #  ID
+        result["id"] = str(result["_id"])
+        return AccountOutWithHashedPassword(**result)

@@ -7,10 +7,10 @@ MONGO_DB = os.environ.get("MONGO_DB", "")
 
 client = MongoClient(DATABASE_URL)
 db = client[MONGO_DB]
-print("!!!!!", db)
 
 
 class Queries:
     @property
     def collection(self):
+        # FIXME: collection_name is not defined in self!
         return db[self.collection_name]

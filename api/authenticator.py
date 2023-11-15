@@ -11,7 +11,6 @@ class CoffeeAuthenticator(Authenticator):
         username: str,
         accounts: AccountQueries,
     ):
-        print("###", username)
         # Use your repo to get user by username
         return accounts.get_one_by_username(username)
 

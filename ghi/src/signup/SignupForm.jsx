@@ -58,7 +58,7 @@ function SignupForm({ setAlert }) {
   function handleOnChangeForm(e) {
     switch (e.target.id) {
       case "buyer": // fallback on next case
-      case "seller":
+      case "vendor":
         setRole(e.target.value);
         break;
       case "username":
@@ -107,8 +107,8 @@ function SignupForm({ setAlert }) {
                   <label className="form-check-label" htmlFor="buyer">Buyer</label>
                 </div>
                 <div>
-                  <input className="form-check-input" type="radio" required name="role" id="seller" value="seller" />
-                  <label className="form-check-label" htmlFor="seller">Seller</label>
+                  <input className="form-check-input" type="radio" required name="role" id="vendor" value="vendor" />
+                  <label className="form-check-label" htmlFor="vendor">Vendor</label>
                 </div>
               </div>
             </div>

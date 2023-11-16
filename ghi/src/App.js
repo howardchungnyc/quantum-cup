@@ -4,6 +4,7 @@ import Nav from "./Nav";
 import MainPage from "./MainPage";
 import Footer from './Footer';
 import SignupForm from "./signup/SignupForm";
+import VendorPage from "./vendors/VendorPage";
 
 function App() {
   const [showAlert, setShowAlert] = useState(false);
@@ -48,6 +49,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage setAlert={setAlert} />} />
           <Route path="/signup" element={<SignupForm setAlert={setAlert} />} />
+          <Route path="/vendor" element={<VendorPage setAlert={setAlert} />} />
         </Routes>
       </div>
       <Footer />

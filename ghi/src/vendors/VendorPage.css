@@ -1,0 +1,14 @@
+
+.mgmt-btn {
+    width: 20rem;
+    margin: 2rem;
+}
+
+.panel-title {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+    text-align: center;
+    border-radius: 10px;
+    width: 90%;
+    height: fit-content;
+}

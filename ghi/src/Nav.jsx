@@ -24,10 +24,13 @@ function Nav() {
               </a>
               <ul className="dropdown-menu">
                 <li className="dropdown-item">
-                  <NavLink className="nav-link" to="/buyers">Vendors Page</NavLink>
+                  <NavLink className="nav-link" to="/vendor">Vendors Page</NavLink>
                 </li>
                 <li className="dropdown-item">
-                  <NavLink className="nav-link" to="/buyers/orders">Orders</NavLink>
+                  <NavLink className="nav-link" to="/productmgmt">Product Management</NavLink>
+                </li>
+                <li className="dropdown-item">
+                  <NavLink className="nav-link" to="/ordermgmt">Order Management</NavLink>
                 </li>
               </ul>
             </li>

@@ -1,196 +1,194 @@
-# Module3 Project Gamma
+# Quantum Cup - A Unique Community of Coffee Enthusiasts
+Quantum Cup is an app to connect coffee enthusiasts and coffee shops.
 
-## Getting started
+## Team
+- Anthony
+- Howard
+- John
+- Márcio
 
-You have a project repository, now what? The next section
-lists all of the deliverables that are due at the end of the
-week. Below is some guidance for getting started on the
-tasks for this week.
+## Installation
+This system is containerized and requires Docker to be installed on your host
+system before proceeding with the installation. Here are the steps to follow:
+- Download the source code from
+  https://gitlab.com/TonySpence/quantum-cup/-/archive/main/quantum-cup-main.zip
+- Decompress the image and navigate to the uncompressed directory.
+- Copy the `.env.sample` file to `.env` and replace the values of the
+  `DATABASE_URL` environment variables (see next step).
+- Create an account at https://cloud.mongodb.com/, capture your password and
+  connection string, and replace the value of the `DATABASE_URL` environment
+  variable in the `.env` file with your connection string.
+- Build and start the Docker images by running `docker-compose up`.
+- Finally, open your browser and navigate to http://localhost:3000/ to access
+  the application.
 
-## Install Extensions
+## System Design
 
-- Prettier: <https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode>
-- Black Formatter: <https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter>
+### User Stories
 
-## Deliverables
+The following user stories were used to design the system:
 
-- [X] Wire-frame diagrams
-- [X] API documentation
-- [-] Project is deployed to Caprover (BE, DB) & GitLab-pages (FE)
-- [ ] GitLab issue board is setup and in use (or project management tool of choice)
-- [ ] Journals
-
-## Project layout
-
-The layout of the project is just like all of the projects
-you did with `docker-compose` in module #2. You will create
-a directory in the root of the repository for each service
-that you add to your project just like those previous
-projects were setup.
-
-### Directories
-
-Several directories have been added to your project. The
-directories `docs` and `journals` are places for you and
-your team-mates to, respectively, put any documentation
-about your project that you create and to put your
-project-journal entries. See the _README.md_ file in each
-directory for more info.
-
-The other directories, `ghi` and `api`, are services, that
-you can start building off of.
-
-Inside of `ghi` is a minimal React app that has an "under
-construction" page. It is setup similarly to all of the
-other React projects that you have worked on.
-
-Inside of `api` is a minimal FastAPI application.
-"Where are all the files?" you might ask? Well, the
-`main.py` file is the whole thing, and go take look inside
-of it... There's not even much in there..., hmm? That is
-FastAPI, we'll learn more about it in the coming days. Can
-you figure out what this little web-application does even
-though you haven't learned about FastAPI yet?
-
-Also in `api` is a directory for your migrations.
-If you choose to use PostgreSQL, then you'll want to use
-migrations to control your database. Unlike Django, where
-migrations were automatically created for you, you'll write
-yours by hand using DDL. Don't worry about not knowing what
-DDL means; we have you covered. There's a sample migration
-in there that creates two tables so you can see what they
-look like.
-
-The Dockerfile and Dockerfile.dev run your migrations
-for you automatically.
-
-### Other files
-
-The following project files have been created as a minimal
-starting point. Please follow the guidance for each one for
-a most successful project.
-
-- `docker-compose.yaml`: there isn't much in here, just a
-  **really** simple UI and FastAPI service. Add services
-  (like a database) to this file as you did with previous
-  projects in module #2.
-- `.gitlab-ci.yml`: This is your "ci/cd" file where you will
-  configure automated unit tests, code quality checks, and
-  the building and deployment of your production system.
-  Currently, all it does is deploy an "under construction"
-  page to your production UI on GitLab and a sample backend
-  to CapRover. We will learn much more about this file.
-- `.gitignore`: This is a file that prevents unwanted files
-  from getting added to your repository, files like
-  `pyc` files, `__pycache__`, etc. We've set it up so that
-  it has a good default configuration for Python projects.
-- `.env.sample`: This file is a template to copy when
-  creating environment variables for your team. Create a
-  copy called `.env` and put your own passwords in here
-  without fear of it being committed to git (see `.env`
-  listed in `.gitignore`). You can also put team related
-  environment variables in here, things like api and signing
-  keys that shouldn't be committed; these should be
-  duplicated in your deployed environments.
-
-## How to complete the initial deploy
-
-There will be further guidance on completing the initial
-deployment, but it just consists of these steps:
-
-### Setup GitLab repo/project
-
-- make sure this project is in a group. If it isn't, stop
-  now and move it to a GitLab group
-- remove the fork relationship: In GitLab go to:
-
-  Settings -> General -> Advanced -> Remove fork relationship
-
-- add these GitLab CI/CD variables:
-  - PUBLIC_URL : this is your gitlab pages URL
-  - REACT_APP_API_HOST: enter "blank" for now
-
-#### Your GitLab pages URL
-
-You can't find this in GitLab until after you've done a deploy
-but you can figure it out yourself from your GitLab project URL.
-
-If this is your project URL
-
-https://gitlab.com/GROUP_NAME/PROJECT_NAME
-
-then your GitLab pages URL will be
-
-https://GROUP_NAME.gitlab.io/PROJECT_NAME
-
-### Initialize CapRover
-
-1. Attain IP address and domain from an instructor
-1. Follow the steps in the CD Cookbook in Learn.
-
-### Update GitLab CI/CD variables
-
-Copy the service URL for your CapRover service and then paste
-that into the value for the REACT_APP_API_HOST CI/CD variable
-in GitLab.
-
-### Deploy it
-
-Merge a change into main to kick off the initial deploy. Once the build pipeline
-finishes you should be able to see an "under construction" page on your GitLab
-pages site.
+- As a user, I want to be able to create a new account, either as a buyer or a vendor.
+- As a user, I want to be able to log in to the system, either as a buyer or a vendor.
+- As a user, I want to be able to log out of the system.
+- As a user, I want to be able to view and edit my account information.
+- As a buyer, I want to be able to view a list of all the coffee vendors in the system.
+- As a buyer, I want to be able to view the details of a coffee shop.
+- As a buyer, I want to be able to view a list of all the coffee products in the system.
+- As a buyer, I want to be able to view the details of a coffee product.
+- As a buyer, I want to be able to write a review for a coffee product.
+- As a buyer, I want to be able to write a review for a coffee shop.
+- As a buyer, I want to be able to order a coffee product.
+- As a buyer, I want to be able to view a list of all my orders.
+- As a buyer, I want to be able to view the details of an order.
+- As a buyer, I want to be able to cancel an order.
+- As a vendor, I want to be able to view a list of all the coffee products in the system.
+- As a vendor, I want to be able to view the details of a coffee product.
+- As a vendor, I want to be able to add a new coffee product.
+- As a vendor, I want to be able to edit a coffee product.
+- As a vendor, I want to be able to delete a coffee product.
+- As a vendor, I want to be able to view a list of all the orders in the system.
+- As a vendor, I want to be able to view the details of an order.
+- As a vendor, I want to be able to cancel an order.
+- As a vendor, I want to be able to mark an order as fulfilled.
 
 
-##########################
+### Architecture
 
-# Module3 Project - Quantum Cup
+The architecture of this system is composed of three subsystems, which are
+directly reflected in the containers generated by the Docker image, except for
+the database, hosted in the cloud. Below are each subsystem's descriptions and a
+system architecture diagram.
+- `Back end Microservice:` This subsystem provides all the data models. It
+stores the information in the database and provides an API to access and process
+the data.
+- `Front end Microservice:` This subsystem provides the user interface. It is a
+React app that is delivered to the browser when you access the host on port 3000.
+- `The React App:` This is the front-end app that runs in the browser. It serves
+as the user interface and interacts with the back-end microservice to provide a
+seamless user experience.
+- `The Database:` This subsystem is a MongoDB database that stores all the data
+models. It is hosted in the cloud and is accessible through the back-end
+microservice.
 
-## Database Information
-### Name: quantumcup
-### Tables (collections):
-* buyers
-* vendors
+<br>
+
+![alt text](./docs/SystemArchtecture.png "System Architecture")
 
 
-## API Documentation
-### User Signup
-* Endpoint path: `/signup`
-* Endpoint method: `POST`
-* Query parameters: None
-* Headers: None
-* Request shape (JSON):
-    ```json
-      {
-          "role": "str",
-          "username": "str",
-          "password": "str",
-          "email": "str",
-          "fullname": "str",
-          "street": "str",
-          "city": "str",
-          "state": "str",
-          "zipcode": "int"
-      }
-    ```
-* Response: `User created successfully`
-  * Response shape (JSON):
-      ```json
-      {
-          "id": "str",
-          "username": "str",
-          "password": "str",
-          "email": "str",
-          "fullname": "str",
-          "street": "str",
-          "city": "str",
-          "state": "str",
-          "zipcode": "int"
-      }
-      ```
-* Response: `Failed to create user`
-  * Response shape (JSON):
-      ```json
-      {
-          "detail": "string"
-      }
-      ```
+### The Data Model
+
+The data model is composed of the following entities:
+
+- `User:` This transitory entity represents a user signing up to the system.
+Once its role is known, the system creates an actual `Vendor` or `Buyer`. The
+user entity is composed of the following attributes:
+    - `name:` The name of the user.
+    - `email:` The email of the user.
+    - `password:` The password of the user.
+    - `role:` The role of the user. It can be either `buyer` or `vendor`.
+    - `address:` The address of the user.
+    - `city:` The city of the user.
+    - `state:` The state of the user.
+    - `zip:` The zip code of the user.
+    - `phone:` The phone number of the user.
+    - `profilePicture:` The profile picture of the user.
+
+- `Vendor:` This entity represents a coffee shop. It is used to store the
+information of a coffee shop. The vendor entity is composed of the following
+attributes:
+    - `name:` The name of the coffee shop.
+    - `email:` The email of the coffee shop.
+    - `hashedPass:` The hashed password of the coffee shop.
+    - `address:` The address of the coffee shop.
+    - `city:` The city of the coffee shop.
+    - `state:` The state of the coffee shop.
+    - `zip:` The zip code of the coffee shop.
+    - `phone:` The phone number of the coffee shop.
+    - `profilePicture:` The profile picture of the coffee shop.
+
+- `Buyer:` This entity represents a buyer. It is used to store the information
+of a buyer. The buyer entity is composed of the following attributes:
+    - `name:` The name of the buyer.
+    - `email:` The email of the buyer.
+    - `hashedPass:` The hashed password of the buyer.
+    - `address:` The address of the buyer.
+    - `city:` The city of the buyer.
+    - `state:` The state of the buyer.
+    - `zip:` The zip code of the buyer.
+    - `phone:` The phone number of the buyer.
+    - `profilePicture:` The profile picture of the buyer.
+
+- `Product:` This entity represents a coffee product. It is used to store the
+information of a coffee product. The product entity is composed of the following
+attributes:
+    - `name:` The name of the coffee product.
+    - `description:` The description of the coffee product.
+    - `price:` The price of the coffee product.
+    - `unit`: The unit of the coffee product. It can be either `lb` or `oz`.
+    - `image:` The image of the coffee product.
+    - `vendor:` The vendor that sells the coffee product.
+
+- `Order:` This entity represents an order. It is used to store the information
+of an order. The order entity is composed of the following attributes:
+    - `buyer:` The buyer that placed the order.
+    - `vendor:` The vendor that received the order.
+    - `product:` The product that was ordered.
+    - `quantity:` The quantity of the product that was ordered.
+    - `status:` The status of the order. It can be `pending`, `fulfilled`, or `canceled`.
+    - `createdAt:` The date and time the order was created.
+
+- `Review:` This entity represents a review. It is used to store the information
+of a review. The review entity is composed of the following attributes:
+    - `buyer:` The buyer that wrote the review.
+    - `product:` The product that was reviewed.
+    - `rating:` The rating of the review. It can be a number between 1 and 5.
+    - `comment:` The comment of the review.
+    - `createdAt:` The date and time the review was created.
+
+
+## Accessing the Microservices
+
+### FastAPI Microservice
+The FastAPI microservice is accessible through http://hostURL:8000/api/.
+The following endpoints are available:
+
+#### Sign Up and Login Endpoints:
+
+| Action                          | Method | URL                                          |
+| --------------------------------| ------ | -------------------------------------------- |
+| Sign up                         | POST   | /signup/                                     |
+| Login                           | POST   | /manufacturers/                              |
+| Logout                          | POST   | /manufacturers/ `[set headers]`              |
+
+Example of signing up a new user:
+```json
+{
+    "name": "Fred",
+    "email": "Flintstone",
+    "password": "happycave",
+    "role": "buyer",
+    "address": "321 Rocky Way",
+    "city": "Stoneville",
+    "state": "CA",
+    "zip": "95123",
+    "phone": "(555) 543-5678",
+    "profilePicture": "http://www.fredflintstone.com/profile.jpg"
+}
+```
+
+#### Vendors endpoints:
+| Action                          | Method | URL                                          |
+| --------------------------------| ------ | -------------------------------------------- |
+
+#### Buyers endpoints:
+| Action                          | Method | URL                                          |
+| --------------------------------| ------ | -------------------------------------------- |
+
+#### Products endpoints:
+| Action                          | Method | URL                                          |
+| --------------------------------| ------ | -------------------------------------------- |
+
+#### Orders endpoints:
+| Action                          | Method | URL                                          |
+| --------------------------------| ------ | -------------------------------------------- |

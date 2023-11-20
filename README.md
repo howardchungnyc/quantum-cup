@@ -80,44 +80,40 @@ microservice.
 
 The data model is composed of the following entities:
 
-- `User:` This transitory entity represents a user signing up to the system.
-Once its role is known, the system creates an actual `Vendor` or `Buyer`. The
-user entity is composed of the following attributes:
-    - `name:` The name of the user.
+- `AccountIn:` This transitory entity represents a user signing up to the system.
+Note that the username is a compound of the username and role ("john::buyer") to
+ensure uniqueness in the two domains (buyer and vendor). The frontend app will
+split the username and role into two separate attributes before showing it to
+the user.
+The AccountIn entity is composed of the following attributes:
+    - `fullname:` The name of the user.
     - `email:` The email of the user.
+    - `username:` A compound of the username and role ("john::buyer").
     - `password:` The password of the user.
-    - `role:` The role of the user. It can be either `buyer` or `vendor`.
-    - `address:` The address of the user.
+    - `street:` The address of the user.
     - `city:` The city of the user.
     - `state:` The state of the user.
-    - `zip:` The zip code of the user.
+    - `zipcode:` The zip code of the user.
     - `phone:` The phone number of the user.
-    - `profilePicture:` The profile picture of the user.
+    - `role:` The role of the user. It can be either `buyer` or `vendor`.
 
-- `Vendor:` This entity represents a coffee shop. It is used to store the
-information of a coffee shop. The vendor entity is composed of the following
-attributes:
-    - `name:` The name of the coffee shop.
-    - `email:` The email of the coffee shop.
-    - `hashedPass:` The hashed password of the coffee shop.
-    - `address:` The address of the coffee shop.
-    - `city:` The city of the coffee shop.
-    - `state:` The state of the coffee shop.
-    - `zip:` The zip code of the coffee shop.
-    - `phone:` The phone number of the coffee shop.
-    - `profilePicture:` The profile picture of the coffee shop.
-
-- `Buyer:` This entity represents a buyer. It is used to store the information
-of a buyer. The buyer entity is composed of the following attributes:
-    - `name:` The name of the buyer.
-    - `email:` The email of the buyer.
-    - `hashedPass:` The hashed password of the buyer.
-    - `address:` The address of the buyer.
-    - `city:` The city of the buyer.
-    - `state:` The state of the buyer.
-    - `zip:` The zip code of the buyer.
-    - `phone:` The phone number of the buyer.
-    - `profilePicture:` The profile picture of the buyer.
+- `AccountOutWithHashedPassword:` This entity represents either a buyer or a
+vendor. It is used to store their information.
+Note that the username is a compound of the username and role ("john::buyer") to
+ensure uniqueness in the two domains (buyer and vendor). The frontend app will
+split the username and role into two separate attributes before showing it to
+the user.
+This entity is composed of the following attributes:
+    - `fullname:` The name of the user.
+    - `email:` The email of the user.
+    - `username:` A compound of the username and role ("john::buyer").
+    - `street:` The address of the user.
+    - `city:` The city of the user.
+    - `state:` The state of the user.
+    - `zipcode:` The zip code of the user.
+    - `phone:` The phone number of the user.
+    - `role:` The role of the user. It can be either `buyer` or `vendor`.
+    - `hashed_password:` The hashed password of the user.
 
 - `Product:` This entity represents a coffee product. It is used to store the
 information of a coffee product. The product entity is composed of the following
@@ -157,23 +153,33 @@ The following endpoints are available:
 
 | Action                          | Method | URL                                          |
 | --------------------------------| ------ | -------------------------------------------- |
-| Sign up                         | POST   | /signup/                                     |
-| Login                           | POST   | /manufacturers/                              |
-| Logout                          | POST   | /manufacturers/ `[set headers]`              |
+| Sign up                         | POST   | /signup                                      |
+| Login                           | POST   | /token                                       |
+| Logout                          | DELETE | /token                                       |
+| Get user token                  | GET    | /token                                       |
 
 Example of signing up a new user:
 ```json
 {
-    "name": "Fred",
+    "fullname": "Fred",
     "email": "Flintstone",
+    "username": "fred::buyer",
     "password": "happycave",
     "role": "buyer",
-    "address": "321 Rocky Way",
+    "street": "321 Rocky Way",
     "city": "Stoneville",
     "state": "CA",
     "zip": "95123",
     "phone": "(555) 543-5678",
-    "profilePicture": "http://www.fredflintstone.com/profile.jpg"
+}
+```
+
+Example of signing in a new user:
+```json
+{
+    "username": "fred::buyer",
+    "password": "happycave",
+    "role": "buyer",
 }
 ```
 

@@ -1,10 +1,9 @@
 import { NavLink } from 'react-router-dom';
+import LogoutBtn from './logout/LogoutBtn';
 
-function Nav() {
+function Nav({ quantumAuth }) {
   return (
-
-
-    <nav className="navbar navbar-expand-lg mb-3">
+    <nav className="navbar navbar-expand-lg navbar-light mb-3">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
           <img src='/img/logo_dark_bg.png' height={"60px"} alt='logo' />
@@ -36,12 +35,11 @@ function Nav() {
             </li>
           </ul>
         </div>
+
+        {quantumAuth.isAuthenticated() && <LogoutBtn quantumAuth={quantumAuth} />}
+
       </div>
     </nav>
-
-
-
-
   )
 }
 

@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import "./SignupForm.css";
 
 
-function SignupForm({ setAlert }) {
+function SignupForm({ setAlert, quantumAuth }) {
   const [role, setRole] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -23,7 +23,7 @@ function SignupForm({ setAlert }) {
     }
     const data = {
       role,
-      username,
+      username: `${username}::${role}`, // username is a combination of username and role
       password,
       email,
       fullname,
@@ -43,7 +43,11 @@ function SignupForm({ setAlert }) {
     })
       .then((response) => {
         if (response.status === 200) {
-          window.location.href = `/${role}`;
+          debugger;
+          response.json().then((data) => {
+            quantumAuth.setAuthentication(data.access_token, role);
+            window.location.href = `/${role}`;
+          });
         } else {
           return response.json().then((json) => {
             throw new Error(json.detail || "Something went wrong");

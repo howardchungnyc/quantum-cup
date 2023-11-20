@@ -12,5 +12,4 @@ db = client[MONGO_DB]
 class Queries:
     @property
     def collection(self):
-        # FIXME: collection_name is not defined in self!
         return db[self.collection_name]

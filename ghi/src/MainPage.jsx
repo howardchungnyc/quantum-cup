@@ -1,10 +1,13 @@
 import React from "react";
 
+const redirect = (role) => window.location.href = '/' + role;
 
-function MainPage({ setAlert }) {
-  function handleLoginClick(e) {
-    e.preventDefault();
-    setAlert('Not implemented yet...');
+
+function MainPage({ setAlert, quantumAuth }) {
+  // redirect to the role page if authenticated
+  if (quantumAuth.isAuthenticated()) {
+    redirect(quantumAuth.getAuthentication().account.role);
+    return <div></div>
   }
   return (
     <div>
@@ -14,7 +17,7 @@ function MainPage({ setAlert }) {
           <div className="h4 my-5 text-center">A unique community of coffee enthusiasts</div>
           <div className="d-flex">
             <a className="btn" href="/signup">Sign Up</a>
-            <a  onClick={handleLoginClick} className="btn" href="/login">Login</a>
+            <a className="btn" href="/login">Login</a>
           </div>
         </div>
         <div className="col-12 col-md-6">

@@ -28,29 +28,29 @@ system before proceeding with the installation. Here are the steps to follow:
 
 The following user stories were used to design the system:
 
-- As a user, I want to be able to create a new account, either as a buyer or a vendor.
-- As a user, I want to be able to log in to the system, either as a buyer or a vendor.
-- As a user, I want to be able to log out of the system.
-- As a user, I want to be able to view and edit my account information.
-- As a buyer, I want to be able to view a list of all the coffee vendors in the system.
-- As a buyer, I want to be able to view the details of a coffee shop.
-- As a buyer, I want to be able to view a list of all the coffee products in the system.
-- As a buyer, I want to be able to view the details of a coffee product.
-- As a buyer, I want to be able to write a review for a coffee product.
-- As a buyer, I want to be able to write a review for a coffee shop.
-- As a buyer, I want to be able to order a coffee product.
-- As a buyer, I want to be able to view a list of all my orders.
-- As a buyer, I want to be able to view the details of an order.
-- As a buyer, I want to be able to cancel an order.
-- As a vendor, I want to be able to view a list of all the coffee products in the system.
-- As a vendor, I want to be able to view the details of a coffee product.
-- As a vendor, I want to be able to add a new coffee product.
-- As a vendor, I want to be able to edit a coffee product.
-- As a vendor, I want to be able to delete a coffee product.
-- As a vendor, I want to be able to view a list of all the orders in the system.
-- As a vendor, I want to be able to view the details of an order.
-- As a vendor, I want to be able to cancel an order.
-- As a vendor, I want to be able to mark an order as fulfilled.
+1. [ ] As a user, I want to be able to create a new account, either as a buyer or a vendor.
+1. [ ] As a user, I want to be able to log in to the system, either as a buyer or a vendor.
+1. [ ] As a user, I want to be able to log out of the system.
+1. [ ] As a user, I want to be able to view and edit my account information.
+1. [ ] As a buyer, I want to be able to view a list of all the coffee vendors in the system.
+1. [ ] As a buyer, I want to be able to view the details of a coffee shop.
+1. [ ] As a buyer, I want to be able to view a list of all the coffee products in the system.
+1. [ ] As a buyer, I want to be able to view the details of a coffee product.
+1. [ ] As a buyer, I want to be able to write a review for a coffee product.
+1. [ ] As a buyer, I want to be able to write a review for a coffee shop.
+1. [ ] As a buyer, I want to be able to order a coffee product.
+1. [ ] As a buyer, I want to be able to view a list of all my orders.
+1. [ ] As a buyer, I want to be able to view the details of an order.
+1. [ ] As a buyer, I want to be able to cancel an order.
+1. [ ] As a vendor, I want to be able to view a list of all the coffee products in the system.
+1. [ ] As a vendor, I want to be able to view the details of a coffee product.
+1. [ ] As a vendor, I want to be able to add a new coffee product.
+1. [ ] As a vendor, I want to be able to edit a coffee product.
+1. [ ] As a vendor, I want to be able to delete a coffee product.
+1. [ ] As a vendor, I want to be able to view a list of all the orders in the system.
+1. [ ] As a vendor, I want to be able to view the details of an order.
+1. [ ] As a vendor, I want to be able to cancel an order.
+1. [ ] As a vendor, I want to be able to mark an order as fulfilled.
 
 
 ### Architecture
@@ -196,5 +196,9 @@ Example of signing in a new user:
 | --------------------------------| ------ | -------------------------------------------- |
 
 #### Orders endpoints:
+| Action                          | Method | URL                                          |
+| --------------------------------| ------ | -------------------------------------------- |
+
+#### Review endpoints:
 | Action                          | Method | URL                                          |
 | --------------------------------| ------ | -------------------------------------------- |

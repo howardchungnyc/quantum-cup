@@ -7,7 +7,7 @@ function Nav({ quantumAuth }) {
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
           <img src='/img/logo_dark_bg.png' height={"60px"} alt='logo' />
-          Quantun Cup
+          Quantum Cup
         </NavLink>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

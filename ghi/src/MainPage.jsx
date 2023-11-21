@@ -1,14 +1,24 @@
-import React from "react";
-
-const redirect = (role) => window.location.href = '/' + role;
+import React, { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 
 function MainPage({ setAlert, quantumAuth }) {
   // redirect to the role page if authenticated
-  if (quantumAuth.isAuthenticated()) {
-    redirect(quantumAuth.getAuthentication().account.role);
-    return <div></div>
-  }
+  const navigate = useNavigate();
+  const authenticated = quantumAuth.isAuthenticated();
+
+  useEffect(() => {
+    async function checkLogin() {
+      if (quantumAuth.isAuthenticated()) {
+        navigate('/' + quantumAuth.getAuthentication().account.role);
+      }
+    }
+    checkLogin();
+  }, [quantumAuth, navigate]);
+
+  // If authenticated, don't show anything
+  if (authenticated) return null;
+
   return (
     <div>
       <div className="d-flex flex-column flex-md-row">

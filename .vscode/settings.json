@@ -10,6 +10,9 @@
     "bson",
     "fullname",
     "jwtdown",
+    "mgmt",
+    "ordermgmt",
+    "productmgmt",
     "zipcode"
   ]
 }

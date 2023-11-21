@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-
+import { useNavigate } from 'react-router-dom';
+import login from "./login";
 
 function LoginForm({ setAlert, quantumAuth }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
   const redirect = (role) => window.location.href = '/' + role;
+  const navigate = useNavigate();
 
   /**
    * Handles the form submission for login.
@@ -14,17 +16,10 @@ function LoginForm({ setAlert, quantumAuth }) {
    */
   async function handleSubmit(e) {
     e.preventDefault();
-    const url = `${quantumAuth.baseUrl}/token`;
-    const form = new FormData();
-    form.append("username", username + "::" + role);
-    form.append("password", password);
-    let res = await fetch(url, { method: "post", credentials: "include", body: form });
-    if (res.status !== 200) return setAlert('Invalid login');
-    res = await fetch(url, { method: "get", credentials: "include" });
-    let auth = await res.json();
-    quantumAuth.setAuthentication(auth);
+    const { success, msg } = await login(quantumAuth, username, password, role);
+    if (!success) return setAlert(msg);
     e.target.reset();
-    redirect(role)
+    navigate('/' + role);
   }
 
 

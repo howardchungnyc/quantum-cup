@@ -1,8 +1,11 @@
 import { React, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import login from "../login/login";
 import "./SignupForm.css";
 
 
 function SignupForm({ setAlert, quantumAuth }) {
+  const navigate = useNavigate();
   const [role, setRole] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +18,11 @@ function SignupForm({ setAlert, quantumAuth }) {
   const [zipcode, setZipcode] = useState('');
 
 
-  function handleSubmit(e) {
+  /**
+   * Handles the form submission for login.
+   * @param {Event} e - The event object.
+   */
+  async function handleSubmit(e) {
     e.preventDefault();
     if (password !== confirmPass) {
       setAlert('Passwords do not match');
@@ -23,7 +30,8 @@ function SignupForm({ setAlert, quantumAuth }) {
     }
     const data = {
       role,
-      username: `${username}::${role}`, // username is a combination of username and role
+      // username is a combination of username and role
+      username: `${username}::${role}`,
       password,
       email,
       fullname,
@@ -32,8 +40,8 @@ function SignupForm({ setAlert, quantumAuth }) {
       state,
       zipcode
     }
-    const URL = 'http://localhost:8000/signup';
-    fetch(URL, {
+    const URL = quantumAuth.baseUrl + "/signup";
+    const create = await fetch(URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -41,24 +49,16 @@ function SignupForm({ setAlert, quantumAuth }) {
       body: JSON.stringify(data),
       mode: 'cors'
     })
-      .then((response) => {
-        if (response.status === 200) {
-          debugger;
-          response.json().then((data) => {
-            quantumAuth.setAuthentication(data.access_token, role);
-            window.location.href = `/${role}`;
-          });
-        } else {
-          return response.json().then((json) => {
-            throw new Error(json.detail || "Something went wrong");
-          });
-        }
-      })
-      .catch((error) => {
-        setAlert(String(error));
-      });
+    if (create.status !== 200) return setAlert((await create.json()).detail);
+    const loginRes = await login(quantumAuth, username, password, role);
+    if (!loginRes.success) return setAlert(loginRes.msg);
+    e.target.reset();
+    navigate('/' + role);
   }
 
+  /**
+   * Handles the change event for the form.
+   */
   function handleOnChangeForm(e) {
     switch (e.target.id) {
       case "buyer": // fallback on next case
@@ -97,6 +97,10 @@ function SignupForm({ setAlert, quantumAuth }) {
     }
   }
 
+  // no need to login if authenticated
+  if (quantumAuth.isAuthenticated()) {
+    navigate('/' + quantumAuth.getAuthentication().account.role);
+  }
   return (
     <div className="container">
       <div className="d-flex flex-column flex-md-row">

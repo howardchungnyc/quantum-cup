@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./VendorPage.css";
+import { useNavigate } from 'react-router-dom';
 
-function VendorPage() {
+
+function VendorPage({ setAlert, quantumAuth }) {
+    const navigate = useNavigate();
+    const role = quantumAuth.getAuthentication() &&
+        quantumAuth.getAuthentication().account.role;
+
+    // Navigate to the home page if not logged in or not a vendor
+    useEffect(() => {
+        async function checkLogin() {
+            if (!quantumAuth.isAuthenticated() ||
+                quantumAuth.getAuthentication().account.role !== 'vendor') {
+                navigate('/');
+            }
+        }
+        checkLogin();
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
+        , []);
+
+    // If not a vendor, don't show anything
+    if (role !== 'vendor') return null;
+
     return (
         <div className="d-flex flex-column flex-md-row justify-content-around my-5">
             {/* left panel */}
@@ -23,7 +44,7 @@ function VendorPage() {
                     <a role="button" id="product-mgmt-btn"
                         className="btn mgmt-btn" href="/ordermgmt">
                         Order Management
-                        </a>
+                    </a>
                 </div>
             </div>
         </div>

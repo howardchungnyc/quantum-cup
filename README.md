@@ -141,7 +141,7 @@ of a review. The review entity is composed of the following attributes:
     - `rating:` The rating of the review. It can be a number between 1 and 5.
     - `comment:` The comment of the review.
     - `createdAt:` The date and time the review was created.
-
+    - `sentiment:` The sentiment as analyzed by Azure Language Sentiment Analyzer.
 
 ## Accessing the Microservices
 

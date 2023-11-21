@@ -1,13 +1,21 @@
-from bson.objectid import ObjectId
 from pydantic import BaseModel
 
 
-class Product(BaseModel):
+class ProductIn(BaseModel):
     name: str
     description: str
     image: str
     unit: str
     price: float
-    rating: int  # average rating
-    comments: list[ObjectId] = []
-    vendor_id: ObjectId
+    rating: int
+
+
+class ProductOut(BaseModel):
+    id: str
+    name: str
+    description: str
+    image: str
+    unit: str
+    price: float
+    rating: int
+    vendor_id: str

@@ -21,6 +21,7 @@ class AccountIn(BaseModel):
 
 # Response for POST
 class AccountOut(BaseModel):
+    id: str
     username: str
     email: str
     fullname: str

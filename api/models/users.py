@@ -9,8 +9,6 @@ class Error(BaseModel):
 # Data model for the user registration POST request
 class AccountIn(BaseModel):
     username: str
-    profilePicture: str
-    description: str
     password: str
     email: str
     fullname: str
@@ -23,10 +21,7 @@ class AccountIn(BaseModel):
 
 # Response for POST
 class AccountOut(BaseModel):
-    id: str
     username: str
-    profilePicture: str
-    description: str
     email: str
     fullname: str
     street: str

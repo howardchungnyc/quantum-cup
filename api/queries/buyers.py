@@ -24,10 +24,7 @@ class BuyerQueries(Queries):
     def get_one_vendor(self, vendor_id: str) -> Vendor:
         # MongoDB query to get data
         result = self.collection.find_one({"_id": ObjectId(vendor_id)})
-
         if result is None:
             return None
         result["id"] = str(result["_id"])
-        print("!!!", result)
-        print("###", result["_id"])
         return Vendor(**result)

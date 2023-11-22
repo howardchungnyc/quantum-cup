@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from routers import users, buyers, products
 from authenticator import authenticator
+from routers.review import router as review_router
 
 app = FastAPI()
 
@@ -16,5 +17,6 @@ app.add_middleware(
 
 app.include_router(users.router, tags=["Auth"])
 app.include_router(authenticator.router, tags=["Auth"])
+app.include_router(review_router, tags=["Reviews"])
 app.include_router(buyers.router, tags=["Buyer"])
 app.include_router(products.router, tags=["Products"])

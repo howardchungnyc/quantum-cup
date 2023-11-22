@@ -28,9 +28,9 @@ system before proceeding with the installation. Here are the steps to follow:
 
 The following user stories were used to design the system:
 
-1. [ ] As a user, I want to be able to create a new account, either as a buyer or a vendor.
-1. [ ] As a user, I want to be able to log in to the system, either as a buyer or a vendor.
-1. [ ] As a user, I want to be able to log out of the system.
+1. [X] As a user, I want to be able to create a new account, either as a buyer or a vendor.
+1. [X] As a user, I want to be able to log in to the system, either as a buyer or a vendor.
+1. [X] As a user, I want to be able to log out of the system.
 1. [ ] As a user, I want to be able to view and edit my account information.
 1. [ ] As a buyer, I want to be able to view a list of all the coffee vendors in the system.
 1. [ ] As a buyer, I want to be able to view the details of a coffee shop.
@@ -202,3 +202,16 @@ Example of signing in a new user:
 #### Review endpoints:
 | Action                          | Method | URL                                          |
 | --------------------------------| ------ | -------------------------------------------- |
+| Create new review               | POST   | /api/reviews                                 |
+| Get list of review by product   | GET    | /api/reviews/product/{product_id}            |
+| Get list of review by buyer     | GET    | /api/reviews/buyer/{buyer_id}                |
+
+Example of creating a new review:
+```json
+{
+    "buyer_id": "655ce1c2362c0b12bb5b6e87",
+    "product_id": "8a5ce1c2362c4b12bb5b6777",
+    "rating": 5,
+    "comment": "This coffee is amazing!",
+}
+```

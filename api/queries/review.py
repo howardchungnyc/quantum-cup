@@ -1,16 +1,21 @@
 from bson.objectid import ObjectId
 from typing import List
 from .client import Queries
-from models.review import ReviewIn, ReviewOut
+from models.review import (
+    ReviewIn,
+    ReviewOut,
+    ReviewByProduct,
+    ReviewByBuyer,
+)
 import datetime
 
 
 class ReviewQueries(Queries):
     collection_name = "reviews"
 
-    def create(self, reviewIn: ReviewIn) -> ReviewOut:
+    def create(self, reviewIn: ReviewIn, buyer_id: str) -> ReviewOut:
         props = reviewIn.dict()
-        props["buyer_id"] = ObjectId(props["buyer_id"])
+        props["buyer_id"] = buyer_id
         props["product_id"] = ObjectId(props["product_id"])
         props["sentiment_score"] = 0
         now = datetime.datetime.utcnow()
@@ -28,38 +33,174 @@ class ReviewQueries(Queries):
             }
         )
 
-    def get_all_by_product_id(self, product_id: str) -> List[ReviewOut]:
-        result = self.collection.aggregate(
+    def get_all_reviews_by_product_id(
+        self, product_id: str
+    ) -> List[ReviewByProduct]:
+        """
+        Get all reviews posted for a product
+
+        Aggregate information about the buyer's (fullname) that posted the
+        review, the product (name, description) that the review is about,
+        and the vendor (fullname) that sold the product.
+        """
+        results = []
+        for doc in self.collection.aggregate(
             [
                 {
                     "$match": {
                         "product_id": ObjectId(product_id),
                     }
                 },
-                {"$sort": {"createdAt": -1}},
-            ]
-        )
-        reviewPropsList = list(result)
-        for reviewProps in reviewPropsList:
-            reviewProps["id"] = str(reviewProps["_id"])
-            reviewProps["buyer_id"] = str(reviewProps["buyer_id"])
-            reviewProps["product_id"] = str(reviewProps["product_id"])
-        return [ReviewOut(**review) for review in reviewPropsList]
-
-    def get_all_by_buyer_id(self, buyer_id: str) -> List[ReviewOut]:
-        result = self.collection.aggregate(
-            [
                 {
-                    "$match": {
-                        "buyer_id": ObjectId(buyer_id),
+                    "$lookup": {
+                        "from": "products",
+                        "localField": "product_id",
+                        "foreignField": "_id",
+                        "as": "product",
+                    }
+                },
+                {
+                    "$set": {
+                        "buyer_id": {
+                            "$toObjectId": "$buyer_id",
+                        },
+                    }
+                },
+                {
+                    "$lookup": {
+                        "from": "accounts",
+                        "localField": "buyer_id",
+                        "foreignField": "_id",
+                        "as": "buyer",
+                    }
+                },
+                {
+                    "$set": {
+                        "vendor_id": {
+                            "$arrayElemAt": ["$product.vendor_id", 0],
+                        },
+                    }
+                },
+                {
+                    "$set": {
+                        "vendor_id": {
+                            "$toObjectId": "$vendor_id",
+                        },
+                    }
+                },
+                {
+                    "$lookup": {
+                        "from": "accounts",
+                        "localField": "vendor_id",
+                        "foreignField": "_id",
+                        "as": "vendor",
+                    }
+                },
+                {
+                    "$project": {
+                        "_id": 0,
+                        "id": "$_id",
+                        "buyer_id": "$buyer_id",
+                        "buyer_fullname": "$buyer.fullname",
+                        "product_id": "$product_id",
+                        "product_name": "$product.name",
+                        "product_description": "$product.description",
+                        "vendor_id": "$product.vendor_id",
+                        "vendor_fullname": "$vendor.fullname",
+                        "rating": "$rating",
+                        "comment": "$comment",
+                        "createdAt": "$createdAt",
                     }
                 },
                 {"$sort": {"createdAt": -1}},
             ]
-        )
-        reviewPropsList = list(result)
-        for reviewProps in reviewPropsList:
-            reviewProps["id"] = str(reviewProps["_id"])
-            reviewProps["buyer_id"] = str(reviewProps["buyer_id"])
-            reviewProps["product_id"] = str(reviewProps["product_id"])
-        return [ReviewOut(**review) for review in reviewPropsList]
+        ):
+            obj = ReviewByProduct(**doc)
+            results.append(ReviewByProduct(**obj.dict()))
+        return results
+
+    def get_all_reviews_by_buyer_id(
+        self, buyer_id: str
+    ) -> List[ReviewByBuyer]:
+        """
+        Get all reviews posted by a buyer
+
+        Aggregate information about the buyer's (fullname) that posted the
+        review, the product (name, description) that the review is about,
+        and the vendor (fullname) that sold the product.
+        """
+        results = []
+        for doc in self.collection.aggregate(
+            [
+                {
+                    "$match": {
+                        "buyer_id": (buyer_id),
+                    }
+                },
+                {
+                    "$lookup": {
+                        "from": "products",
+                        "localField": "product_id",
+                        "foreignField": "_id",
+                        "as": "product",
+                    }
+                },
+                {
+                    "$set": {
+                        "buyer_id": {
+                            "$toObjectId": "$buyer_id",
+                        },
+                    }
+                },
+                {
+                    "$lookup": {
+                        "from": "accounts",
+                        "localField": "buyer_id",
+                        "foreignField": "_id",
+                        "as": "buyer",
+                    }
+                },
+                {
+                    "$set": {
+                        "vendor_id": {
+                            "$arrayElemAt": ["$product.vendor_id", 0],
+                        },
+                    }
+                },
+                {
+                    "$set": {
+                        "vendor_id": {
+                            "$toObjectId": "$vendor_id",
+                        },
+                    }
+                },
+                {
+                    "$lookup": {
+                        "from": "accounts",
+                        "localField": "vendor_id",
+                        "foreignField": "_id",
+                        "as": "vendor",
+                    }
+                },
+                {
+                    "$project": {
+                        "_id": 0,
+                        "id": "$_id",
+                        "buyer_id": "$buyer_id",
+                        "buyer_fullname": "$buyer.fullname",
+                        "product_id": "$product_id",
+                        "product_name": "$product.name",
+                        "product_description": "$product.description",
+                        "vendor_id": "$product.vendor_id",
+                        "vendor_fullname": "$vendor.fullname",
+                        "rating": "$rating",
+                        "comment": "$comment",
+                        "createdAt": "$createdAt",
+                    }
+                },
+                {"$sort": {"createdAt": -1}},
+            ]
+        ):
+            obj = ReviewByBuyer(**doc)
+            results.append(ReviewByBuyer(**obj.dict()))
+        return results

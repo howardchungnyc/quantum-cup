@@ -55,7 +55,8 @@ Mandatory fields are:
 * Response
 * Response shape
 
-If your endpoint needs to know who the person is, then include the Headers/Authorization part.
+If your endpoint needs to know who the person is, then include the
+Headers/Authorization part.
 
 ## Implementing 'reviews' endpoint - 2023.11.21
 ### Routes
@@ -78,3 +79,30 @@ If your endpoint needs to know who the person is, then include the Headers/Autho
   is below the threshold, the review is not published.
 * During the query of reviews by product, the system must filter out reviews that
   have a `sentiment` below the threshold.
+
+## Debugging MongoDB pipelines - 2023.11.22
+### Problem
+
+I was trying to implement the `getReviewsByProduct` endpoint, but the pipeline
+was not working. I was getting an empty list for Buyer and Vendor full names.
+
+### Solution
+
+I had to use the `$lookup` operator to join the `buyers` and `vendors`
+collections with the `reviews` collection. The `$lookup` operator is similar
+to a SQL join.
+There was an additional problem with ObjectId, which I solved by using the
+`$toObjectId` operator and targeting the the proper fields on the other
+collections.
+
+### Additional Notes
+Too help debugging the pipeline, I used the "$$ROOT" operator to get the full
+document. This is useful to see the intermediate results of the pipeline.
+
+```python
+"$project": {
+    "_id": 0,
+    ...
+    "debug": "$$ROOT",
+}
+```

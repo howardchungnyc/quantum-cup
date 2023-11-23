@@ -206,12 +206,54 @@ Example of signing in a new user:
 | Get list of review by product   | GET    | /api/reviews/product/{product_id}            |
 | Get list of review by buyer     | GET    | /api/reviews/buyer/{buyer_id}                |
 
-Example of creating a new review:
+#### Example of creating a new review:
 ```json
 {
     "buyer_id": "655ce1c2362c0b12bb5b6e87",
     "product_id": "8a5ce1c2362c4b12bb5b6777",
     "rating": 5,
     "comment": "This coffee is amazing!",
+}
+```
+
+#### Example of the response of a list of reviews by product:
+```json
+{
+  "reviews": [
+    {
+      "id": "string",
+      "buyer_id": "string",
+      "buyer_fullname": "string",
+      "product_id": "string",
+      "product_name": "string",
+      "product_description": "string",
+      "vendor_id": "string",
+      "vendor_fullname": "string",
+      "rating": 0,
+      "comment": "string",
+      "createdAt": "string"
+    }
+  ]
+}
+```
+
+### Example of the response of a list of reviews by buyer:
+```json
+{
+  "reviews": [
+    {
+      "id": "string",
+      "buyer_id": "string",
+      "buyer_fullname": "string",
+      "product_id": "string",
+      "product_name": "string",
+      "product_description": "string",
+      "vendor_id": "string",
+      "vendor_fullname": "string",
+      "rating": 0,
+      "comment": "string",
+      "createdAt": "string"
+    }
+  ]
 }
 ```

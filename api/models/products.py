@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 
 class ProductIn(BaseModel):
@@ -20,6 +20,8 @@ class ProductOut(BaseModel):
     price: float
     rating: int
     vendor_id: str
+    vendor_name: Optional[str]
+    review_id: Optional[str]
 
 
 class ProductList(BaseModel):

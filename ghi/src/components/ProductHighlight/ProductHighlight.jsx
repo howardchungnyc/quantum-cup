@@ -39,7 +39,7 @@ function ProductHighlight({ quantumAuth }) {
                 ]
             }
             */
-            const url = quantumAuth.baseUrl + '/products';
+            const url = quantumAuth.baseUrl + '/api/products';
             try {
                 const response = await fetch(url);
                 const data = await response.json();

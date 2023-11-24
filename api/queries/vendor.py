@@ -9,7 +9,7 @@ class DuplicateAccountError(ValueError):
 
 
 # Class representing queries related to user accounts
-class BuyerQueries(Queries):
+class VendorQueries(Queries):
     # MongoDB collection name for accounts
     collection_name = "accounts"
 

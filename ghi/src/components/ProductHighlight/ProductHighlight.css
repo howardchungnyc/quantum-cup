@@ -1,0 +1,24 @@
+
+
+.text-container {
+    top: 10px;
+    width: inherit;
+    color: var(--color-light-text);
+    padding: 10px;
+}
+
+.text-container p {
+    margin: 0;
+}
+
+.image-container img {
+    float: left;
+    /* width: 100%; */
+    max-width: 40%;
+    height: auto;
+    margin: 1rem;
+}
+
+.checked {
+    color: orange;
+}

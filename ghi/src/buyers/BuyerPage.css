@@ -1,0 +1,26 @@
+.buyer-left-panel {
+    background-color: var(--color-theme-dark);
+    color: var(--color-light-text);
+    border-radius: var(--block-border-radius);
+}
+
+.buyer-right-panel {
+    background-color: var(--color-theme-light);
+    color: var(--color-dark-text);
+    border-radius: var(--block-border-radius);
+    border-style: solid;
+}
+
+.open-btn {
+    text-align: center;
+    border-style: solid;
+    margin: 1rem;
+    border-radius: var(--block-border-radius);
+    border-color: var(--color-buttons);
+    color: var(--color-buttons);
+    font-weight: bold;
+    font-size: x-large;
+    border-width: var(--btn-border-radius);
+    width: 80%;
+    padding: 1rem;
+}

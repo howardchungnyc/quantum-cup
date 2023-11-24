@@ -62,6 +62,7 @@ function App() {
   return (
     <BrowserRouter>
       <Nav quantumAuth={quantumAuth} />
+      <div className='spacer'></div>
       {showAlert && !window.scrollTo(0, 0) && (
         <div className={"alert " + type + " alert-dismissible fade show"} role="alert">
           {alertMessage}

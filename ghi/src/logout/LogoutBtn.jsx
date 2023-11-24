@@ -16,7 +16,7 @@ function LogoutBtn({ quantumAuth }) {
     }
 
     return (
-        <div><a onClick={handleClick} href="/" className="btn">Logout</a></div>
+        <div><a onClick={handleClick} href="/" className="btn btn-sm">Logout</a></div>
     );
 }
 

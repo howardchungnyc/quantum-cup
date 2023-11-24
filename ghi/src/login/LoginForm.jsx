@@ -44,7 +44,9 @@ function LoginForm({ setAlert, quantumAuth }) {
   // no need to login if authenticated
   if (quantumAuth.isAuthenticated()) {
     redirect(quantumAuth.getAuthentication().account.role);
+    return null;
   }
+  
   return (
     <div className="container">
       <div className="d-flex flex-column flex-md-row">

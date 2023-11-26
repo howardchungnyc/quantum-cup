@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
 
-function StarRating({ totalStars, initialRating, onRatingChange }) {
+function StarRating({ totalStars, initialRating, onChange }) {
     const [rating, setRating] = useState(initialRating || 0);
 
     const handleStarClick = (clickedRating) => {
         setRating(clickedRating);
-        if (onRatingChange) {
-            onRatingChange(clickedRating);
+        if (onChange) {
+            onChange(clickedRating);
         }
     };
 

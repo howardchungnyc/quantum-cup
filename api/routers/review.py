@@ -20,7 +20,7 @@ async def create_review(
     """
     Create a review
     """
-    newReview: ReviewOut = repo.create(review, buyer_id=account["id"])
+    newReview: ReviewOut = repo.create(review, account)
     return newReview
 
 

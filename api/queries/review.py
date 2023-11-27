@@ -9,14 +9,20 @@ from models.review import (
 )
 import datetime
 from .products import ProductQueries
+from fastapi import HTTPException
 
 
 class ReviewQueries(Queries):
     collection_name = "reviews"
 
-    def create(self, reviewIn: ReviewIn, buyer_id: str) -> ReviewOut:
+    def create(self, reviewIn: ReviewIn, account: dict) -> ReviewOut:
+        if account["role"] != "buyer":
+            raise HTTPException(
+                status_code=401,
+                detail="Only buyers can post reviews",
+            )
         props = reviewIn.dict()
-        props["buyer_id"] = buyer_id
+        props["buyer_id"] = account["id"]
         props["product_id"] = ObjectId(props["product_id"])
         props["sentiment_score"] = 0
         now = datetime.datetime.utcnow()

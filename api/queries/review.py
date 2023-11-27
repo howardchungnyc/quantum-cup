@@ -8,6 +8,7 @@ from models.review import (
     ReviewByBuyer,
 )
 import datetime
+from .products import ProductQueries
 
 
 class ReviewQueries(Queries):
@@ -24,6 +25,14 @@ class ReviewQueries(Queries):
         props["id"] = str(props["_id"])
         props["buyer_id"] = str(props["buyer_id"])
         props["product_id"] = str(props["product_id"])
+        if (
+            ProductQueries().update_rating(
+                props["product_id"], props["rating"]
+            )
+            is False
+        ):
+            # log error
+            print("Error updating product rating")
         return ReviewOut(**props)
 
     def delete(self, review_id: str) -> None:

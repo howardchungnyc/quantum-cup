@@ -8,7 +8,6 @@ class DuplicateAccountError(ValueError):
     pass
 
 
-# Class representing queries related to user accounts
 class ProductQueries(Queries):
     # MongoDB collection name for accounts
     collection_name = "products"
@@ -35,17 +34,142 @@ class ProductQueries(Queries):
         return ProductOut(**info)
 
     def get_all_products(self) -> ProductList:
-        # MongoDB query to get data
-        results = []
-        for doc in self.collection.find():
-            doc["id"] = str(doc["_id"])
-            results.append(ProductOut(**doc))
-        return results
+        pipeline = [
+            # new field vendor_id_object,
+            # converting vendor_id to ObjectId
+            {
+                "$addFields": {
+                    "vendor_id_object": {"$toObjectId": "$vendor_id"}
+                }
+            },
+            # Perform a lookup to get details of
+            # the vendor using vendor_id_object
+            {
+                "$lookup": {
+                    "from": "accounts",
+                    "localField": "vendor_id_object",
+                    "foreignField": "_id",
+                    "as": "vendor",
+                }
+            },
+            # Add fields for vendor_fullname
+            # and convert vendor_id_object to string
+            {
+                "$addFields": {
+                    "vendor_fullname": {
+                        "$arrayElemAt": ["$vendor.fullname", 0]
+                    },
+                    "vendor_id": {"$toString": "$vendor_id_object"},
+                }
+            },
+            # Project to shape the final output
+            {
+                "$project": {
+                    "_id": 0,
+                    "id": {"$toString": "$_id"},
+                    "name": "$name",
+                    "description": "$description",
+                    "image": "$image",
+                    "unit": "$unit",
+                    "price": "$price",
+                    "rating_count": "$rating_count",
+                    "rating_sum": "$rating_sum",
+                    "vendor_id": "$vendor_id",
+                    "vendor_fullname": "$vendor_fullname",
+                }
+            },
+        ]
 
-    def get_one_product(self, product_id: str) -> ProductOut:
-        # MongoDB query to get data
-        result = self.collection.find_one({"_id": ObjectId(product_id)})
-        if result is None:
-            return None
-        result["id"] = str(result["_id"])
-        return ProductOut(**result)
+        results = list(self.collection.aggregate(pipeline))
+        return ProductList(products=results)
+
+    def get_one_product(self, product_id: str):
+        # Use MongoDB  retrieve product information and its reviews
+
+        pipeline = [
+            # Match the product with the given product_id
+            {"$match": {"_id": ObjectId(product_id)}},
+            # Perform a lookup to get reviews related to the product
+            {
+                "$lookup": {
+                    "from": "reviews",
+                    "localField": "_id",
+                    "foreignField": "product_id",
+                    "as": "reviews",
+                }
+            },
+            {
+                "$addFields": {
+                    "vendor_id_object": {"$toObjectId": "$vendor_id"}
+                }
+            },
+            # Perform a lookup to get details of
+            # the vendor using vendor_id_object
+            {
+                "$lookup": {
+                    "from": "accounts",
+                    "localField": "vendor_id_object",
+                    "foreignField": "_id",
+                    "as": "vendor",
+                }
+            },
+            # Add fields for vendor_fullname
+            # and convert vendor_id_object to string
+            {
+                "$addFields": {
+                    "vendor_fullname": {
+                        "$arrayElemAt": ["$vendor.fullname", 0]
+                    },
+                    "vendor_id": {"$toString": "$vendor_id_object"},
+                }
+            },
+            {"$addFields": {"buyer_id_object": {"$toObjectId": "$buyer_id"}}},
+            {
+                "$addFields": {
+                    "buyer_fullname": {"$arrayElemAt": ["$buyer.fullname", 0]},
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "accounts",
+                    "localField": "buyer_id_object",
+                    "foreignField": "fullname",
+                    "as": "buyer",
+                }
+            },
+            # Project to shape the final output
+            {
+                "$project": {
+                    "_id": 0,
+                    "id": {"$toString": "$_id"},
+                    "name": "$name",
+                    "description": "$description",
+                    "image": "$image",
+                    "unit": "$unit",
+                    "price": "$price",
+                    "rating": "$rating",
+                    "vendor_id": {
+                        "$toString": {"$arrayElemAt": ["$vendor._id", 0]}
+                    },
+                    "vendor_fullname": {
+                        "$arrayElemAt": ["$vendor.fullname", 0]
+                    },
+                    "reviews": {
+                        "$map": {
+                            "input": "$reviews",
+                            "as": "review",
+                            "in": {
+                                "id": {"$toString": "$$review._id"},
+                                "rating": "$$review.rating",
+                                "comment": "$$review.comment",
+                                "buyer_id": {"$toString": "$$review.buyer_id"},
+                                "createdAt": "$$review.createdAt",
+                            },
+                        }
+                    },
+                }
+            },
+        ]
+
+        result = list(self.collection.aggregate(pipeline))
+        return result if result else None

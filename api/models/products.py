@@ -21,8 +21,7 @@ class ProductOut(BaseModel):
     rating_count: int
     rating_sum: int
     vendor_id: str
-    vendor_name: Optional[str]
-    review_id: Optional[str]
+    vendor_fullname: Optional[str]
 
 
 class ProductList(BaseModel):

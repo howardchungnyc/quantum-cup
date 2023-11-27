@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import './ProductHighlight.css';
 import ShowStars from "../ShowStars/ShowStars";
+// TODO - remove these 2 imports (for testing purposes only)
+import ReviewTaker from "../ReviewTaker/ReviewTaker";
+import postReview from "../ReviewTaker/postReview";
 
 const DEFAULT_VENDOR = "Quantum Inc.";
 const DEFAULT_PRODUCT = "Quantum Cup App";
@@ -16,6 +19,7 @@ function ProductHighlight({ quantumAuth }) {
     const [description, setDescription] = React.useState(DEFAULT_DESCRIPTION);
     const [vendor, setVendor] = React.useState(DEFAULT_VENDOR);
     const [rating, setRating] = React.useState(DEFAULT_RATING);
+    const [reviews, setReviews] = React.useState([]);
 
     useEffect(() => {
         async function getAHighlighProduct() {
@@ -45,13 +49,16 @@ function ProductHighlight({ quantumAuth }) {
                 const data = await response.json();
                 if (data.products && data.products.length > 0) {
                     // get a random product
-                    const randomIndex = Math.floor(Math.random() * data.products.length);
+                    const randomIndex = Math.floor(Math.random() *
+                        data.products.length);
                     const product = data.products[randomIndex];
                     setProduct(product.name);
                     setImage(product.image);
                     setDescription(product.description);
                     setVendor(product.vendor_id);
-                    setRating(product.rating);
+                    setReviews(product.rating_count)
+                    setRating(
+                        Math.round(product.rating_sum / product.rating_count));
                     setProdID(product.id);
                 } else {
                     throw new Error("No products found");
@@ -73,6 +80,17 @@ function ProductHighlight({ quantumAuth }) {
         // TODO: redirect to the product purchase page
     }
 
+    // TODO - remove this function (for testing purposes only)
+    const handleSubmitReview = async (review) => {
+        postReview(review, prodID, quantumAuth)
+            .then((res) => {
+                console.log("Posting result:", res);
+            })
+            .catch((err) => {
+                console.log("Posting error:", err);
+            })
+    }
+
     return (
         <div className="d-flex flex-column">
             <div className="image-container">
@@ -88,10 +106,18 @@ function ProductHighlight({ quantumAuth }) {
                 <div className="my-2">
                     Rated:
                     <ShowStars rating={rating} />
+                    <p>
+                        Out of {reviews} {reviews === 1 ? "review" : "reviews"}
+                    </p>
+
                 </div>
                 <div className="mx-2">
                     <button onClick={handleOnclick} className="btn btn-lg">Buy Now</button>
                 </div>
+            </div>
+            <div className="border m-3 p-3 rounded">
+                <h5>Temporary Reviews -- for testing purposes</h5>
+                <ReviewTaker onSubmit={handleSubmitReview} />
             </div>
         </div>
     )

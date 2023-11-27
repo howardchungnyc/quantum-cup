@@ -13,6 +13,20 @@ class ProductQueries(Queries):
     # MongoDB collection name for accounts
     collection_name = "products"
 
+    def update_rating(self, product_id: str, rating: int) -> bool:
+        """
+        Update the rating of a product
+
+        param: product_id: str - the id of the product to update
+        param: rating: int - the rating to add to the product
+        return: bool - True if the product was updated, False otherwise
+        """
+        result = self.collection.update_one(
+            {"_id": ObjectId(product_id)},
+            {"$inc": {"rating_count": 1, "rating_sum": rating}},
+        )
+        return result.modified_count == 1
+
     def create(self, product: ProductIn, vendor_id: str) -> ProductOut:
         info = product.dict()
         info["vendor_id"] = vendor_id

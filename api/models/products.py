@@ -18,7 +18,8 @@ class ProductOut(BaseModel):
     image: str
     unit: str
     price: float
-    rating: int
+    rating_count: int
+    rating_sum: int
     vendor_id: str
     vendor_name: Optional[str]
     review_id: Optional[str]

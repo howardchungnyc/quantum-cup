@@ -8,7 +8,6 @@ class ProductIn(BaseModel):
     image: str
     unit: str
     price: float
-    rating: int
 
 
 class ProductOut(BaseModel):
@@ -21,7 +20,7 @@ class ProductOut(BaseModel):
     rating_count: int
     rating_sum: int
     vendor_id: str
-    vendor_fullname: Optional[str]
+    vendor_name: Optional[str]
 
 
 class ProductList(BaseModel):

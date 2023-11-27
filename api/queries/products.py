@@ -29,6 +29,8 @@ class ProductQueries(Queries):
     def create(self, product: ProductIn, vendor_id: str) -> ProductOut:
         info = product.dict()
         info["vendor_id"] = vendor_id
+        info["rating_count"] = 0
+        info["rating_sum"] = 0
         self.collection.insert_one(info)
         info["id"] = str(info["_id"])
         return ProductOut(**info)
@@ -75,7 +77,7 @@ class ProductQueries(Queries):
                     "rating_count": "$rating_count",
                     "rating_sum": "$rating_sum",
                     "vendor_id": "$vendor_id",
-                    "vendor_fullname": "$vendor_fullname",
+                    "vendor_name": "$vendor_fullname",
                 }
             },
         ]
@@ -147,7 +149,8 @@ class ProductQueries(Queries):
                     "image": "$image",
                     "unit": "$unit",
                     "price": "$price",
-                    "rating": "$rating",
+                    "rating_count": "$rating_count",
+                    "rating_sum": "$rating_sum",
                     "vendor_id": {
                         "$toString": {"$arrayElemAt": ["$vendor._id", 0]}
                     },
@@ -160,7 +163,6 @@ class ProductQueries(Queries):
                             "as": "review",
                             "in": {
                                 "id": {"$toString": "$$review._id"},
-                                "rating": "$$review.rating",
                                 "comment": "$$review.comment",
                                 "buyer_id": {"$toString": "$$review.buyer_id"},
                                 "createdAt": "$$review.createdAt",

@@ -7,6 +7,7 @@ import LoginForm from "./login/LoginForm";
 import VendorPage from "./vendors/VendorPage";
 import BuyerPage from "./buyers/BuyerPage";
 import LogoutBtn from './logout/LogoutBtn';
+import ProductForm from './components/ProductForm/ProductForm';
 import { useEffect, useState } from "react";
 
 
@@ -77,6 +78,7 @@ function App() {
           <Route path="/logout" element={<LogoutBtn setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/vendor" element={<VendorPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/buyer" element={<BuyerPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/createproduct" element={<ProductForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
         </Routes>
       </div>
       <Footer />

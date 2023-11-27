@@ -15,12 +15,11 @@ def create_product(
     return repo.create(product, vendor_id=account_data["id"])
 
 
-@router.get("/api/products", response_model=ProductList)
-def list_products(repo: ProductQueries = Depends()):
-    return {"products": repo.get_all_products()}
+@router.get("/api/products")
+def list_products(repo: ProductQueries = Depends()) -> ProductList:
+    return repo.get_all_products()
 
 
-@router.get("/api/products/{product_id}", response_model=ProductOut)
+@router.get("/api/products/{product_id}")
 def product_detail(product_id: str, repo: ProductQueries = Depends()):
-    product = repo.get_one_product(product_id)
-    return product
+    return repo.get_one_product(product_id)

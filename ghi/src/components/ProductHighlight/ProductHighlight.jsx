@@ -19,7 +19,7 @@ function ProductHighlight({ quantumAuth }) {
     const [description, setDescription] = React.useState(DEFAULT_DESCRIPTION);
     const [vendor, setVendor] = React.useState(DEFAULT_VENDOR);
     const [rating, setRating] = React.useState(DEFAULT_RATING);
-    const [reviews, setReviews] = React.useState([]);
+    const [reviews, setReviews] = React.useState(0);
 
     useEffect(() => {
         async function getAHighlighProduct() {
@@ -56,9 +56,10 @@ function ProductHighlight({ quantumAuth }) {
                     setImage(product.image);
                     setDescription(product.description);
                     setVendor(product.vendor_id);
-                    setReviews(product.rating_count)
-                    setRating(
-                        Math.round(product.rating_sum / product.rating_count));
+                    setRating(product.rating_count ?
+                        Math.round(product.rating_sum / product.rating_count) :
+                        0);
+                    setReviews(product.rating_count || 0);
                     setProdID(product.id);
                 } else {
                     throw new Error("No products found");

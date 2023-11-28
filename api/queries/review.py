@@ -22,6 +22,7 @@ class ReviewQueries(Queries):
                 detail="Only buyers can post reviews",
             )
         props = reviewIn.dict()
+        print(props)
         props["buyer_id"] = account["id"]
         props["product_id"] = ObjectId(props["product_id"])
         props["sentiment_score"] = 0

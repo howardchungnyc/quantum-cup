@@ -43,6 +43,11 @@ body {
   color: var(--color-light-text);
 }
 
+.hero-interaction-light {
+  background-color: var(--color-theme-light);
+  color: var(--color-dark-text);
+}
+
 .hero-interaction .btn {
   margin: 2rem;
 }
@@ -53,6 +58,10 @@ body {
   border: none;
   border-radius: var(--btn-border-radius);
   font-weight: bold;
+}
+
+.dark-text {
+  color: var(--color-theme-dark)
 }
 
 /* Footer Styling */

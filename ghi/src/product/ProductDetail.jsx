@@ -1,13 +1,21 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect, useCallback  } from "react";
+import { useParams, useNavigate} from "react-router-dom";
 import ShowStars from "../components/ShowStars/ShowStars";
+import ReviewTaker from "../components/ReviewTaker/ReviewTaker";
+import postReview from "../components/ReviewTaker/postReview";
 
 function ProductDetail({ quantumAuth }){
 
     const [product, setProduct] = useState()
     const [rating, setRating] = useState(0)
     const [buyerNames, setBuyerNames] = useState([])
+    const [isReviewTakerVisible, setReviewTakerVisibility] = useState(false)
     const { id } = useParams()
+    const navigate = useNavigate()
+
+    const toggleReviewTaker = () => {
+      setReviewTakerVisibility(!isReviewTakerVisible);
+  };
 
   function formatCreatedAt(createdAtString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
@@ -15,7 +23,7 @@ function ProductDetail({ quantumAuth }){
     return createdAtDate.toLocaleString('en-US', options);
   }
 
-    const loadProducts = async () => {
+    const loadProducts = useCallback(async () => {
        
       const productUrl = quantumAuth.baseUrl + `/api/products/${id}`;
       try {
@@ -26,7 +34,7 @@ function ProductDetail({ quantumAuth }){
           console.log('data:', data)
           setProduct(data[0])
           setRating(Math.round(data[0].rating_sum/data[0].rating_count));
-                      //TODO: get rating functional Math.round(product.rating_sum / product.rating_count) )
+          //TODO: get rating functional Math.round(product.rating_sum / product.rating_count) )
         } else {
             throw new Error("No products found")
         }
@@ -34,10 +42,10 @@ function ProductDetail({ quantumAuth }){
         setProduct([])
         setRating(0)
     }
-  }
+  },[quantumAuth, id])
 
   // Asynchronously fetches the buyer's full name based on the provided buyer_id
-const loadBuyerFullName = async (buyer_id) => {
+const loadBuyerFullName = useCallback(async (buyer_id) => {
   // Construct the URL for fetching buyer information
   const buyerUrl = quantumAuth.baseUrl + `/api/reviews/buyer/${buyer_id}`;
   
@@ -62,7 +70,7 @@ const loadBuyerFullName = async (buyer_id) => {
     // Return an empty string if there's an error in the response
     return "";
   }
-};
+},[quantumAuth.baseUrl]);
 
 // loads the full names of all buyers associated with product reviews
 const loadBuyersFullNames = async () => {
@@ -80,15 +88,30 @@ const loadBuyersFullNames = async () => {
   }
 };
 
+const handleSubmitReview = async (review) => {
+        postReview(review, id, quantumAuth)
+            .then((res) => {
+                
+                console.log("Posting result:", res);
+            })
+            .catch((err) => {
+                console.log("Posting error:", err);
+            })
+            navigate('/products')
+    }
+
 //  load product information when the component mounts
 useEffect(() => {
   loadProducts();
-}, []);
+}, [loadProducts]);
 
 //  hook to load full names of buyers when the 'product' state changes
 useEffect(() => {
   loadBuyersFullNames();
+//eslint-disable-next-line  <-  remove to see eslint error, it is working as I want and doesnt seem to be an issue
 }, [product]);
+
+
 
   if (!product) {
     return <div>Loading...</div>;
@@ -117,21 +140,30 @@ useEffect(() => {
             </li>
             {/* Add more details as needed */}
           </ul>
+          <button className="btn btn-info btn-md" onClick={toggleReviewTaker }>Leave Review</button>
         </div>
+        
       </div>
+      
     </div>
+ 
+      {isReviewTakerVisible && <ReviewTaker  onSubmit={handleSubmitReview} />}
+    <div className="text-center">
     <h3 className="mt-4">Comments:</h3>
     {product.reviews.map((review, i) => (
-    <div className="chat chat-start border p-4 mb-4 mt-4 hero-interaction" key={i}>
+    <div className="chat chat-start border p-4 mb-4 mt-4 hero-interaction col-6 mx-auto" key={i}>
       <div className="chat-header d-flex justify-content-between">
-        <div className="fw-bold">{buyerNames[i]}</div>
+        <div className="chat-bubble mt-2"><span className="text-xs opacity-50">Comment: </span> {review.comment}</div>
+        
          <time className="text-xs opacity-50">{formatCreatedAt(review.createdAt)}</time>
       </div>
-      <div className="chat-bubble mt-2">{review.comment}</div>
+      
+      <div className="fw-bold"> <span className="text-xs opacity-50">Reviewed by: </span>{buyerNames[i]}</div>
       <div className="chat-footer opacity-50 mt-2"></div>
     </div>
   )
     )}
+    </div>
     </>
   );
 };

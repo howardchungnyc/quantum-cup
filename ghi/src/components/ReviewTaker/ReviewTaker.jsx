@@ -22,17 +22,17 @@ function ReviewTaker({ onSubmit }) {
     }
 
     return (
-        <div>
+        <div className="border m-3 p-3 rounded col-6 mx-auto">
             <h3>Your Review</h3>
             <form onSubmit={handleFormSubmit}>
-                <div className="form-group mb-3">
+                <div className="form-group mb-3 col-10 mx-auto">
                     {/* <label htmlFor="review">Review</label> */}
                     <textarea className="form-control" id="review" rows="3"
                         value={review} placeholder="Review" onChange={
                             (e) => setReview(e.target.value)}></textarea>
                 </div>
                 <div className="form-group mb-2">
-                    <label htmlFor="rating">Rating</label>
+                    <label htmlFor="rating">Rate Product!</label>
                     <StarRating totalStars={5} initialRating={0}
                         onChange={(rating) => setRating(rating)} />
                 </div>

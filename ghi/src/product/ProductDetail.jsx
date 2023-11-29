@@ -108,7 +108,7 @@ useEffect(() => {
 //  hook to load full names of buyers when the 'product' state changes
 useEffect(() => {
   loadBuyersFullNames();
-//eslint-disable-next-line  <-  remove to see eslint error, it is working as I want and doesnt seem to be an issue
+//eslint-disable-next-line  
 }, [product]);
 
 

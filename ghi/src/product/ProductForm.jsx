@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ProductForm({ quantumAuth }) {
@@ -71,7 +71,7 @@ function ProductForm({ quantumAuth }) {
     const response = await fetch(productUrl, fetchConfig);
     if (response.ok) {
       // If the response is successful, navigate to the appointments page
-      const newProduct = await response.json();
+       await response.json();
       
         navigate("/")
 
@@ -82,8 +82,8 @@ function ProductForm({ quantumAuth }) {
   return (
     <div className="row services ">
       <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
-          <h1 className="px-2 ">Create a Product</h1>
+        <div className="shadow p-4 mt-4 mb-4">
+          <h1 className="px-2">Create a Product</h1>
           <form onSubmit={handleSubmit} id="create-location-form">
             <div className="form-floating mb-3">
               <input

@@ -52,7 +52,6 @@ function ProductHighlight({ quantumAuth }) {
                     const randomIndex = Math.floor(Math.random() *
                         data.products.length);
                     const product = data.products[randomIndex];
-                    console.log(product)
                     setProduct(product.name);
                     setImage(product.image);
                     setDescription(product.description);

@@ -30,7 +30,7 @@ function ProductDetail({ quantumAuth }) {
         console.log('data:', data)
         setProduct(data[0])
         setRating(Math.round(data[0].rating_sum / data[0].rating_count));
-        //TODO: get rating functional Math.round(product.rating_sum / product.rating_count) )
+      
       } else {
         throw new Error("No products found")
       }

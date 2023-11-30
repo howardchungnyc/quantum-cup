@@ -36,7 +36,7 @@ function VendorPage({ setAlert, quantumAuth }) {
             <div className="d-flex flex-column align-items-center col-6 container">
                 <div>
                     <a role="button" id="product-mgmt-btn"
-                        className="btn mgmt-btn" href="/productmgmt">
+                        className="btn mgmt-btn" href="/vendor/product">
                         Product Management
                     </a>
                 </div>

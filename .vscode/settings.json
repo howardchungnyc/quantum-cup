@@ -7,12 +7,18 @@
     "editor.defaultFormatter": "vscode.css-language-features"
   },
   "cSpell.words": [
+    "Arabica",
     "bson",
+    "filedb",
+    "filestore",
     "fullname",
+    "indexdir",
     "jwtdown",
     "mgmt",
+    "Multifield",
     "ordermgmt",
     "productmgmt",
+    "qparser",
     "zipcode"
   ]
 }

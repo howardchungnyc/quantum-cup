@@ -21,14 +21,6 @@ function BuyerPage({ setAlert, quantumAuth }) {
     } // eslint-disable-next-line react-hooks/exhaustive-deps
         , []);
 
-    // Handle search submit
-    const handleSearchSubmit = async (e) => {
-        e.preventDefault();
-        const search = e.target[0].value;
-        // TODO: Search for products
-        console.log(search);
-    }
-
     // Handle orders click
     const handleOrdersClick = async () => {
         // TODO: Implement orders page
@@ -47,7 +39,7 @@ function BuyerPage({ setAlert, quantumAuth }) {
         <div>
             {/* Search top panel */}
             <div className="d-flex justify-content-end my-3">
-                <SearchBlock placeholder="Search for products" onSubmit={handleSearchSubmit} />
+                <SearchBlock placeholder="Search for products" quantumAuth={quantumAuth} />
             </div>
 
             {/* Content bottom panel */}

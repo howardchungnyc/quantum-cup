@@ -12,7 +12,7 @@ function LogoutBtn({ quantumAuth }) {
                 document.cookie =
                     "fastapi_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             })
-            .catch((e) => { console.log(e); });
+            .catch((e) => { console.log("logout error:", e); });
     }
 
     return (

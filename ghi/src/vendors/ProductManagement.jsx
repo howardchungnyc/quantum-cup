@@ -61,6 +61,8 @@ useEffect(() => {
                                 <th scope="col">Units</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Rating</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -72,6 +74,26 @@ useEffect(() => {
                                 <td>{product.unit}</td>
                                 <td>{product.price}</td>
                                 <td>{product.rating_count ? Math.round(product.rating_sum / product.rating_count) : 0}</td>
+                                <td>
+                                    <Link 
+                                        role="button" 
+                                        id="product-mgmt-btn"
+                                        className="btn btn-sm text-center" 
+                                        to={product.id}
+                                        >
+                                        Edit
+                                    </Link>
+                                </td>
+                                <td>
+                                    <Link 
+                                        role="button" 
+                                        id="product-mgmt-btn"
+                                        className="btn btn-sm text-center" 
+                                        to={product.id}
+                                        >
+                                        Delete
+                                    </Link>
+                                </td>
                             </tr>
                             )
     )}
@@ -83,7 +105,7 @@ useEffect(() => {
             {/* right panel */}
             <div className="d-flex flex-column align-items-center col-6 container">
                 <div className="col-12 col-md-6 logo-signup">
-                    <img src="/img/logo_dark_bg.png" alt="coffee log" className="img-fluid" />
+                    <img src="/img/logo_light_bg.png" alt="coffee log" className="img-fluid" />
                 </div>
                 <div>
                     <Link role="button" id="product-mgmt-btn"

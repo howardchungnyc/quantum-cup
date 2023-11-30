@@ -5,15 +5,17 @@ import "./SearchBlock.css";
 
 function ResultList({ searchResults }) {
     return (
-        searchResults && searchResults.length ?
-            <div className="list-group">
-                {searchResults.map((result, ix) => (
-                    <a key={ix} href={`/products/${result.product_id}`}
-                        className="list-group-item list-group-item-action">
-                        <strong>{result.product}</strong> <small>by {result.vendor_name}</small>
-                    </a>
-                ))}
-            </div>
+        searchResults ?
+            searchResults.length ?
+                <div className="list-group">
+                    {searchResults.map((result, ix) => (
+                        <a key={ix} href={`/products/${result.product_id}`}
+                            className="list-group-item list-group-item-action">
+                            <strong>{result.product}</strong> <small>by {result.vendor_name}</small>
+                        </a>
+                    ))}
+                </div>
+                : <div className="list-group-item">No results</div>
             : <div></div>
     );
 }

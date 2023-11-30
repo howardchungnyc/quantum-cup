@@ -42,7 +42,7 @@ function VendorPage({ setAlert, quantumAuth }) {
                 </div>
                 <div>
                     <a role="button" id="product-mgmt-btn"
-                        className="btn mgmt-btn" href="/ordermgmt">
+                        className="btn mgmt-btn" href="/vendor/orders">
                         Order Management
                     </a>
                 </div>

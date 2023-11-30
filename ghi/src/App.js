@@ -11,6 +11,7 @@ import ProductForm from './product/ProductForm';
 import ProductList from "./product/ProductList"
 import ProductDetail from './product/ProductDetail';
 import { useEffect, useState } from "react";
+import ProductManagement from './vendors/ProductManagement';
 
 
 const baseUrl = process.env.REACT_APP_API_HOST;
@@ -83,6 +84,7 @@ function App() {
           <Route path="/createproduct" element={<ProductForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/products" element={<ProductList setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/products/:id" element={<ProductDetail setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/vendor/product" element={<ProductManagement setAlert={setAlert} quantumAuth={quantumAuth} auth={auth} />} />
         </Routes>
       </div>
       <Footer />

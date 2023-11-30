@@ -1,7 +1,18 @@
-
 .mgmt-btn {
     width: 20rem;
     margin: 2rem;
+}
+
+.huge-btn {
+    height: 15rem;
+    width: 40rem;
+    margin: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    /* Adjust padding as needed */
+    text-align: center;
 }
 
 .panel-title {

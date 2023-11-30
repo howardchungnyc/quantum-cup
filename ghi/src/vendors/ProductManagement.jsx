@@ -2,7 +2,8 @@ import { React, useCallback, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./VendorPage.css";
 
-function ProductManagement({quantumAuth, auth}) {
+
+function ProductManagement({quantumAuth, handleClick }) {
     
 
     const [productList, setProductList] = useState([])
@@ -28,19 +29,44 @@ function ProductManagement({quantumAuth, auth}) {
     },[quantumAuth.baseUrl]);
 
 useEffect(()=>{
+    
     loadProducts()
+    // eslint-disable-next-line
 },[])
 
 useEffect(() => {
         // Filter products by vendor when auth changes
-        if (auth && auth.account) {
-            const productsForVendor = productList.filter(product => product.vendor_id === auth.account.id);
+        if (quantumAuth.getAuthentication() && quantumAuth.getAuthentication().account) {
+            const productsForVendor = productList.filter(product => product.vendor_id === quantumAuth.getAuthentication().account.id);
             setProductsByVendor(productsForVendor);
         }
-    }, [auth, productList]);
+        // eslint-disable-next-line
+    }, [quantumAuth.getAuthentication(), productList]);
 
+    const handleDeleteClick = async (productId) => {
+    try {
+      const response = await fetch(`${quantumAuth.baseUrl}/api/products/${productId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-
+      if (response.ok) {
+        // You can show a success message or update the product list after deletion
+         const updatedProducts = productsByVendor.filter(product => product.id !== productId);
+        setProductsByVendor(updatedProducts);
+        console.log('Product deleted successfully');
+        
+      } else {
+        // Handle error, show an error message, etc.
+        console.error('Failed to delete product:', response.status);
+      }
+    } catch (error) {
+      console.error('Error during delete:', error);
+    }
+  };
 
 
 
@@ -48,6 +74,7 @@ useEffect(() => {
         
         <div className="d-flex flex-column flex-md-row justify-content-around my-5">
             {/* left panel */}
+            
             <div className="d-flex flex-column col-6 align-items-center">
                 <h1 className="panel-title">Products</h1>
                 <div id="open-orders-id">
@@ -78,25 +105,24 @@ useEffect(() => {
                                     <Link 
                                         role="button" 
                                         id="product-mgmt-btn"
-                                        className="btn btn-sm text-center" 
-                                        to={product.id}
+                                        to={`/product/edit/${product.id}`}  // Update the route to include the product ID
                                         >
-                                        Edit
+                                        <button 
+                                         onClick={() => handleClick(product)} 
+                                         className="btn btn-info btn-sm" >
+                                            Edit
+                                        </button>
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link 
-                                        role="button" 
-                                        id="product-mgmt-btn"
-                                        className="btn btn-sm text-center" 
-                                        to={product.id}
-                                        >
-                                        Delete
-                                    </Link>
+                                        <button  onClick={() => handleDeleteClick(product.id)} className="btn btn-info btn-sm" >
+                                            Delete
+                                        </button>
+                                    
                                 </td>
                             </tr>
                             )
-    )}
+                        )}
                             </tbody>
                         </table>
                     </div>
@@ -113,11 +139,13 @@ useEffect(() => {
                         Add Product
                     </Link>
                 </div>
-                
+
             </div>
+            
         </div>
     );
-}
+                                }
+
 
 
 

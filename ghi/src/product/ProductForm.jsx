@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { useNavigate } from "react-router-dom";
 
-function ProductForm({ quantumAuth }) {
+function ProductForm({ quantumAuth, productData }) {
   // State variables to manage form input values
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [unit, setUnit] = useState("");
   const [price, setPrice] = useState("");
-
-
 
   // Access the navigation function from React Router
   const navigate = useNavigate();
@@ -38,28 +36,41 @@ function ProductForm({ quantumAuth }) {
     const value = event.target.value;
     setPrice(value);
   };
+useEffect(() => {
+    const fetchProductForEdit = async () => {
+      if (productData) {
+         setName(productData.name);
+                setDescription(productData.description);
+                setImage(productData.image);
+                setUnit(productData.unit);
+                setPrice(productData.price.toString());
+      }
+    };
 
- 
+    fetchProductForEdit();
+  }, [productData]);
 
-  // Event handler for form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Prepare the data to be sent to the server
     const data = {
       name: name,
       description: description,
       image: image,
       unit: unit,
-      price: price,
+      price: parseFloat(price),
     };
 
-    // Define the URL for the appointment creation
-    const productUrl = quantumAuth.baseUrl + "/api/products";;
+    let productUrl = `${quantumAuth.baseUrl}/api/products`;
+    let method = "POST";
 
-    // Configuration for the HTTP request
+    if (productData) {
+      productUrl += `/${productData.id}`;
+      method = "PUT";
+    }
+
     const fetchConfig = {
-      method: "post",
+      method: method,
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
@@ -67,15 +78,10 @@ function ProductForm({ quantumAuth }) {
       body: JSON.stringify(data),
     };
 
-    // Send the appointment data to the server
     const response = await fetch(productUrl, fetchConfig);
     if (response.ok) {
-      // If the response is successful, navigate to the appointments page
-       await response.json();
-      
-        navigate("/")
-
-        // look into form validation errors instead of "require attribute"
+      await response.json();
+      navigate("/vendor/product");
     }
   };
 
@@ -83,7 +89,7 @@ function ProductForm({ quantumAuth }) {
     <div className="row services ">
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4 mb-4">
-          <h1 className="px-2">Create a Product</h1>
+          <h1 className="px-2">{productData ? "Edit" : "Create"} a Product</h1>
           <form onSubmit={handleSubmit} id="create-location-form">
             <div className="form-floating mb-3">
               <input

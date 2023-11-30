@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutBtn from './logout/LogoutBtn';
+import SearchBlock from './components/SearchBlock/SearchBlock';
 
 function Nav({ quantumAuth }) {
   const [role, setRole] = React.useState('');
@@ -76,11 +77,18 @@ function Nav({ quantumAuth }) {
                 </ul>
               </li>
             }
-
           </ul>
+          {
+            /* Search box */
+            quantumAuth.isAuthenticated() &&
+            <SearchBlock placeholder="Search for products" quantumAuth={quantumAuth} />
+          }
         </div>
-
-        {quantumAuth.isAuthenticated() && <LogoutBtn quantumAuth={quantumAuth} />}
+        {
+          /* Login button */
+          quantumAuth.isAuthenticated() &&
+          <LogoutBtn quantumAuth={quantumAuth} />
+        }
 
       </div>
     </nav>

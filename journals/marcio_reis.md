@@ -106,3 +106,20 @@ document. This is useful to see the intermediate results of the pipeline.
     "debug": "$$ROOT",
 }
 ```
+
+
+## Implementing Contextual Search - 2023.11.27
+### Problem
+Need to implement a mini search engine that can search for products by name,
+description, and vendor name. The search engine must be able to do fuzzy search,
+be easy to use, and be fast. Contextual search would be desirable, but it is not
+mandatory.
+
+### Solution
+I decided to use Whoosh, a Python library for indexing and searching text. It
+is easy to use and fast. It also supports fuzzy search, however, it does not
+support contextual search. Elasticsearch would be a better choice for that, but
+it is more complex to use and requires more resources.
+
+Refer to the [implementation documentation](../docs/ContextualSearch.md) for
+more details.

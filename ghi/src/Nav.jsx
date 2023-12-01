@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutBtn from './logout/LogoutBtn';
+import SearchBlock from './components/SearchBlock/SearchBlock';
 
 function Nav({ quantumAuth }) {
   const [role, setRole] = React.useState('');
@@ -46,10 +47,10 @@ function Nav({ quantumAuth }) {
                     <NavLink className="nav-link" to="/createproduct">Create Product</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link" to="/productmgmt">Product Management</NavLink>
+                    <NavLink className="nav-link" to="/vendor/product">Product Management</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link" to="/ordermgmt">Order Management</NavLink>
+                    <NavLink className="nav-link" to="/vendor/orders">Order Management</NavLink>
                   </li>
                 </ul>
               </li>
@@ -68,7 +69,7 @@ function Nav({ quantumAuth }) {
                     <NavLink className="nav-link" to="/buyer">Buyers Page</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link" to="/productmgmt">Product Management</NavLink>
+                    <NavLink className="nav-link" to="/products">List Products</NavLink>
                   </li>
                   <li className="dropdown-item">
                     <NavLink className="nav-link" to="/ordermgmt">Order Management</NavLink>
@@ -76,11 +77,18 @@ function Nav({ quantumAuth }) {
                 </ul>
               </li>
             }
-
           </ul>
+          {
+            /* Search box */
+            quantumAuth.isAuthenticated() &&
+            <SearchBlock placeholder="Search for products" quantumAuth={quantumAuth} />
+          }
         </div>
-
-        {quantumAuth.isAuthenticated() && <LogoutBtn quantumAuth={quantumAuth} />}
+        {
+          /* Login button */
+          quantumAuth.isAuthenticated() &&
+          <LogoutBtn quantumAuth={quantumAuth} />
+        }
 
       </div>
     </nav>

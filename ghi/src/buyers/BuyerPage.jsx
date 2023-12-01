@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import './BuyerPage.css';
-import SearchBlock from '../components/SearchBlock/SearchBlock';
 import ProductHighlight from '../components/ProductHighlight/ProductHighlight';
 
 function BuyerPage({ setAlert, quantumAuth }) {
@@ -21,14 +20,6 @@ function BuyerPage({ setAlert, quantumAuth }) {
     } // eslint-disable-next-line react-hooks/exhaustive-deps
         , []);
 
-    // Handle search submit
-    const handleSearchSubmit = async (e) => {
-        e.preventDefault();
-        const search = e.target[0].value;
-        // TODO: Search for products
-        console.log(search);
-    }
-
     // Handle orders click
     const handleOrdersClick = async () => {
         // TODO: Implement orders page
@@ -45,11 +36,6 @@ function BuyerPage({ setAlert, quantumAuth }) {
     if (role !== 'buyer') return null;
     return (
         <div>
-            {/* Search top panel */}
-            <div className="d-flex justify-content-end my-3">
-                <SearchBlock placeholder="Search for products" onSubmit={handleSearchSubmit} />
-            </div>
-
             {/* Content bottom panel */}
             <div className="d-flex flex-column flex-md-row mx-2 my-5">
                 {/* Left panel - Prod highlight */}

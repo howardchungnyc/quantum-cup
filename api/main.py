@@ -4,6 +4,8 @@ import os
 from routers import users, vendor, products
 from authenticator import authenticator
 from routers.review import router as review_router
+from routers.search import router as search_router
+
 
 app = FastAPI()
 
@@ -20,3 +22,4 @@ app.include_router(authenticator.router, tags=["Auth"])
 app.include_router(review_router, tags=["Reviews"])
 app.include_router(vendor.router, tags=["Vendors"])
 app.include_router(products.router, tags=["Products"])
+app.include_router(search_router, tags=["Search"])

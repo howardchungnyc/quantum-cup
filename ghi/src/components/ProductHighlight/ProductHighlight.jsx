@@ -20,6 +20,7 @@ function ProductHighlight({ quantumAuth }) {
     const [vendor, setVendor] = React.useState(DEFAULT_VENDOR);
     const [rating, setRating] = React.useState(DEFAULT_RATING);
     const [reviews, setReviews] = React.useState(0);
+    const [providedReview, setProvidedReview] = React.useState(false);
 
     useEffect(() => {
         async function getAHighlighProduct() {
@@ -113,13 +114,17 @@ function ProductHighlight({ quantumAuth }) {
 
                 </div>
                 <div className="mx-2">
-                    <button onClick={handleOnclick} className="btn btn-lg">Buy Now</button>
+                    <button onClick={handleOnclick} className="btn btn-lg me-3">Buy Now</button>
+                    {!providedReview &&
+                        <button onClick={() => setProvidedReview(true)} className="btn btn-lg">Review</button>
+                    }
                 </div>
             </div>
-            <div className="border m-3 p-3 rounded">
-                <h5>Temporary Reviews -- for testing purposes</h5>
-                <ReviewTaker onSubmit={handleSubmitReview} />
-            </div>
+            {providedReview &&
+                <div className="m-3">
+                    <ReviewTaker onSubmit={handleSubmitReview} />
+                </div>
+            }
         </div>
     )
 }

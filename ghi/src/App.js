@@ -7,8 +7,12 @@ import LoginForm from "./login/LoginForm";
 import VendorPage from "./vendors/VendorPage";
 import BuyerPage from "./buyers/BuyerPage";
 import LogoutBtn from './logout/LogoutBtn';
-import ProductForm from './components/ProductForm/ProductForm';
+import ProductForm from './product/ProductForm';
+import ProductList from "./product/ProductList"
+import ProductDetail from './product/ProductDetail';
 import { useEffect, useState } from "react";
+import ProductManagement from './vendors/ProductManagement';
+import OrderManagement from './vendors/OrderManagement';
 
 
 const baseUrl = process.env.REACT_APP_API_HOST;
@@ -19,11 +23,18 @@ function App() {
   const [alertMessage, setAlertMessage] = useState('');
   const [type, setType] = useState('');
   const [auth, setAuth] = useState(null);
+  const [productData, setProductData] = useState()
 
   const setAuthentication = (auth) => setAuth(auth);
   const getAuthentication = () => auth;
   const isAuthenticated = () => auth !== null;
   const quantumAuth = { setAuthentication, baseUrl, getAuthentication, isAuthenticated, };
+
+
+  // send product data to form
+  function handleClick(product){
+    setProductData(product)
+  }
 
   /**
    * Handles the closing of the alert.
@@ -79,6 +90,11 @@ function App() {
           <Route path="/vendor" element={<VendorPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/buyer" element={<BuyerPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/createproduct" element={<ProductForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/product/edit/:productId" element={<ProductForm productData={productData} quantumAuth={quantumAuth}/>} />
+          <Route path="/products" element={<ProductList setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/products/:id" element={<ProductDetail  productData={productData} handleClick={handleClick} setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/vendor/product" element={<ProductManagement setAlert={setAlert} handleClick={handleClick} quantumAuth={quantumAuth} />} />
+          <Route path="/vendor/orders" element={<OrderManagement setAlert={setAlert} quantumAuth={quantumAuth} />} />
         </Routes>
       </div>
       <Footer />

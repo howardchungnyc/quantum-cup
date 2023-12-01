@@ -1,7 +1,10 @@
 from models.products import ProductOut, ProductIn, ProductList
 from .client import Queries
+import logging
 
-from bson.objectid import ObjectId
+
+from fastapi import HTTPException
+from bson import ObjectId
 
 
 class DuplicateAccountError(ValueError):
@@ -34,6 +37,38 @@ class ProductQueries(Queries):
         self.collection.insert_one(info)
         info["id"] = str(info["_id"])
         return ProductOut(**info)
+
+    def delete(self, product_id: str):
+        product_object_id = ObjectId(product_id)
+
+        product_to_delete = self.collection.find_one(
+            {"_id": product_object_id}
+        )
+        if not product_to_delete:
+            raise HTTPException(
+                status_code=404, detail="Product not found in the collection."
+            )
+
+        self.collection.delete_one({"_id": product_object_id})
+        logging.info("Product deleted successfully.")
+
+        return {
+            "message": "Product deleted successfully.",
+            "product_id": str(product_object_id),
+        }
+
+    def update(self, product_id: str, update_data: dict):
+        filter_query = {"_id": ObjectId(product_id)}
+        update_query = {"$set": update_data}
+        result = self.collection.update_one(filter_query, update_query)
+        if result.matched_count == 0:
+            raise HTTPException(
+                status_code=404, detail="Product not found in the collection."
+            )
+        return {
+            "message": "Product updated successfully.",
+            "product_id": product_id,
+        }
 
     def get_all_products(self) -> ProductList:
         pipeline = [

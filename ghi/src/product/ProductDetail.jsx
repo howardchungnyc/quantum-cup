@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import ShowStars from "../components/ShowStars/ShowStars";
 import ReviewTaker from "../components/ReviewTaker/ReviewTaker";
 import postReview from "../components/ReviewTaker/postReview";
 
-function ProductDetail({ quantumAuth }) {
+function ProductDetail({ quantumAuth, handleClick }) {
 
   const [product, setProduct] = useState()
   const [rating, setRating] = useState(0)
@@ -112,6 +112,9 @@ function ProductDetail({ quantumAuth }) {
         <div className="card mb-3">
           <div className="card-body hero-interaction ">
             <h2 className="card-title">{product.name}</h2>
+            <Link to={`/buyer/orderform`}>
+            <button onClick={()=> handleClick({product})} className="btn btn-info btn-md" > Order</button>
+            </Link>
             <img src={product.image} alt="" className="img-fluid w-40 d-block mx-auto" />
             <p className="card-text">{product.description}</p>
             <ul className="list-group list-group-flush">

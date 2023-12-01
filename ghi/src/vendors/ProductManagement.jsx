@@ -60,7 +60,7 @@ useEffect(() => {
         console.log('Product deleted successfully');
         
       } else {
-        // Handle error, show an error message, etc.
+        // Handle error, show an error message
         console.error('Failed to delete product:', response.status);
       }
     } catch (error) {
@@ -105,7 +105,7 @@ useEffect(() => {
                                     <Link 
                                         role="button" 
                                         id="product-mgmt-btn"
-                                        to={`/product/edit/${product.id}`}  // Update the route to include the product ID
+                                        to={`/product/edit/${product.id}`}  
                                         >
                                         <button 
                                          onClick={() => handleClick(product)} 
@@ -144,7 +144,7 @@ useEffect(() => {
             
         </div>
     );
-                                }
+ }
 
 
 

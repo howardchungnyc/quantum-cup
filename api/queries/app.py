@@ -1,21 +1,21 @@
-from fastapi import FastAPI, HTTPException, Form
+from fastapi import HTTPException, Form
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 import os
 
-endpoint = os.environ.get("ENDPOINT", "") 
-api_key = os.environ.get("TEXT_ANALYTICS_API_KEY", "") 
+endpoint = os.environ.get("ENDPOINT", "")
+api_key = os.environ.get("TEXT_ANALYTICS_API_KEY", "")
 
 
-# @app.post("/aalyze-sentiment")
 def analyze_sentiment(sendText: str = Form(...)):
     try:
         documents = [sendText]
         print("api_key", api_key)
         print("endpoint", endpoint)
         print("=== Analyze Sentiment Sample ===")
-
-        client = TextAnalyticsClient(endpoint=endpoint, credential=AzureKeyCredential(api_key))
+        client = TextAnalyticsClient(
+            endpoint=endpoint,
+            credential=AzureKeyCredential(api_key))
 
         results = client.analyze_sentiment(documents=documents)
 
@@ -46,4 +46,3 @@ def analyze_sentiment(sendText: str = Form(...)):
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
-

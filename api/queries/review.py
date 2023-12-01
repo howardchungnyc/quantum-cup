@@ -24,7 +24,7 @@ class ReviewQueries(Queries):
             )
         props = reviewIn.dict()
         sentiment_obj = analyze_sentiment(props["comment"])
-        sentiment_result= sentiment_obj["results"][0]
+        sentiment_result = sentiment_obj["results"][0]
         props["buyer_id"] = account["id"]
         props["product_id"] = ObjectId(props["product_id"])
         props["sentiment_score"] = sentiment_result

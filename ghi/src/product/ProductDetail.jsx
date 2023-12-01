@@ -30,7 +30,7 @@ function ProductDetail({ quantumAuth, handleClick }) {
         console.log('data:', data)
         setProduct(data[0])
         setRating(Math.round(data[0].rating_sum / data[0].rating_count));
-      
+
       } else {
         throw new Error("No products found")
       }
@@ -38,7 +38,8 @@ function ProductDetail({ quantumAuth, handleClick }) {
       setProduct([])
       setRating(0)
     }
-  }, [quantumAuth, id, providedReview])
+  }, [quantumAuth, id, providedReview]) //eslint-disable-line
+  // these dependencies are needed to rerender on review submission
 
   // Asynchronously fetches the buyer's full name based on the provided buyer_id
   const loadBuyerFullName = useCallback(async (buyer_id) => {

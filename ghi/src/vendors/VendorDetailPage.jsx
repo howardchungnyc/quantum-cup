@@ -13,8 +13,8 @@ function VendorDetailPage({ quantumAuth, setAlert }) {
         const res = await fetch(url, { method: "get", credentials: "include" });
         if (res.ok) {
             const data = await res.json();
+            if (data === null) return setAlert("Vendor not found", false);
             setVendorInfo(data);
-            console.log(data);
         } else {
             setAlert("Unable to get vendor information", false);
         }
@@ -37,7 +37,8 @@ function VendorDetailPage({ quantumAuth, setAlert }) {
     React.useEffect(() => {
         getVendorInfo();
         getVendorProducts();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // an empty array means this effect will only run once
 
     // On the first render, vendorInfo is null
     if (!vendorInfo) {

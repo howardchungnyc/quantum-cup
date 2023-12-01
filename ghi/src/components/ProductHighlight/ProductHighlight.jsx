@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import './ProductHighlight.css';
 import ShowStars from "../ShowStars/ShowStars";
-// TODO - remove these 2 imports (for testing purposes only)
 import ReviewTaker from "../ReviewTaker/ReviewTaker";
 import postReview from "../ReviewTaker/postReview";
 
 const DEFAULT_VENDOR = "Quantum Inc.";
 const DEFAULT_PRODUCT = "Quantum Cup App";
 const DEFAULT_IMAGE = "img/logo_light_bg.png";
-const DEFAULT_DESCRIPTION = "Buy the best coffee in the world and connect with vendors through the Quantum Cup app. Rate and review to build our coffee community.";
+const DEFAULT_DESCRIPTION = "Buy the best coffee in the world and connect " +
+    "with vendors through the Quantum Cup app. Rate and review to build our " +
+    "coffee community.";
 const DEFAULT_RATING = 4;
 
 
@@ -18,6 +19,7 @@ function ProductHighlight({ quantumAuth }) {
     const [image, setImage] = React.useState(DEFAULT_IMAGE);
     const [description, setDescription] = React.useState(DEFAULT_DESCRIPTION);
     const [vendor, setVendor] = React.useState(DEFAULT_VENDOR);
+    const [vendorId, setVendorId] = React.useState("");
     const [rating, setRating] = React.useState(DEFAULT_RATING);
     const [reviews, setReviews] = React.useState(0);
     const [providedReview, setProvidedReview] = React.useState(false);
@@ -57,6 +59,7 @@ function ProductHighlight({ quantumAuth }) {
                     setImage(product.image);
                     setDescription(product.description);
                     setVendor(product.vendor_name);
+                    setVendorId(product.vendor_id);
                     setRating(product.rating_count ?
                         Math.round(product.rating_sum / product.rating_count) :
                         0);
@@ -82,14 +85,10 @@ function ProductHighlight({ quantumAuth }) {
         // TODO: redirect to the product purchase page
     }
 
-    // TODO - remove this function (for testing purposes only)
     const handleSubmitReview = async (review) => {
         postReview(review, prodID, quantumAuth)
-            .then((res) => {
-                console.log("Posting result:", res);
-            })
             .catch((err) => {
-                console.log("Posting error:", err);
+                console.log("ProductHighligh - Posting error:", err);
             })
     }
 
@@ -99,7 +98,10 @@ function ProductHighlight({ quantumAuth }) {
                 <img id="highlight-img" src={image} alt="Product" />
                 <div className="text-container">
                     <h4>{product}</h4>
-                    <p className="mb-4">by {vendor}</p>
+                    <p className="mb-4">by {vendorId !== "" ?
+                        <a className="vendor-link" href={`/vendor/${vendorId}`}>{vendor}</a> :
+                        vendor}
+                    </p>
                     <p>{description}</p>
                 </div>
             </div>
@@ -114,9 +116,11 @@ function ProductHighlight({ quantumAuth }) {
 
                 </div>
                 <div className="mx-2">
-                    <button onClick={handleOnclick} className="btn btn-lg me-3">Buy Now</button>
+                    <button onClick={handleOnclick}
+                        className="btn btn-lg me-3">Buy Now</button>
                     {!providedReview &&
-                        <button onClick={() => setProvidedReview(true)} className="btn btn-lg">Review</button>
+                        <button onClick={() => setProvidedReview(true)}
+                            className="btn btn-lg">Review</button>
                     }
                 </div>
             </div>

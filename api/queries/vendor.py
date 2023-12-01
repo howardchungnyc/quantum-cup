@@ -2,6 +2,7 @@ from models.vendor import VendorList, Vendor
 from .client import Queries
 
 from bson.objectid import ObjectId
+from typing import List
 
 
 class DuplicateAccountError(ValueError):
@@ -13,7 +14,7 @@ class VendorQueries(Queries):
     # MongoDB collection name for accounts
     collection_name = "accounts"
 
-    def get_all_vendors(self) -> VendorList:
+    def get_all_vendors(self) -> VendorList | List[None]:
         # MongoDB query to get data
         results = []
         for doc in self.collection.find({"role": "vendor"}):
@@ -21,7 +22,7 @@ class VendorQueries(Queries):
             results.append(Vendor(**doc))
         return results
 
-    def get_one_vendor(self, vendor_id: str) -> Vendor:
+    def get_one_vendor(self, vendor_id: str) -> Vendor | None:
         # MongoDB query to get data
         result = self.collection.find_one({"_id": ObjectId(vendor_id)})
         if result is None:

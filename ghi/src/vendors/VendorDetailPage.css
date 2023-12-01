@@ -1,0 +1,31 @@
+:root {
+    --initials-font-size: 10rem;
+    --initials-margin-right: 2rem;
+}
+
+.prod-link {
+    color: var(--color-theme-dark);
+    text-decoration: none;
+}
+
+#vendor-initial {
+    display: flex;
+    border-radius: 50%;
+    background-color: var(--color-theme-dark);
+    color: var(--color-light-text);
+    font-size: var(--initials-font-size);
+    width: calc(var(--initials-font-size) + 2rem);
+    height: calc(var(--initials-font-size) + 2rem);
+    justify-content: center;
+    align-items: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-right: var(--initials-margin-right);
+}
+
+/* Need a media query to change the font size of the initials when the screen is smaller */
+@media screen and (max-width: 600px) {
+    :root {
+        --initials-font-size: 3rem;
+        --initials-margin-right: 0.5rem;
+    }
+}

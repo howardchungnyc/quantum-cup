@@ -9,6 +9,7 @@
   "cSpell.words": [
     "Arabica",
     "bson",
+    "createproduct",
     "filedb",
     "filestore",
     "fullname",
@@ -16,6 +17,7 @@
     "jwtdown",
     "mgmt",
     "Multifield",
+    "orderform",
     "ordermgmt",
     "productmgmt",
     "qparser",

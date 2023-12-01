@@ -22,3 +22,8 @@
 .checked {
     color: orange;
 }
+
+.vendor-link {
+    color: var(--color-light-text);
+    text-decoration: none;
+}

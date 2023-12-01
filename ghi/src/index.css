@@ -6,6 +6,7 @@
   --color-buttons: #D04A2E;
   --block-border-radius: 10px;
   --btn-border-radius: 5px;
+  --img-border-radius: 10px
 }
 
 
@@ -51,6 +52,17 @@ body {
 .hero-interaction .btn {
   margin: 2rem;
 }
+
+img,
+.round {
+  border-radius: var(--img-border-radius);
+}
+
+.card,
+.card-body {
+  border-radius: 3%;
+}
+
 
 .btn {
   background-color: var(--color-buttons);

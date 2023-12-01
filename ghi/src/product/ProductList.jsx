@@ -37,7 +37,7 @@ return (
         {productList.map((product, i) => (
       <div className="col-lg-4 col-md-6 mb-4" key={i}>
         <div className="card hero-interaction ">
-          <div className="card-body text-center ">
+          <div className="card-body text-center card-r ">
             <h5 className="card-title"> {product.name}</h5>
             <img src={product.image} alt=""  className="img-fluid w-40 d-block mx-auto"/>
             <ul className ="list-group list-group-flush  ">

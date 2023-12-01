@@ -118,16 +118,16 @@ function ProductDetail({ quantumAuth, handleClick }) {
             <img src={product.image} alt="" className="img-fluid w-40 d-block mx-auto" />
             <p className="card-text">{product.description}</p>
             <ul className="list-group list-group-flush">
-              <li className="list-group-item">
+              <li className="list-group-item hero-interaction">
                 <strong>Price:</strong> ${product.price}
               </li>
-              <li className="list-group-item">
+              <li className="list-group-item hero-interaction">
                 <strong>Unit:</strong> {product.unit}
               </li>
-              <li className="list-group-item">
+              <li className="list-group-item hero-interaction">
                 <strong>Sold By:</strong> {product.vendor_fullname}
               </li>
-              <li className="list-group-item">
+              <li className="list-group-item hero-interaction">
                 <strong>Rating:</strong>  <ShowStars rating={rating} />
               </li>
               {/* Add more details as needed */}
@@ -149,7 +149,7 @@ function ProductDetail({ quantumAuth, handleClick }) {
       <div className="text-center">
         <h3 className="mt-4">Comments:</h3>
         {product.reviews.map((review, i) => (
-          <div className="chat chat-start border p-4 mb-4 mt-4 hero-interaction col-6 mx-auto" key={i}>
+          <div className="chat chat-start border p-4 mb-4 mt-4 hero-interaction col-6 mx-auto round" key={i}>
             <div className="chat-header d-flex justify-content-between">
               <div className="chat-bubble mt-2"><span className="text-xs opacity-50">Comment: </span> {review.comment}</div>
 

@@ -1,22 +1,18 @@
 from fastapi import FastAPI, HTTPException, Form
-
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
+endpoint = os.environ.get("ENDPOINT", "") 
+api_key = os.environ.get("TEXT_ANALYTICS_API_KEY", "") 
 
-app = FastAPI()
 
-endpoint = os.getenv("ENDPOINT") or "<cognitive services endpoint>"
-api_key = os.getenv("TEXT_ANALYTICS_API_KEY") or "<api key>"
-
-@app.post("/analyze-sentiment")
-async def analyze_sentiment(sendText: str = Form(...)):
+# @app.post("/aalyze-sentiment")
+def analyze_sentiment(sendText: str = Form(...)):
     try:
         documents = [sendText]
-
+        print("api_key", api_key)
+        print("endpoint", endpoint)
         print("=== Analyze Sentiment Sample ===")
 
         client = TextAnalyticsClient(endpoint=endpoint, credential=AzureKeyCredential(api_key))
@@ -51,7 +47,3 @@ async def analyze_sentiment(sendText: str = Form(...)):
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", 8000)))

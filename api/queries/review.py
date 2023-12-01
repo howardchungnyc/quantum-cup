@@ -9,6 +9,7 @@ from models.review import (
 )
 import datetime
 from .products import ProductQueries
+from .app import analyze_sentiment
 from fastapi import HTTPException
 
 
@@ -22,10 +23,11 @@ class ReviewQueries(Queries):
                 detail="Only buyers can post reviews",
             )
         props = reviewIn.dict()
-        print(props)
+        sentiment_obj = analyze_sentiment(props["comment"])
+        sentiment_result= sentiment_obj["results"][0]
         props["buyer_id"] = account["id"]
         props["product_id"] = ObjectId(props["product_id"])
-        props["sentiment_score"] = 0
+        props["sentiment_score"] = sentiment_result
         now = datetime.datetime.utcnow()
         props["createdAt"] = now.strftime("%Y-%m-%d, %H:%M")
         self.collection.insert_one(props)

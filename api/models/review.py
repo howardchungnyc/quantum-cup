@@ -31,7 +31,7 @@ class ReviewOut(ReviewIn):
 
 class Review(ReviewOut):
     id: PydanticObjectId
-    sentiment_score: float
+    sentiment_score: str
 
 
 class ReviewList(BaseModel):

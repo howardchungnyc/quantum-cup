@@ -5,6 +5,7 @@ import os
 DATABASE_URL = os.environ.get("DATABASE_URL", "")
 MONGO_DB = os.environ.get("MONGO_DB", "")
 
+
 client = MongoClient(DATABASE_URL)
 db = client[MONGO_DB]
 

@@ -22,13 +22,17 @@ class SearchEngine:
         vendor_id=ID(stored=True),  # Vendor ID
     )
 
-    def __init__(self, index_dir="indexdir"):
+    def __init__(self, index_dir=None):
         """
         Initialize the search engine
 
         param: index_dir - The directory where the index is stored
         """
-        self.index_dir = index_dir
+        if index_dir is None:  # if not provided, get from environment
+            index_dir = os.environ.get("INDEX_DB_NAME")
+        if index_dir is None:  # if still not provided, use default
+            index_dir = "indexdir"
+        self.index_dir = str(index_dir)
         if not os.path.exists(self.index_dir):
             os.mkdir(self.index_dir)
         if exists_in(self.index_dir) is False:

@@ -17,7 +17,7 @@ I have implemented a class called `SearchEngine` that wraps the Whoosh library.
 It is a simple class that can index and search documents. It is not a full
 search engine, but it is enough for the Quantum Cup project.
 
-### FastAPI Endpoint Template
+### Search Endpoint
 | Action                          | Method | URL                                     |
 | --------------------------------| ------ | --------------------------------------- |
 | Search products by all fields   | GET    | /api/search?q=«query string»            |

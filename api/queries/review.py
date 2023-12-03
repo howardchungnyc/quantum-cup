@@ -24,10 +24,14 @@ class ReviewQueries(Queries):
             )
         props = reviewIn.dict()
         sentiment_obj = analyze_sentiment(props["comment"])
-        sentiment_result = sentiment_obj["results"][0]
+        print("sentiment object: ", sentiment_obj)
+        confidence_score = sentiment_obj["results"][0]['confidence_scores']
+        print("confidence scores: ", sentiment_obj["results"][0]['confidence_scores'])
+        sentiment_negative_score = confidence_score['negative']
+        print(sentiment_negative_score)
         props["buyer_id"] = account["id"]
         props["product_id"] = ObjectId(props["product_id"])
-        props["sentiment_score"] = sentiment_result
+        props["sentiment_score"] = sentiment_negative_score
         now = datetime.datetime.utcnow()
         props["createdAt"] = now.strftime("%Y-%m-%d, %H:%M")
         self.collection.insert_one(props)

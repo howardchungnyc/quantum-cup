@@ -27,7 +27,6 @@ function ProductDetail({ quantumAuth, handleClick }) {
       const response = await fetch(productUrl);
       const data = await response.json()
       if (data[0] && data.length > 0) {
-        console.log('data:', data)
         setProduct(data[0])
         setRating(Math.round(data[0].rating_sum / data[0].rating_count));
 
@@ -75,7 +74,6 @@ function ProductDetail({ quantumAuth, handleClick }) {
     if (product) {
       // Extract buyer_ids from the product reviews
       const buyerIds = product.reviews.map((review) => review.buyer_id);
-      console.log(buyerIds)
 
       // Fetch the full names of all buyers concurrently using Promise.all
       const names = await Promise.all(buyerIds.map((buyerId) => loadBuyerFullName(buyerId)));
@@ -101,7 +99,7 @@ function ProductDetail({ quantumAuth, handleClick }) {
     //eslint-disable-next-line
   }, [product]);
 
-
+  // console.log(product.reviews)
 
   if (!product) {
     return <div>Loading...</div>;
@@ -150,18 +148,22 @@ function ProductDetail({ quantumAuth, handleClick }) {
       <div className="text-center">
         <h3 className="mt-4">Comments:</h3>
         {product.reviews.map((review, i) => (
-          <div className="chat chat-start border p-4 mb-4 mt-4 hero-interaction col-6 mx-auto round" key={i}>
-            <div className="chat-header d-flex justify-content-between">
-              <div className="chat-bubble mt-2"><span className="text-xs opacity-50">Comment: </span> {review.comment}</div>
+           review.sentiment_score < 0.49 ? (
+              <div className="chat chat-start border p-4 mb-4 mt-4 hero-interaction col-6 mx-auto round" key={i}>
+                <div className="chat-header d-flex justify-content-between">
+                  <div className="chat-bubble mt-2"><span className="text-xs opacity-50">Comment: </span> {review.comment}</div>
+                  
+                  <time className="text-xs opacity-50">{formatCreatedAt(review.createdAt)}</time>
+                </div>
+                <div className="chat-bubble "><span className="text-xs opacity-50">Negative Sentiment Score:  </span> {review.sentiment_score}</div>
 
-              <time className="text-xs opacity-50">{formatCreatedAt(review.createdAt)}</time>
-            </div>
-
-            <div className="fw-bold"> <span className="text-xs opacity-50">Reviewed by: </span>{buyerNames[i]}</div>
-            <div className="chat-footer opacity-50 mt-2"></div>
-          </div>
-        )
-        )}
+                <div className="fw-bold"> <span className="text-xs opacity-50">Reviewed by: </span>{buyerNames[i]}</div>
+                <div className="chat-footer opacity-50 mt-2"></div>
+              </div>
+            ) : null
+          )
+          )}
+          
       </div>
     </>
   );

@@ -99,7 +99,7 @@ function ProductDetail({ quantumAuth, handleClick }) {
     //eslint-disable-next-line
   }, [product]);
 
-  // console.log(product.reviews)
+
 
   if (!product) {
     return <div>Loading...</div>;

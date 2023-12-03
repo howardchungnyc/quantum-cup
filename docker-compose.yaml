@@ -6,6 +6,7 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       SIGNING_KEY: ${SIGNING_KEY}
       MONGO_DB: ${MONGO_DB}
+      INDEX_DB_NAME: "indexdir"
     build:
       context: api
       dockerfile: Dockerfile.dev

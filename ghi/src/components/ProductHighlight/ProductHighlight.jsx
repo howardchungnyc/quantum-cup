@@ -22,6 +22,7 @@ function ProductHighlight({ quantumAuth }) {
     const [vendorId, setVendorId] = React.useState("");
     const [rating, setRating] = React.useState(DEFAULT_RATING);
     const [reviews, setReviews] = React.useState(0);
+    const [totalRating, setTotalRating] = React.useState(0);
     const [providedReview, setProvidedReview] = React.useState(false);
 
     useEffect(() => {
@@ -60,6 +61,7 @@ function ProductHighlight({ quantumAuth }) {
                     setDescription(product.description);
                     setVendor(product.vendor_name);
                     setVendorId(product.vendor_id);
+                    setTotalRating(product.rating_sum || 0);
                     setRating(product.rating_count ?
                         Math.round(product.rating_sum / product.rating_count) :
                         0);
@@ -81,7 +83,6 @@ function ProductHighlight({ quantumAuth }) {
         , []);
 
     const handleOnclick = (e) => {
-        e.preventDefault();
         // TODO: redirect to the product purchase page
     }
 
@@ -90,6 +91,10 @@ function ProductHighlight({ quantumAuth }) {
             .catch((err) => {
                 console.log("ProductHighligh - Posting error:", err);
             })
+        const newTotalRating = totalRating + review.rating;
+        const newReviews = reviews + 1;
+        setReviews(newReviews);
+        setRating(Math.round(newTotalRating / newReviews));
     }
 
     return (

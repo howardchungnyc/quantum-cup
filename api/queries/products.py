@@ -201,7 +201,7 @@ class ProductQueries(Queries):
                                 "comment": "$$review.comment",
                                 "buyer_id": {"$toString": "$$review.buyer_id"},
                                 "createdAt": "$$review.createdAt",
-                                "sentiment_score": "$$review.sentiment_score"
+                                "sentiment_score": "$$review.sentiment_score",
                             },
                         }
                     },

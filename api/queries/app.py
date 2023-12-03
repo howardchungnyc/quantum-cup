@@ -14,8 +14,8 @@ def analyze_sentiment(sendText: str = Form(...)):
         print("endpoint", endpoint)
         print("=== Analyze Sentiment Sample ===")
         client = TextAnalyticsClient(
-            endpoint=endpoint,
-            credential=AzureKeyCredential(api_key))
+            endpoint=endpoint, credential=AzureKeyCredential(api_key)
+        )
 
         results = client.analyze_sentiment(documents=documents)
 

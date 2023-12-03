@@ -35,18 +35,18 @@ The following user stories were used to design the system:
 1. [ ] As a buyer, I want to be able to view a list of all the coffee vendors in the system.
 1. [ ] As a buyer, I want to be able to view the details of a coffee shop.
 1. [ ] As a buyer, I want to be able to view a list of all the coffee products in the system.
-1. [ ] As a buyer, I want to be able to view the details of a coffee product.
-1. [ ] As a buyer, I want to be able to write a review for a coffee product.
+1. [X] As a buyer, I want to be able to view the details of a coffee product.
+1. [X] As a buyer, I want to be able to write a review for a coffee product.
 1. [ ] As a buyer, I want to be able to write a review for a coffee shop.
 1. [ ] As a buyer, I want to be able to order a coffee product.
 1. [ ] As a buyer, I want to be able to view a list of all my orders.
 1. [ ] As a buyer, I want to be able to view the details of an order.
 1. [ ] As a buyer, I want to be able to cancel an order.
 1. [ ] As a vendor, I want to be able to view a list of all the coffee products in the system.
-1. [ ] As a vendor, I want to be able to view the details of a coffee product.
-1. [ ] As a vendor, I want to be able to add a new coffee product.
-1. [ ] As a vendor, I want to be able to edit a coffee product.
-1. [ ] As a vendor, I want to be able to delete a coffee product.
+1. [X] As a vendor, I want to be able to view the details of a coffee product.
+1. [X] As a vendor, I want to be able to add a new coffee product.
+1. [X] As a vendor, I want to be able to edit a coffee product.
+1. [X] As a vendor, I want to be able to delete a coffee product.
 1. [ ] As a vendor, I want to be able to view a list of all the orders in the system.
 1. [ ] As a vendor, I want to be able to view the details of an order.
 1. [ ] As a vendor, I want to be able to cancel an order.
@@ -190,6 +190,41 @@ Example of signing in a new user:
 #### Buyers endpoints:
 | Action                          | Method | URL                                          |
 | --------------------------------| ------ | -------------------------------------------- |
+
+#### Search Endpoint
+| Action                          | Method | URL                                          |
+| --------------------------------| ------ | -------------------------------------------- |
+| Search products by all fields   | GET    | /api/search?q=«query string»                 |
+| Search products by their name   | GET    | /api/search?q=«query string»&sel=name        |
+| Search products by vendor       | GET    | /api/search?q=«query string»&sel=vendor      |
+
+`Note: sel is a comma-separated list of fields to search.`
+
+example:
+* Request: /api/search?q=coffee
+* Response:
+```json
+[
+  {"description": "Arabica beans are renowned for their smooth, mild flavor and "
+                 "aromatic qualities. They are often considered the gold "
+                 "standard of coffee beans. Grown at higher elevations in "
+                 "regions like Colombia, Ethiopia, and Kenya, Arabica beans "
+                 "are known for their bright acidity and nuanced flavors, "
+                 "which can include fruity, floral, and nutty notes.",
+  "product_id": "65604223e46736b3cee1720b",
+  "product": "Arabica Beans",
+  "vendor_name": "International Coffee Traders LLC",
+  "vendor_id": "88304223e46736b3cee1720b"},
+ {"description": "Brazilian Santos beans are grown in various regions of "
+                 "Brazil. They have a mild, nutty flavor with low acidity, "
+                 "making them a great choice for espresso blends. These beans "
+                 "are often used as a base in many coffee blends.",
+  "product_id": "655e53dd7cfbbffeb64798a4",
+  "product": "Brazilian Santos",
+  "vendor_name": "Brazil Exports Inc.",
+  "vendor_id": "75904223e46736b3cee1720b"}
+]
+```
 
 #### Products endpoints:
 | Action                          | Method | URL                                          |

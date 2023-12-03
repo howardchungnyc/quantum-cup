@@ -15,6 +15,7 @@
 .navbar {
   background-color: var(--color-theme-light);
   color: var(--color-light-text);
+  border-bottom: solid 3px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-brand,

@@ -1,5 +1,6 @@
 import React, { useState, useEffect  } from "react";
 import { useNavigate } from "react-router-dom";
+import { add_to_search_index } from "../components/SearchBlock/quantumSearch";
 
 function ProductForm({ quantumAuth, productData }) {
   // State variables to manage form input values
@@ -80,7 +81,8 @@ useEffect(() => {
 
     const response = await fetch(productUrl, fetchConfig);
     if (response.ok) {
-      await response.json();
+      const prod = await response.json();
+      await add_to_search_index(prod, quantumAuth);
       navigate("/vendor/product");
     }
   };

@@ -2,8 +2,17 @@ from fastapi import APIRouter, Depends, Request
 from models.search import SearchMatchList, SearchItem, SearchItemIn
 from queries.search import SearchQueries
 from authenticator import authenticator
+import os
+import shutil
 
 router = APIRouter()
+
+# Get the environment variable INDEX_DB_NAME, check if there is a directory
+# with that name and remove it if it exists. This is to ensure that the
+# search index is always empty when the application starts.
+db_name: str | None = os.environ.get("INDEX_DB_NAME")
+if db_name is not None and os.path.exists(db_name):
+    shutil.rmtree(db_name)
 
 
 @router.get("/api/search", response_model=SearchMatchList)

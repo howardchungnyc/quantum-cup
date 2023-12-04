@@ -35,10 +35,10 @@ function Nav({ quantumAuth }) {
             {
               role === 'vendor' &&
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle btn" href="/" role="button"
+                <NavLink className="nav-link dropdown-toggle btn" href="/" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Venodor Menu
-                </a>
+                </NavLink>
                 <ul className="dropdown-menu shadow rounded-3">
                   <li className="dropdown-item">
                     <NavLink className="nav-link btn" to="/vendor">Vendors Page</NavLink>
@@ -72,10 +72,10 @@ function Nav({ quantumAuth }) {
             {
               role === 'buyer' &&
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle btn" href="/" role="button"
+                <NavLink className="nav-link dropdown-toggle btn" href="/" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Buyers Menu
-                </a>
+                </NavLink>
                 <ul className="dropdown-menu">
                   <li className="dropdown-item">
                     <NavLink className="nav-link btn" to="/buyer">Buyers Page</NavLink>

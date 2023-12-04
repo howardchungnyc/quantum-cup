@@ -21,9 +21,9 @@ function MainPage({ setAlert, quantumAuth }) {
 
   return (
     <div>
-      <div className="d-flex flex-column flex-md-row">
-        <div className="d-flex justify-content-center align-items-center hero-interaction flex-column col-12 col-md-6 ">
-          <img src="/img/logo_dark_bg.png" alt="coffee logo" width={"33%"}></img>
+      <div className="d-flex flex-column flex-md-row ">
+        <div className="d-flex align-items-center hero-interaction flex-column col-12 col-md-6 ">
+          <img src="/img/lightlogo.png" alt="coffee logo" width={"33%"} className="mt-5"></img>
           <div className="h4 my-5 text-center">A unique community of coffee enthusiasts</div>
           <div className="d-flex">
             <a className="btn" href="/signup">Sign Up</a>

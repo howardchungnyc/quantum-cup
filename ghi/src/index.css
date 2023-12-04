@@ -82,6 +82,12 @@ img,
   color: var(--color-theme-dark)
 }
 
+.vendor_link {
+  text-decoration: none;
+  color: var(--color-light-text);
+
+}
+
 /* Footer Styling */
 
 footer {

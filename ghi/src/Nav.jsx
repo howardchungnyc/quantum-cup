@@ -20,7 +20,7 @@ function Nav({ quantumAuth }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light mb-3 fixed-top">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">
+        <NavLink className="navbar-brand fw-bold fs-3" to="/">
           <img src='/img/logo_dark_bg.png' height={"60px"} alt='logo' />
           Quantum Cup
         </NavLink>
@@ -35,22 +35,34 @@ function Nav({ quantumAuth }) {
             {
               role === 'vendor' &&
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="/" role="button"
+                <a className="nav-link dropdown-toggle btn" href="/" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  Vendors
+                  Venodor Menu
                 </a>
-                <ul className="dropdown-menu">
+                <ul className="dropdown-menu shadow rounded-3">
                   <li className="dropdown-item">
-                    <NavLink className="nav-link" to="/vendor">Vendors Page</NavLink>
+                    <NavLink className="nav-link btn" to="/vendor">Vendors Page</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link" to="/createproduct">Create Product</NavLink>
+                    <NavLink className="nav-link btn" to="/createproduct">Create Product</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link" to="/vendor/product">Product Management</NavLink>
+                    <NavLink className="nav-link btn" to="/vendor/product">Product Management</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link" to="/vendor/orders">Order Management</NavLink>
+                    <NavLink className="nav-link btn" to="/vendor/orders">Order Management</NavLink>
+                  </li>
+                  <li className="dropdown-item">
+                    <NavLink className="nav-link btn" to="/products">All Products</NavLink>
+                  </li>
+                  <li className="dropdown-item">
+                    <NavLink className="nav-link btn">
+                    {
+                      /* Login button */
+                      quantumAuth.isAuthenticated() &&
+                      <LogoutBtn quantumAuth={quantumAuth} />
+                    }
+                    </NavLink>
                   </li>
                 </ul>
               </li>
@@ -60,19 +72,25 @@ function Nav({ quantumAuth }) {
             {
               role === 'buyer' &&
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="/" role="button"
+                <a className="nav-link dropdown-toggle btn" href="/" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  Buyers
+                  Buyers Menu
                 </a>
                 <ul className="dropdown-menu">
                   <li className="dropdown-item">
-                    <NavLink className="nav-link" to="/buyer">Buyers Page</NavLink>
+                    <NavLink className="nav-link btn" to="/buyer">Buyers Page</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link" to="/products">List Products</NavLink>
+                    <NavLink className="nav-link btn" to="/products">List Products</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link" to="/ordermgmt">Order Management</NavLink>
+                    <NavLink className="nav-link btn">
+                    {
+                      /* Login button */
+                      quantumAuth.isAuthenticated() &&
+                      <LogoutBtn quantumAuth={quantumAuth} />
+                    }
+                    </NavLink>
                   </li>
                 </ul>
               </li>
@@ -84,12 +102,6 @@ function Nav({ quantumAuth }) {
             <SearchBlock placeholder="Search for products" quantumAuth={quantumAuth} />
           }
         </div>
-        {
-          /* Login button */
-          quantumAuth.isAuthenticated() &&
-          <LogoutBtn quantumAuth={quantumAuth} />
-        }
-
       </div>
     </nav>
   )

@@ -55,6 +55,17 @@ function LoginForm({ setAlert, quantumAuth }) {
             {/* sign selector */}
             <div className="d-flex mb-5">
               <div className="col-6 h2">Sign In</div>
+            </div>
+            {/* actual form */}
+            <div className="d-flex flex-column mb-3">
+              <div className="col-12 my-3">
+                <input type="text" className="form-control" id="username"
+                  required placeholder="Username" />
+              </div>
+              <div className="col-12 my-3">
+                <input type="password" className="form-control" id="password"
+                  required placeholder="Password" />
+              </div>
               <div className="form-check col-6 d-flex justify-content-between align-items-center">
                 <div>
                   <input className="form-check-input" type="radio" required
@@ -66,17 +77,6 @@ function LoginForm({ setAlert, quantumAuth }) {
                     name="role" id="vendor" value="vendor" />
                   <label className="form-check-label" htmlFor="vendor">Vendor</label>
                 </div>
-              </div>
-            </div>
-            {/* actual form */}
-            <div className="d-flex flex-column mb-3">
-              <div className="col-12 my-3">
-                <input type="text" className="form-control" id="username"
-                  required placeholder="Username" />
-              </div>
-              <div className="col-12 my-3">
-                <input type="password" className="form-control" id="password"
-                  required placeholder="Password" />
               </div>
             </div>
             <button className="btn">Sign In</button>

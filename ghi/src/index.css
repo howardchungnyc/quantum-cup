@@ -29,6 +29,11 @@
   border-radius: var(--block-border-radius);
 }
 
+.dropdown-menu {
+  background-color: #f2deaf;
+  ;
+}
+
 .spacer {
   height: 5rem;
 }

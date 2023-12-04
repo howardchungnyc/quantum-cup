@@ -112,9 +112,12 @@ function ProductDetail({ quantumAuth, handleClick }) {
       <div className="container mt-5">
         <div className="card mb-3">
           <div className="card-body hero-interaction ">
-            <h2 className="card-title">{product.name}</h2>
+            <h1 className="card-title"><strong>{product.name}</strong> </h1>
+             <Link className="vendor_link"to={`/vendor/${product.vendor_id}`}>
+              <h4><span>Sold By:</span> {product.vendor_fullname}</h4>
+            </Link>
             <Link to={`/buyer/orderform`}>
-            <button onClick={()=> handleClick({product})} className="btn btn-info btn-md" > Order</button>
+            <button onClick={()=> handleClick({product})} className="btn btn-md" > Order</button>
             </Link>
             <img src={product.image} alt="" className="img-fluid w-40 d-block mx-auto" />
             <p className="card-text">{product.description}</p>
@@ -126,15 +129,12 @@ function ProductDetail({ quantumAuth, handleClick }) {
                 <strong>Unit:</strong> {product.unit}
               </li>
               <li className="list-group-item hero-interaction">
-                <strong>Sold By:</strong> {product.vendor_fullname}
-              </li>
-              <li className="list-group-item hero-interaction">
                 <strong>Rating:</strong>  <ShowStars rating={rating} />
               </li>
               {/* Add more details as needed */}
             </ul>
             {providedReview === 0 &&
-              <button className="btn btn-info btn-md"
+              <button className="btn btn-md"
                 onClick={() => setProvidedReview(1)}>Leave Review</button>
             }
             {providedReview > 0 &&

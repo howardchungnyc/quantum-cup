@@ -16,6 +16,7 @@ import OrderManagement from './vendors/OrderManagement';
 import OrderForm from './components/BuyersOrderForm/OrderForm';
 import OrderList from './components/BuyersListOfOrders/OrderList';
 import VendorDetail from './vendors/VendorDetailPage';
+import VendorList from './vendors/VendorList';
 
 
 const baseUrl = process.env.REACT_APP_API_HOST;
@@ -96,6 +97,7 @@ function App() {
           <Route path="/product/edit/:productId" element={<ProductForm productData={productData} quantumAuth={quantumAuth}/>} />
           <Route path="/products" element={<ProductList setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/products/:id" element={<ProductDetail  productData={productData} handleClick={handleClick} setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/vendors" element={<VendorList setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/signup" element={<SignupForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/vendor" element={<VendorPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/vendor/:id" element={<VendorDetail setAlert={setAlert} quantumAuth={quantumAuth} />} />

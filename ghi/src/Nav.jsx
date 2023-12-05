@@ -84,6 +84,9 @@ function Nav({ quantumAuth }) {
                     <NavLink className="nav-link btn" to="/products">List Products</NavLink>
                   </li>
                   <li className="dropdown-item">
+                    <NavLink className="nav-link btn" to="/vendors">Vendors List</NavLink>
+                  </li>
+                  <li className="dropdown-item">
                     <NavLink className="nav-link btn">
                     {
                       /* Login button */

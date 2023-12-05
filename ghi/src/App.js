@@ -6,6 +6,7 @@ import SignupForm from "./signup/SignupForm";
 import LoginForm from "./login/LoginForm";
 import VendorPage from "./vendors/VendorPage";
 import BuyerPage from "./buyers/BuyerPage";
+import BuyerReviews from "./buyers/BuyerReviews";
 import LogoutBtn from './logout/LogoutBtn';
 import ProductForm from './product/ProductForm';
 import ProductList from "./product/ProductList"
@@ -91,6 +92,7 @@ function App() {
           <Route path="/buyer" element={<BuyerPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/buyer/orderform" element={<OrderForm productData={productData} setAlert={setAlert} quantumAuth={quantumAuth} auth={auth} />} />
           <Route path="/buyer/orders" element={<OrderList productData={productData} setAlert={setAlert} quantumAuth={quantumAuth} auth={auth} />} />
+          <Route path="/buyer/reviews" element={<BuyerReviews setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/createproduct" element={<ProductForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/login" element={<LoginForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/logout" element={<LogoutBtn setAlert={setAlert} quantumAuth={quantumAuth} />} />

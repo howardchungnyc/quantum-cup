@@ -27,8 +27,6 @@ lint-test-job:
 #     DATABASE_URL: ${DATABASE_URL}
 #     SIGNING_KEY: ${SIGNING_KEY}
 
-services:
-  - docker:dind
 # # Build API Image:
 build-api-image:
   stage: build
@@ -43,7 +41,6 @@ build-api-image:
     - docker push $GITLAB_IMAGE:latest
   only:
     - main
-    
 # # Build the React/JavaScript front-end
 # build-front-end-job:
 #   stage: build

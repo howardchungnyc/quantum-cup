@@ -22,5 +22,8 @@
     "productmgmt",
     "qparser",
     "zipcode"
-  ]
+  ],
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
 }

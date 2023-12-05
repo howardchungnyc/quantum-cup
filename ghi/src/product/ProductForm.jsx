@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { add_to_search_index } from "../components/SearchBlock/quantumSearch";
 
@@ -37,14 +37,14 @@ function ProductForm({ quantumAuth, productData }) {
     const value = event.target.value;
     setPrice(value);
   };
-useEffect(() => {
+  useEffect(() => {
     const fetchProductForEdit = async () => {
       if (productData) {
-         setName(productData.name);
-                setDescription(productData.description);
-                setImage(productData.image);
-                setUnit(productData.unit);
-                setPrice(productData.price.toString());
+        setName(productData.name);
+        setDescription(productData.description);
+        setImage(productData.image);
+        setUnit(productData.unit);
+        setPrice(productData.price.toString());
       }
     };
 
@@ -53,13 +53,14 @@ useEffect(() => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    const vendorName = quantumAuth.getAuthentication().account.fullname;
     const data = {
       name: name,
       description: description,
       image: image,
       unit: unit,
       price: parseFloat(price),
+      vendor_name: vendorName
     };
 
     let productUrl = `${quantumAuth.baseUrl}/api/products`;

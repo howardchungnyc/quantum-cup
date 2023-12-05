@@ -24,3 +24,8 @@ app.include_router(vendor.router, tags=["Vendors"])
 app.include_router(products.router, tags=["Products"])
 app.include_router(search_router, tags=["Search"])
 app.include_router(orders.router, tags=["Orders"])
+
+
+@app.get("/")
+def root():
+    return {"message": "You hit the root path!"}

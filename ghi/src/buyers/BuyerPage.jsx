@@ -23,7 +23,7 @@ function BuyerPage({ setAlert, quantumAuth }) {
     // Handle orders click
     const handleOrdersClick = async () => {
         // TODO: Implement orders page
-        navigate('/orders/buyer');
+        navigate('/buyer/orders');
     }
 
     // Handle reviews click

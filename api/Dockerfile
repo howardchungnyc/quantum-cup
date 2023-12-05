@@ -16,6 +16,7 @@ COPY authenticator.py authenicator.py
 # Modify these instructions to do that
 COPY queries queries
 COPY routers routers
+COPY models models
 
 # Installs all the python packages listed in our requirements.txt file
 RUN python -m pip install -r requirements.txt

@@ -27,7 +27,8 @@ function OrderList({quantumAuth, auth}) {
     },[quantumAuth.baseUrl]);
 
 useEffect(()=>{
-    loadOrders()
+    loadProducts()
+    // eslint-disable-next-line
 },[])
 
 useEffect(() => {

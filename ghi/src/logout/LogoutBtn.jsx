@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function LogoutBtn({ quantumAuth }) {
@@ -19,7 +19,7 @@ function LogoutBtn({ quantumAuth }) {
     }
 
     return (
-        <div><button onClick={handleClick} href="/" className="link btn btn-sm">Logout</button></div>
+        <div><button onClick={handleClick} href="/" className="nav-link btn btn">Logout</button></div>
     )
 }
 

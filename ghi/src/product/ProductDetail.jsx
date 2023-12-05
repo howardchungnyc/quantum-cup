@@ -101,8 +101,6 @@ function ProductDetail({ quantumAuth, handleClick }) {
     //eslint-disable-next-line
   }, [product]);
 
-
-
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -116,9 +114,11 @@ function ProductDetail({ quantumAuth, handleClick }) {
             <Link className="vendor_link" to={`/vendor/${product.vendor_id}`}>
               <h4><span>Sold By:</span> {product.vendor_fullname}</h4>
             </Link>
-            <Link to={`/buyer/orderform`}>
-              <button onClick={() => handleClick({ product })} className="btn btn-md" > Order</button>
-            </Link>
+            {quantumAuth.getAuthentication().account.role == 'buyer' &&
+              <Link to={`/buyer/orderform`}>
+              <button onClick={()=> handleClick({product})} className="btn btn-md" > Order</button>
+              </Link>
+            }
             <img src={product.image} alt="" className="img-fluid w-40 d-block mx-auto" />
             <p className="card-text">{product.description}</p>
             <ul className="list-group list-group-flush">

@@ -2,7 +2,7 @@ import { React, useCallback, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./VendorPage.css";
 
-function OrderManagement({quantumAuth, auth}) {
+function OrderManagement({quantumAuth}) {
     
     const [orderList, setOrderList] = useState([])
     const [ordersByVendor, setOrdersByVendor] = useState([])
@@ -49,7 +49,7 @@ useEffect(() => {
                         <table className="table">
                             <thead>
                             <tr>
-                                <th scope="col "># ID</th>
+                                <th scope="col ">Order</th> 
                                 <th scope="col">BuyerName</th>
                                 <th scope="col">Product</th>
                                 <th scope="col">Quantity</th>
@@ -61,7 +61,7 @@ useEffect(() => {
                             </thead>
                             <tbody>
                                 {ordersByVendor.map((order, i) => (
-                            <tr key= {i}>
+                            <tr key={i}>
                                 <th scope="row">{i+1}</th>
                                 <td>{order.buyer_fullname}</td>
                                 <td>{order.product_name}</td>

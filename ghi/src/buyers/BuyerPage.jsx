@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './BuyerPage.css';
 import ProductHighlight from '../components/ProductHighlight/ProductHighlight';
 
-function BuyerPage({ setAlert, quantumAuth }) {
+function BuyerPage({ setAlert, quantumAuth, handleClick }) {
     const navigate = useNavigate();
     const role = quantumAuth.getAuthentication() &&
         quantumAuth.getAuthentication().account.role;
@@ -40,7 +40,7 @@ function BuyerPage({ setAlert, quantumAuth }) {
                 {/* Left panel - Prod highlight */}
                 <div className="col-md-8 buyer-left-panel mx-0 mx-md-1 my-2 my-md-0">
                     <h2 className="text-center mt-3">Product Highlight</h2>
-                    <ProductHighlight quantumAuth={quantumAuth} />
+                    <ProductHighlight quantumAuth={quantumAuth} handleClick={handleClick} />
                 </div>
 
                 {/* Right panel - buttons */}

@@ -13,8 +13,8 @@ import ProductDetail from './product/ProductDetail';
 import { useEffect, useState } from "react";
 import ProductManagement from './vendors/ProductManagement';
 import OrderManagement from './vendors/OrderManagement';
-import OrderForm from './components/BuyersOrderForm/OrderForm';
-import OrderList from './components/BuyersListOfOrders/OrderList';
+import OrderForm from './orders/BuyersOrderForm/OrderForm';
+import OrderList from './orders/BuyersListOfOrders/OrderList';
 import VendorDetail from './vendors/VendorDetailPage';
 import VendorList from './vendors/VendorList';
 

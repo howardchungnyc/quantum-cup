@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./VendorPage.css";
 
 function OrderManagement({quantumAuth}) {
-    
+
     const [orderList, setOrderList] = useState([])
     const [ordersByVendor, setOrdersByVendor] = useState([])
 
@@ -39,7 +39,7 @@ useEffect(() => {
     }, [quantumAuth.getAuthentication(), orderList]);
 
     return (
-        
+
         <div className="d-flex flex-column flex-md-row justify-content-around my-5">
             {/* left panel */}
             <div className="d-flex flex-column col-6 align-items-center">
@@ -49,14 +49,13 @@ useEffect(() => {
                         <table className="table">
                             <thead>
                             <tr>
-                                <th scope="col ">Order</th> 
+                                <th scope="col ">Order</th>
                                 <th scope="col">BuyerName</th>
                                 <th scope="col">Product</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Unit</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Total</th>
-                                
                             </tr>
                             </thead>
                             <tbody>
@@ -69,7 +68,7 @@ useEffect(() => {
                                 <td>{order.unit}</td>
                                 <td>${order.price}</td>
                                 <td>${order.total}</td>
-                                
+
                             </tr>
                             )
     )}
@@ -82,7 +81,7 @@ useEffect(() => {
             <div className="d-flex flex-column align-items-center col-6 container">
                 <div className="col-12 col-md-6 logo-signup">
                     <img src="/img/logo_light_bg.png" alt="coffee log" className="img-fluid" />
-                </div>              
+                </div>
             </div>
         </div>
     );

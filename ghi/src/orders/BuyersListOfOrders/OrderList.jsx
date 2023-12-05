@@ -2,49 +2,44 @@ import { React, useCallback, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function OrderList({quantumAuth, auth}) {
-    
 
-    const [productList, setProductList] = useState([])
-    const [productsByVendor, setProductsByVendor] = useState([])
 
-    const loadProducts = useCallback(async () => {
+    const [orderList, setOrderList] = useState([])
+    const [ordersByBuyer, setOrdersByBuyer] = useState([])
+
+    const loadOrders = useCallback(async () => {
         try {
-            const res = await fetch(quantumAuth.baseUrl + "/api/products");
+            const res = await fetch(quantumAuth.baseUrl + "/api/orders");
 
             if (res.ok) {
                 const data = await res.json();
                 console.log('data:', data);
-                setProductList(data.products);
+                setOrderList(data.orders);
 
             } else {
                 console.error('Failed to fetch products:', res.status);
-                setProductList([]);
+                setOrderList([]);
             }
         } catch (error) {
-            console.error('Error during product fetch:', error);
-            setProductList([]);
+            console.error('Error during orders fetch:', error);
+            setOrderList([]);
         }
     },[quantumAuth.baseUrl]);
 
 useEffect(()=>{
-    loadProducts()
+    loadOrders()
 },[])
 
 useEffect(() => {
-        // Filter products by vendor when auth changes
-        if (auth && auth.account) {
-            const productsForVendor = productList.filter(product => product.vendor_id === auth.account.id);
-            setProductsByVendor(productsForVendor);
+        // Filter orders by buyer when auth changes
+        if (quantumAuth.getAuthentication() && quantumAuth.getAuthentication().account) {
+            const ordersForBuyer = orderList.filter(order => order.buyer_id === quantumAuth.getAuthentication().account.id);
+            setOrdersByBuyer(ordersForBuyer);
         }
-    }, [auth, productList]);
-
-
-
-
-
+    }, [quantumAuth.getAuthentication(), orderList]);
 
     return (
-        
+
         <div className="d-flex flex-column flex-md-row justify-content-around my-5">
             {/* left panel */}
             <div className="d-flex flex-column col-6 align-items-center">
@@ -53,49 +48,51 @@ useEffect(() => {
                     <div className="container">
                         <table className="table">
                             <thead>
-                            <tr>
-                                <th scope="col "># ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Desciption</th>
-                                <th scope="col">Units</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Rating</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                                <tr>
+                                    <th scope="col">Orders</th>
+                                    <th scope="col">Buyer</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Unit</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Status</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                {productsByVendor.map((product, i) => (
-                            <tr key= {i}>
-                                <th scope="row">{i+1}</th>
-                                <td>{product.name}</td>
-                                <td>{product.description}</td>
-                                <td>{product.unit}</td>
-                                <td>{product.price}</td>
-                                <td>{product.rating_count ? Math.round(product.rating_sum / product.rating_count) : 0}</td>
-                                <td>
-                                    <Link 
-                                        role="button" 
+                                {ordersByBuyer.map((order, i) => (
+                                    <tr key= {i}>
+                                        <th scope="row">{i+1}</th>
+                                        <td>{order.buyer_fullname}</td>
+                                        <td>{order.product_name}</td>
+                                        <td>{order.quantity}</td>
+                                        <td>{order.unit}</td>
+                                        <td>${order.price}</td>
+                                        <td>${order.total}</td>
+                                        <td>{order.status}</td>
+                                    </tr>
+                                    )
+                                )}
+                                {/* <td>
+                                    <Link
+                                        role="button"
                                         id="product-mgmt-btn"
-                                        className="btn btn-sm text-center" 
+                                        className="btn btn-sm text-center"
                                         to={product.id}
                                         >
                                         Edit
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link 
-                                        role="button" 
+                                    <Link
+                                        role="button"
                                         id="product-mgmt-btn"
-                                        className="btn btn-sm text-center" 
+                                        className="btn btn-sm text-center"
                                         to={product.id}
                                         >
                                         Delete
                                     </Link>
-                                </td>
-                            </tr>
-                            )
-    )}
+                                </td> */}
                             </tbody>
                         </table>
                     </div>
@@ -106,19 +103,9 @@ useEffect(() => {
                 <div className="col-12 col-md-6 logo-signup">
                     <img src="/img/logo_light_bg.png" alt="coffee log" className="img-fluid" />
                 </div>
-                <div>
-                    <Link role="button" id="product-mgmt-btn"
-                        className="btn huge-btn text-center" to="/createproduct">
-                        Add Product
-                    </Link>
-                </div>
-                
             </div>
         </div>
     );
 }
 
-
-
 export default OrderList;
-

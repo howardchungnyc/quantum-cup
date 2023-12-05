@@ -28,8 +28,7 @@ function BuyerPage({ setAlert, quantumAuth }) {
 
     // Handle reviews click
     const handleReviewsClick = async () => {
-        // TODO: Implement reviews page
-        navigate('/reviews/buyer');
+        navigate('/buyer/reviews');
     }
 
     // If not a buyer, don't show anything

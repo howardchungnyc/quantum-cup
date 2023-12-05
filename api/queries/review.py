@@ -41,7 +41,22 @@ class ReviewQueries(Queries):
             print("Error updating product rating")
         return ReviewOut(**props)
 
-    def delete(self, review_id: str) -> None:
+    def delete(self, review_id: str, account: dict) -> None:
+        # deduct rating from product
+        review_id_obj = ObjectId(review_id)
+        review = self.collection.find_one({"_id": review_id_obj})
+        if not review:
+            return None
+        review["product_id"] = str(review["product_id"])
+        if (
+            ProductQueries().update_rating(
+                review["product_id"], -review["rating"]
+            )
+            is False
+        ):
+            # log error
+            print("Error deducting product rating")
+        # delete review
         self.collection.delete_one(
             {
                 "_id": ObjectId(review_id),

@@ -24,6 +24,19 @@ async def create_review(
     return newReview
 
 
+@router.delete("/api/reviews/{review_id}")
+async def delete_review(
+    review_id: str,
+    repo: ReviewQueries = Depends(),
+    account: dict = Depends(authenticator.get_current_account_data),
+) -> None:
+    """
+    Delete a review
+    """
+    repo.delete(review_id, account)
+    return None
+
+
 @router.get("/api/reviews/buyer/{buyer_id}", response_model=ReviewByBuyerList)
 def get_reviews_by_buyer(
     buyer_id: str, repo: ReviewQueries = Depends()

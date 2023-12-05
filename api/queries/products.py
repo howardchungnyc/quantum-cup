@@ -11,8 +11,9 @@ class DuplicateAccountError(ValueError):
     pass
 
 
+# Class representing queries related to products
 class ProductQueries(Queries):
-    # MongoDB collection name for accounts
+    # MongoDB collection name for products
     collection_name = "products"
 
     def update_rating(self, product_id: str, rating: int) -> bool:

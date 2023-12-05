@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
-from routers import users, vendor, products
+from routers import users, vendor, products, orders
 from authenticator import authenticator
 from routers.review import router as review_router
 from routers.search import router as search_router
@@ -23,3 +23,4 @@ app.include_router(review_router, tags=["Reviews"])
 app.include_router(vendor.router, tags=["Vendors"])
 app.include_router(products.router, tags=["Products"])
 app.include_router(search_router, tags=["Search"])
+app.include_router(orders.router, tags=["Orders"])

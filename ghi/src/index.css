@@ -38,8 +38,6 @@
   height: 5rem;
 }
 
-/* Body Styling */
-
 body {
   margin: 0;
   background-color: var(--color-theme-light);

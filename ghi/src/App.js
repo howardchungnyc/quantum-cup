@@ -13,6 +13,8 @@ import ProductDetail from './product/ProductDetail';
 import { useEffect, useState } from "react";
 import ProductManagement from './vendors/ProductManagement';
 import OrderManagement from './vendors/OrderManagement';
+import OrderForm from './components/BuyersOrderForm/OrderForm';
+import OrderList from './components/BuyersListOfOrders/OrderList';
 import VendorDetail from './vendors/VendorDetailPage';
 
 
@@ -85,19 +87,24 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<MainPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
-          <Route path="/signup" element={<SignupForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/buyer" element={<BuyerPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/buyer/orderform" element={<OrderForm productData={productData} setAlert={setAlert} quantumAuth={quantumAuth} auth={auth} />} />
+          <Route path="/buyer/orders" element={<OrderList productData={productData} setAlert={setAlert} quantumAuth={quantumAuth} auth={auth} />} />
+          <Route path="/createproduct" element={<ProductForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/login" element={<LoginForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/logout" element={<LogoutBtn setAlert={setAlert} quantumAuth={quantumAuth} />} />
-          <Route path="/vendor" element={<VendorPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
-          <Route path="/buyer" element={<BuyerPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
-          <Route path="/createproduct" element={<ProductForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/product/edit/:productId" element={<ProductForm productData={productData} quantumAuth={quantumAuth}/>} />
           <Route path="/products" element={<ProductList setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/products/:id" element={<ProductDetail  productData={productData} handleClick={handleClick} setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/signup" element={<SignupForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/vendor" element={<VendorPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/vendor/:id" element={<VendorDetail setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/vendor/product" element={<ProductManagement setAlert={setAlert} handleClick={handleClick} quantumAuth={quantumAuth} />} />
           <Route path="/vendor/orders" element={<OrderManagement setAlert={setAlert} quantumAuth={quantumAuth} />} />
         </Routes>
+      </div>
+      <div>
+
       </div>
       <Footer />
     </BrowserRouter>

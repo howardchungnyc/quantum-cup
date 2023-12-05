@@ -22,6 +22,20 @@
     margin-right: var(--initials-margin-right);
 }
 
+#vendor-initial-two {
+    display: flex;
+    border-radius: 50%;
+    background-color: var(--color-theme-light);
+    color: var(--color-theme-dark);
+    font-size: var(--initials-font-size);
+    width: calc(var(--initials-font-size) + 2rem);
+    height: calc(var(--initials-font-size) + 2rem);
+    justify-content: center;
+    align-items: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-right: var(--initials-margin-right);
+}
+
 /* Need a media query to change the font size of the initials when the screen is smaller */
 @media screen and (max-width: 600px) {
     :root {

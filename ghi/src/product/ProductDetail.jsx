@@ -113,11 +113,11 @@ function ProductDetail({ quantumAuth, handleClick }) {
         <div className="card mb-3">
           <div className="card-body hero-interaction ">
             <h1 className="card-title"><strong>{product.name}</strong> </h1>
-             <Link className="vendor_link"to={`/vendor/${product.vendor_id}`}>
+            <Link className="vendor_link" to={`/vendor/${product.vendor_id}`}>
               <h4><span>Sold By:</span> {product.vendor_fullname}</h4>
             </Link>
             <Link to={`/buyer/orderform`}>
-            <button onClick={()=> handleClick({product})} className="btn btn-md" > Order</button>
+              <button onClick={() => handleClick({ product })} className="btn btn-md" > Order</button>
             </Link>
             <img src={product.image} alt="" className="img-fluid w-40 d-block mx-auto" />
             <p className="card-text">{product.description}</p>

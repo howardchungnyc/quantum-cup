@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import './ProductHighlight.css';
 import ShowStars from "../ShowStars/ShowStars";
 import ReviewTaker from "../ReviewTaker/ReviewTaker";
@@ -13,17 +14,19 @@ const DEFAULT_DESCRIPTION = "Buy the best coffee in the world and connect " +
 const DEFAULT_RATING = 4;
 
 
-function ProductHighlight({ quantumAuth }) {
-    const [prodID, setProdID] = React.useState(0);
-    const [product, setProduct] = React.useState(DEFAULT_PRODUCT);
-    const [image, setImage] = React.useState(DEFAULT_IMAGE);
-    const [description, setDescription] = React.useState(DEFAULT_DESCRIPTION);
-    const [vendor, setVendor] = React.useState(DEFAULT_VENDOR);
-    const [vendorId, setVendorId] = React.useState("");
-    const [rating, setRating] = React.useState(DEFAULT_RATING);
-    const [reviews, setReviews] = React.useState(0);
-    const [totalRating, setTotalRating] = React.useState(0);
-    const [providedReview, setProvidedReview] = React.useState(false);
+function ProductHighlight({ quantumAuth, handleClick }) {
+    const [prodID, setProdID] = useState(0);
+    const [name, setName] = useState(DEFAULT_PRODUCT);
+    const [image, setImage] = useState(DEFAULT_IMAGE);
+    const [description, setDescription] = useState(DEFAULT_DESCRIPTION);
+    const [vendor, setVendor] = useState(DEFAULT_VENDOR);
+    const [vendorId, setVendorId] = useState("");
+    const [rating, setRating] = useState(DEFAULT_RATING);
+    const [reviews, setReviews] = useState(0);
+    const [totalRating, setTotalRating] = useState(0);
+    const [providedReview, setProvidedReview] = useState(false);
+    const [product, setProduct] = useState({});
+
 
     useEffect(() => {
         async function getAHighlighProduct() {
@@ -56,7 +59,8 @@ function ProductHighlight({ quantumAuth }) {
                     const randomIndex = Math.floor(Math.random() *
                         data.products.length);
                     const product = data.products[randomIndex];
-                    setProduct(product.name);
+                    setProduct(product);
+                    setName(product.name);
                     setImage(product.image);
                     setDescription(product.description);
                     setVendor(product.vendor_name);
@@ -71,7 +75,7 @@ function ProductHighlight({ quantumAuth }) {
                     throw new Error("No products found");
                 }
             } catch (e) {
-                setProduct(DEFAULT_PRODUCT);
+                setName(DEFAULT_PRODUCT);
                 setImage(DEFAULT_IMAGE);
                 setDescription(DEFAULT_DESCRIPTION);
                 setVendor(DEFAULT_VENDOR);
@@ -79,12 +83,8 @@ function ProductHighlight({ quantumAuth }) {
             }
         }
         getAHighlighProduct();
-    } // eslint-disable-next-line react-hooks/exhaustive-deps
-        , []);
+    }, [quantumAuth.baseUrl]);
 
-    const handleOnclick = (e) => {
-        // TODO: redirect to the product purchase page
-    }
 
     const handleSubmitReview = async (review) => {
         postReview(review, prodID, quantumAuth)
@@ -102,7 +102,7 @@ function ProductHighlight({ quantumAuth }) {
             <div className="image-container">
                 <img id="highlight-img" src={image} alt="Product" />
                 <div className="text-container">
-                    <h4>{product}</h4>
+                    <h4>{name}</h4>
                     <p className="mb-4">by {vendorId !== "" ?
                         <a className="vendor-link" href={`/vendor/${vendorId}`}>{vendor}</a> :
                         vendor}
@@ -121,8 +121,10 @@ function ProductHighlight({ quantumAuth }) {
 
                 </div>
                 <div className="mx-2">
-                    <button onClick={handleOnclick}
-                        className="btn btn-lg me-3">Buy Now</button>
+                    <Link to={`/buyer/orderform`}>
+                        <button onClick={() => handleClick({ product })}
+                            className="btn btn-lg me-3">Buy Now</button>
+                    </Link>
                     {!providedReview &&
                         <button onClick={() => setProvidedReview(true)}
                             className="btn btn-lg">Review</button>

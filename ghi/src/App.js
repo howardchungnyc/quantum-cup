@@ -89,7 +89,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<MainPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
-          <Route path="/buyer" element={<BuyerPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/buyer" element={<BuyerPage setAlert={setAlert} quantumAuth={quantumAuth} handleClick={handleClick} />} />
           <Route path="/buyer/orderform" element={<OrderForm productData={productData} setAlert={setAlert} quantumAuth={quantumAuth} auth={auth} />} />
           <Route path="/buyer/orders" element={<OrderList productData={productData} setAlert={setAlert} quantumAuth={quantumAuth} auth={auth} />} />
           <Route path="/buyer/reviews" element={<BuyerReviews setAlert={setAlert} quantumAuth={quantumAuth} />} />

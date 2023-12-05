@@ -37,7 +37,7 @@ function Nav({ quantumAuth }) {
               <li className="nav-item dropdown">
                 <NavLink className="nav-link dropdown-toggle btn" href="/" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  Venodor Menu
+                  Vendor Menu
                 </NavLink>
                 <ul className="dropdown-menu shadow rounded-3">
                   <li className="dropdown-item">

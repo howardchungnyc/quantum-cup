@@ -5,7 +5,9 @@ from typing import List
 class OrderIn(BaseModel):
     product_id: str
     buyer_id: str
+    buyer_fullname: str
     vendor_id: str
+    vendor_fullname: str
     product_name: str
     price: float
     unit: str
@@ -17,7 +19,9 @@ class OrderOut(BaseModel):
     product_id: str
     status: str
     buyer_id: str
+    buyer_fullname: str
     vendor_id: str
+    vendor_fullname: str
     product_name: str
     price: float
     unit: str

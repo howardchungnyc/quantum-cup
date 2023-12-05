@@ -41,12 +41,15 @@ function OrderForm({ quantumAuth, productData }) {
     event.preventDefault();
 
     const buyerId = quantumAuth.getAuthentication().account.id;
+    const buyerName = quantumAuth.getAuthentication().account.fullname;
     const productId = productData.product.id;
     const vendorId = productData.product.vendor_id;
-
+    const vendorName =productData.product.vendor_fullname
     const data = {
       product_id: productId,
       buyer_id: buyerId,
+      buyer_fullname: buyerName,
+      vendor_fullname: vendorName,
       vendor_id: vendorId,
       product_name: productData.product.name,
       price: parseFloat(productData.product.price),
@@ -78,8 +81,6 @@ function OrderForm({ quantumAuth, productData }) {
       console.error('Error:', error);
     }
   };
-
-  console.log(productData);
 
   return (
     <div>

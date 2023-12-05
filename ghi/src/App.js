@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Nav from "./Nav";
 import MainPage from "./MainPage";
 import Footer from './Footer';
@@ -34,11 +34,12 @@ function App() {
   const getAuthentication = () => auth;
   const isAuthenticated = () => auth !== null;
   const quantumAuth = { setAuthentication, baseUrl, getAuthentication, isAuthenticated, };
-
+  
 
   // send product data to form
   function handleClick(product){
     setProductData(product)
+    
   }
 
   /**

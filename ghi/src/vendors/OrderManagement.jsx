@@ -1,5 +1,4 @@
 import { React, useCallback, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import "./VendorPage.css";
 
 function OrderManagement({quantumAuth}) {
@@ -28,6 +27,7 @@ function OrderManagement({quantumAuth}) {
 
 useEffect(()=>{
     loadOrders()
+    // eslint-disable-next-line
 },[])
 
 useEffect(() => {
@@ -35,7 +35,7 @@ useEffect(() => {
         if (quantumAuth.getAuthentication() && quantumAuth.getAuthentication().account) {
             const ordersForVendor = orderList.filter(order => order.vendor_id === quantumAuth.getAuthentication().account.id);
             setOrdersByVendor(ordersForVendor);
-        }
+        }// eslint-disable-next-line
     }, [quantumAuth.getAuthentication(), orderList]);
 
     return (

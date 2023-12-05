@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate , NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function OrderForm({ quantumAuth, productData }) {
   const [buyer, setBuyer] = useState("");
@@ -26,6 +26,7 @@ function OrderForm({ quantumAuth, productData }) {
 
   useEffect(() => {
     loadBuyerFullName();
+    // eslint-disable-next-line
   }, []);
 
   // handle quantity change
@@ -137,7 +138,7 @@ function OrderForm({ quantumAuth, productData }) {
         <div className="offset-1 col-3 float">
           <div className="shadow p-4 mt-4">
             <div><strong>Sold by:</strong> {productData.product.vendor_fullname}</div>
-            <img src={productData.product.image} alt="Product Image" className="img-fluid"/>
+            <img src={productData.product.image} alt="Product" className="img-fluid"/>
           </div>
         </div>
 

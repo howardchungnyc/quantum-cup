@@ -1,7 +1,7 @@
 import { React, useCallback, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function OrderList({quantumAuth, auth}) {
+function OrderList({ quantumAuth, auth }) {
 
 
     const [orderList, setOrderList] = useState([])
@@ -24,14 +24,14 @@ function OrderList({quantumAuth, auth}) {
             console.error('Error during orders fetch:', error);
             setOrderList([]);
         }
-    },[quantumAuth.baseUrl]);
+    }, [quantumAuth.baseUrl]);
 
-useEffect(()=>{
-    loadProducts()
-    // eslint-disable-next-line
-},[])
+    useEffect(() => {
+        loadOrders()
+        // eslint-disable-next-line
+    }, [])
 
-useEffect(() => {
+    useEffect(() => {
         // Filter orders by buyer when auth changes
         if (quantumAuth.getAuthentication() && quantumAuth.getAuthentication().account) {
             const ordersForBuyer = orderList.filter(order => order.buyer_id === quantumAuth.getAuthentication().account.id);
@@ -62,8 +62,8 @@ useEffect(() => {
                             </thead>
                             <tbody>
                                 {ordersByBuyer.map((order, i) => (
-                                    <tr key= {i}>
-                                        <th scope="row">{i+1}</th>
+                                    <tr key={i}>
+                                        <th scope="row">{i + 1}</th>
                                         <td>{order.buyer_fullname}</td>
                                         <td>{order.product_name}</td>
                                         <td>{order.quantity}</td>
@@ -72,7 +72,7 @@ useEffect(() => {
                                         <td>${order.total}</td>
                                         <td>{order.status}</td>
                                     </tr>
-                                    )
+                                )
                                 )}
                                 {/* <td>
                                     <Link

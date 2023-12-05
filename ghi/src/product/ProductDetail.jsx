@@ -114,9 +114,9 @@ function ProductDetail({ quantumAuth, handleClick }) {
             <Link className="vendor_link" to={`/vendor/${product.vendor_id}`}>
               <h4><span>Sold By:</span> {product.vendor_fullname}</h4>
             </Link>
-            {quantumAuth.getAuthentication().account.role == 'buyer' &&
+            {quantumAuth.getAuthentication().account.role === 'buyer' &&
               <Link to={`/buyer/orderform`}>
-              <button onClick={()=> handleClick({product})} className="btn btn-md" > Order</button>
+                <button onClick={() => handleClick({ product })} className="btn btn-md" > Order</button>
               </Link>
             }
             <img src={product.image} alt="" className="img-fluid w-40 d-block mx-auto" />

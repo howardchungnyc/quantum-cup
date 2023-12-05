@@ -13,7 +13,6 @@ lint-test-job:
   script:
     - pip install flake8
     - flake8 api
-
 # # Run the unit tests
 # api-unit-tests-job:
 #   image: python:3-bullseye
@@ -24,23 +23,27 @@ lint-test-job:
 #     - cd api
 #     - pip install -r requirements.txt
 #     - python -m pytest
+#   variables
+#     DATABASE_URL: ${DATABASE_URL}
+#     SIGNING_KEY: ${SIGNING_KEY}
 
+services:
+  - docker:dind
 # # Build API Image:
-# build-api-image:
-#   stage: build
-#   image: docker:git
-#   variables:
-#     GITLAB_IMAGE: ${CI_REGISTRY_IMAGE}/api
-#   before_script:
-#     # $CI_JOB_TOKEN is variable automatically added by Gitlab: see https://docs.gitlab.com/ee/ci/variables/predefined_variables.html#variables-reference
-#     - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token registry.gitlab.com --password-stdin
-#   script:
-#     - docker build --tag $GITLAB_IMAGE:latest ./api
-#     - docker push $GITLAB_IMAGE:latest
-#   only:
-#     - main
-
-
+build-api-image:
+  stage: build
+  image: docker:git
+  variables:
+    GITLAB_IMAGE: ${CI_REGISTRY_IMAGE}/api
+  before_script:
+    # $CI_JOB_TOKEN is variable automatically added by Gitlab: see https://docs.gitlab.com/ee/ci/variables/predefined_variables.html#variables-reference
+    - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token registry.gitlab.com --password-stdin
+  script:
+    - docker build --tag $GITLAB_IMAGE:latest ./api
+    - docker push $GITLAB_IMAGE:latest
+  only:
+    - main
+    
 # # Build the React/JavaScript front-end
 # build-front-end-job:
 #   stage: build
@@ -58,7 +61,7 @@ lint-test-job:
 #     - cd ghi
 #     - npm install
 #     - npm run build
-#     The following line creates a _redirects file to redirect all URLs to index.html 
+#     The following line creates a _redirects file to redirect all URLs to index.html
 #     Documentation: https://docs.gitlab.com/ee/user/project/pages/redirects.html#rewrite-all-requests-to-a-root-indexhtml
 #     - echo "/* /index.html 200" > build/_redirects
 #   artifacts:

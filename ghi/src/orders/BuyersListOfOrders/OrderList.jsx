@@ -71,29 +71,28 @@ function OrderList({ quantumAuth, auth }) {
                                         <td>${order.price}</td>
                                         <td>${order.total}</td>
                                         <td>{order.status}</td>
+                                        <td>
+                                            <Link
+                                                role="button"
+                                                id="order-mgmt-btn"
+                                                className="btn btn-sm text-center"
+                                            // to={product.id}
+                                            >
+                                                Edit
+                                            </Link>
+                                        </td>
+                                        <td>
+                                            <Link
+                                                role="button"
+                                                id="order-mgmt-btn"
+                                                className="btn btn-sm text-center"
+                                            // to={product.id}
+                                            >
+                                                Delete
+                                            </Link>
+                                        </td>
                                     </tr>
-                                )
-                                )}
-                                {/* <td>
-                                    <Link
-                                        role="button"
-                                        id="product-mgmt-btn"
-                                        className="btn btn-sm text-center"
-                                        to={product.id}
-                                        >
-                                        Edit
-                                    </Link>
-                                </td>
-                                <td>
-                                    <Link
-                                        role="button"
-                                        id="product-mgmt-btn"
-                                        className="btn btn-sm text-center"
-                                        to={product.id}
-                                        >
-                                        Delete
-                                    </Link>
-                                </td> */}
+                                ))}
                             </tbody>
                         </table>
                     </div>

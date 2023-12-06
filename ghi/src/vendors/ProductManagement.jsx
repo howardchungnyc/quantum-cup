@@ -99,14 +99,14 @@ function ProductManagement({ quantumAuth, handleClick }) {
                                             >
                                                 <button
                                                     onClick={() => handleClick(product)}
-                                                    className="btn btn-info btn-sm"
+                                                    className="btn btn-sm"
                                                 >
                                                     Edit
                                                 </button>
                                             </Link>
                                         </td>
                                         <td>
-                                            <button onClick={() => handleDeleteClick(product.id)} className="btn btn-info btn-sm">
+                                            <button onClick={() => handleDeleteClick(product.id)} className="btn btn-sm">
                                                 Delete
                                             </button>
                                         </td>

@@ -1,7 +1,6 @@
-import React, { useCallback, useState, useEffect  } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import "./VendorPage.css";
 import { useNavigate } from 'react-router-dom';
-
 
 function VendorPage({ setAlert, quantumAuth }) {
     const navigate = useNavigate();
@@ -17,10 +16,10 @@ function VendorPage({ setAlert, quantumAuth }) {
             }
         }
         checkLogin();
-    } // eslint-disable-next-line react-hooks/exhaustive-deps
-        , []);
-    const [orderList, setOrderList] = useState([])
-    const [ordersByVendor, setOrdersByVendor] = useState([])
+    }, []); // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    const [orderList, setOrderList] = useState([]);
+    const [ordersByVendor, setOrdersByVendor] = useState([]);
 
     const loadOrders = useCallback(async () => {
         try {
@@ -30,7 +29,6 @@ function VendorPage({ setAlert, quantumAuth }) {
                 const data = await res.json();
                 console.log('data:', data);
                 setOrderList(data.orders);
-
             } else {
                 console.error('Failed to fetch orders:', res.status);
                 setOrderList([]);
@@ -39,21 +37,19 @@ function VendorPage({ setAlert, quantumAuth }) {
             console.error('Error during orders fetch:', error);
             setOrderList([]);
         }
-    },[quantumAuth.baseUrl]);
-
-    useEffect(()=>{
-        loadOrders()
-    },[])
+    }, [quantumAuth.baseUrl]);
 
     useEffect(() => {
-            // Filter orders by vendor when auth changes
-            if (quantumAuth.getAuthentication() && quantumAuth.getAuthentication().account) {
-                const ordersForVendor = orderList.filter(order => order.vendor_id === quantumAuth.getAuthentication().account.id);
-                setOrdersByVendor(ordersForVendor);
-            }
-        }, [quantumAuth.getAuthentication(), orderList]);
+        loadOrders();
+    }, []);
 
-
+    useEffect(() => {
+        // Filter orders by vendor when auth changes
+        if (quantumAuth.getAuthentication() && quantumAuth.getAuthentication().account) {
+            const ordersForVendor = orderList.filter(order => order.vendor_id === quantumAuth.getAuthentication().account.id);
+            setOrdersByVendor(ordersForVendor);
+        }
+    }, [quantumAuth.getAuthentication(), orderList]);
 
     // If not a vendor, don't show anything
     if (role !== 'vendor') return null;
@@ -61,39 +57,36 @@ function VendorPage({ setAlert, quantumAuth }) {
     return (
         <div className="d-flex flex-column flex-md-row justify-content-around my-5">
             {/* left panel */}
-             {/* left panel */}
             <div className="d-flex flex-column col-6 align-items-center">
                 <h1 className="panel-title">Orders</h1>
                 <div id="open-orders-id">
                     <div className="container">
                         <table className="table">
                             <thead>
-                            <tr>
-                               
-                                <th scope="col ">Order</th> 
-                                <th scope="col">BuyerName</th>
-                                <th scope="col">Product</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Unit</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Total</th>
-                                
-                            </tr>
+                                <tr>
+                                    <th scope="col">Orders</th>
+                                    <th scope="col">Buyer</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Unit</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Status</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 {ordersByVendor.map((order, i) => (
-                            <tr key= {i}>
-                                <th scope="row">{i+1}</th>
-                                <td>{order.buyer_fullname}</td>
-                                <td>{order.product_name}</td>
-                                <td>{order.quantity}</td>
-                                <td>{order.unit}</td>
-                                <td>${order.price}</td>
-                                <td>${order.total}</td>
-                                
-                            </tr>
-                            )
-    )}
+                                    <tr key={i}>
+                                        <th scope="row">{i + 1}</th>
+                                        <td>{order.buyer_fullname}</td>
+                                        <td>{order.product_name}</td>
+                                        <td>{order.quantity}</td>
+                                        <td>{order.unit}</td>
+                                        <td>${order.price}</td>
+                                        <td>${order.total}</td>
+                                        <td>{order.status}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>
@@ -102,14 +95,12 @@ function VendorPage({ setAlert, quantumAuth }) {
             {/* right panel */}
             <div className="d-flex flex-column align-items-center col-6 container">
                 <div>
-                    <a role="button" id="product-mgmt-btn"
-                        className="btn mgmt-btn" href="/vendor/product">
+                    <a role="button" id="product-mgmt-btn" className="btn mgmt-btn btn-lg" href="/vendor/product">
                         Product Management
                     </a>
                 </div>
                 <div>
-                    <a role="button" id="product-mgmt-btn"
-                        className="btn mgmt-btn" href="/vendor/orders">
+                    <a role="button" id="product-mgmt-btn" className="btn mgmt-btn btn-lg" href="/vendor/orders">
                         Order Management
                     </a>
                 </div>
@@ -117,6 +108,5 @@ function VendorPage({ setAlert, quantumAuth }) {
         </div>
     );
 }
-
 
 export default VendorPage;

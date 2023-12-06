@@ -40,7 +40,5 @@ def list_products(repo: ProductQueries = Depends()) -> ProductList:
 
 
 @router.get("/api/products/{product_id}")
-def product_detail(
-    product_id: str, repo: ProductQueries = Depends()
-) -> ProductOut:
+def product_detail(product_id: str, repo: ProductQueries = Depends()):
     return repo.get_one_product(product_id)

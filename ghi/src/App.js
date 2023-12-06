@@ -19,9 +19,7 @@ import OrderList from './orders/BuyersListOfOrders/OrderList';
 import VendorDetail from './vendors/VendorDetailPage';
 import VendorList from './vendors/VendorList';
 
-
 const baseUrl = process.env.REACT_APP_API_HOST;
-
 
 function App() {
   const [showAlert, setShowAlert] = useState(false);
@@ -34,12 +32,10 @@ function App() {
   const getAuthentication = () => auth;
   const isAuthenticated = () => auth !== null;
   const quantumAuth = { setAuthentication, baseUrl, getAuthentication, isAuthenticated, };
-  
 
   // send product data to form
-  function handleClick(product){
+  function handleClick(product) {
     setProductData(product)
-    
   }
 
   /**
@@ -74,7 +70,7 @@ function App() {
       quantumAuth.setAuthentication(auth);
     }
     checkLogin();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -97,19 +93,16 @@ function App() {
           <Route path="/createproduct" element={<ProductForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/login" element={<LoginForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/logout" element={<LogoutBtn setAlert={setAlert} quantumAuth={quantumAuth} />} />
-          <Route path="/product/edit/:productId" element={<ProductForm productData={productData} quantumAuth={quantumAuth}/>} />
+          <Route path="/product/edit/:productId" element={<ProductForm productData={productData} quantumAuth={quantumAuth} />} />
           <Route path="/products" element={<ProductList setAlert={setAlert} quantumAuth={quantumAuth} />} />
-          <Route path="/products/:id" element={<ProductDetail  productData={productData} handleClick={handleClick} setAlert={setAlert} quantumAuth={quantumAuth} />} />
-          <Route path="/vendors" element={<VendorList setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/products/:id" element={<ProductDetail productData={productData} handleClick={handleClick} setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/signup" element={<SignupForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/vendor" element={<VendorPage setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/vendor/:id" element={<VendorDetail setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/vendor/product" element={<ProductManagement setAlert={setAlert} handleClick={handleClick} quantumAuth={quantumAuth} />} />
           <Route path="/vendor/orders" element={<OrderManagement setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/vendors" element={<VendorList setAlert={setAlert} quantumAuth={quantumAuth} />} />
         </Routes>
-      </div>
-      <div>
-
       </div>
       <Footer />
     </BrowserRouter>

@@ -25,7 +25,7 @@ function Nav({ quantumAuth }) {
           Quantum Cup
         </NavLink>
 
-        <button className="navbar-toggler"type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
 
@@ -41,27 +41,27 @@ function Nav({ quantumAuth }) {
                 </NavLink>
                 <ul className="dropdown-menu shadow rounded-3">
                   <li className="dropdown-item">
-                    <NavLink className="nav-link btn" to="/vendor">Vendors Page</NavLink>
+                    <NavLink className="nav-link btn" to="/vendor">Vendor Home Page</NavLink>
                   </li>
                   <li className="dropdown-item">
                     <NavLink className="nav-link btn" to="/createproduct">Create Product</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link btn" to="/vendor/product">Product Management</NavLink>
+                    <NavLink className="nav-link btn" to="/products">List Products</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link btn" to="/vendor/orders">Order Management</NavLink>
+                    <NavLink className="nav-link btn" to="/vendor/product">Manage Products</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link btn" to="/products">All Products</NavLink>
+                    <NavLink className="nav-link btn" to="/vendor/orders">Manage Orders</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link btn">
-                    {
-                      /* Login button */
-                      quantumAuth.isAuthenticated() &&
-                      <LogoutBtn quantumAuth={quantumAuth} />
-                    }
+                    <NavLink className="nav-link btn d-flex justify-content-center">
+                      {
+                        /* Logout button */
+                        quantumAuth.isAuthenticated() &&
+                        <LogoutBtn quantumAuth={quantumAuth} />
+                      }
                     </NavLink>
                   </li>
                 </ul>
@@ -74,11 +74,11 @@ function Nav({ quantumAuth }) {
               <li className="nav-item dropdown">
                 <NavLink className="nav-link dropdown-toggle btn" href="/" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  Buyers Menu
+                  Buyer Menu
                 </NavLink>
                 <ul className="dropdown-menu">
                   <li className="dropdown-item">
-                    <NavLink className="nav-link btn" to="/buyer">Buyers Home Page</NavLink>
+                    <NavLink className="nav-link btn" to="/buyer">Buyer Home Page</NavLink>
                   </li>
                   <li className="dropdown-item">
                     <NavLink className="nav-link btn" to="/products">List Products</NavLink>
@@ -90,12 +90,12 @@ function Nav({ quantumAuth }) {
                     <NavLink className="nav-link btn" to="/vendors">List Vendors</NavLink>
                   </li>
                   <li className="dropdown-item">
-                    <NavLink className="nav-link btn">
-                    {
-                      /* Login button */
-                      quantumAuth.isAuthenticated() &&
-                      <LogoutBtn quantumAuth={quantumAuth} />
-                    }
+                    <NavLink className="nav-link btn d-flex justify-content-center">
+                      {
+                        /* Logout button */
+                        quantumAuth.isAuthenticated() &&
+                        <LogoutBtn quantumAuth={quantumAuth} />
+                      }
                     </NavLink>
                   </li>
                 </ul>

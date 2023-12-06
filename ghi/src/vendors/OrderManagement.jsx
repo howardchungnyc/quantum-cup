@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
 import "./VendorPage.css";
+import { Link } from "react-router-dom";
 
 function OrderManagement({ quantumAuth }) {
     const [orderList, setOrderList] = useState([]);
@@ -67,6 +68,26 @@ function OrderManagement({ quantumAuth }) {
                                         <td>${order.price}</td>
                                         <td>${order.total}</td>
                                         <td>{order.status}</td>
+                                        <td>
+                                            <Link
+                                                role="button"
+                                                id="order-mgmt-btn"
+                                                className="btn btn-sm text-center"
+                                            // to={}
+                                            >
+                                                Edit
+                                            </Link>
+                                        </td>
+                                        <td>
+                                            <Link
+                                                role="button"
+                                                id="order-mgmt-btn"
+                                                className="btn btn-sm text-center"
+                                            // to={}
+                                            >
+                                                Delete
+                                            </Link>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

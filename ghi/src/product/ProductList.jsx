@@ -57,7 +57,7 @@ function ProductList({ quantumAuth }) {
                         <span className="fw-bold">Rating</span> :<ShowStars rating={Math.round(product.rating_sum / product.rating_count)} />
                       </p>
                     </li>
-                    <Link to={`/products/${product.id}`} className="btn btn-info btn-md ">
+                    <Link to={`/products/${product.id}`} className="btn btn-md ">
                       Product Detail
                     </Link>
                   </ul>

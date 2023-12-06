@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from "./Nav";
 import MainPage from "./MainPage";
 import Footer from './Footer';
@@ -32,6 +32,9 @@ function App() {
   const getAuthentication = () => auth;
   const isAuthenticated = () => auth !== null;
   const quantumAuth = { setAuthentication, baseUrl, getAuthentication, isAuthenticated, };
+
+   const domain = /https:\/\/[^/]+/;
+   const basename = process.env.PUBLIC_URL.replace(domain, "");
 
   // send product data to form
   function handleClick(product) {
@@ -74,7 +77,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}> 
       <Nav quantumAuth={quantumAuth} />
       <div className='spacer'></div>
       {showAlert && !window.scrollTo(0, 0) && (

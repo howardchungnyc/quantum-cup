@@ -16,7 +16,7 @@ function VendorPage({ setAlert, quantumAuth }) {
             }
         }
         checkLogin();
-    }, []); // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [navigate, quantumAuth]); // eslint-disable-next-line react-hooks/exhaustive-deps
 
     const [orderList, setOrderList] = useState([]);
     const [ordersByVendor, setOrdersByVendor] = useState([]);
@@ -41,15 +41,17 @@ function VendorPage({ setAlert, quantumAuth }) {
 
     useEffect(() => {
         loadOrders();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         // Filter orders by vendor when auth changes
-        if (quantumAuth.getAuthentication() && quantumAuth.getAuthentication().account) {
-            const ordersForVendor = orderList.filter(order => order.vendor_id === quantumAuth.getAuthentication().account.id);
+        const authentication = quantumAuth.getAuthentication()
+        if (authentication && authentication.account) {
+            const ordersForVendor = orderList.filter(order => order.vendor_id === authentication.account.id);
             setOrdersByVendor(ordersForVendor);
         }
-    }, [quantumAuth.getAuthentication(), orderList]);
+    }, [quantumAuth, orderList]);
 
     // If not a vendor, don't show anything
     if (role !== 'vendor') return null;

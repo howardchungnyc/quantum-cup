@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Request
 from models.search import SearchMatchList, SearchItem, SearchItemIn
 from queries.search import SearchQueries
-from authenticator import authenticator
+from .authenticator import authenticator
 import os
 import shutil
 

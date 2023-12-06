@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from routers import users, vendor, products, orders
-from authenticator import authenticator
+from routers.authenticator import authenticator
 from routers.review import router as review_router
 from routers.search import router as search_router
 

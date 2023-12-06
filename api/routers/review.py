@@ -6,7 +6,7 @@ from models.review import (
     ReviewByBuyerList,
 )
 from queries.review import ReviewQueries
-from authenticator import authenticator
+from .authenticator import authenticator
 
 router = APIRouter()
 

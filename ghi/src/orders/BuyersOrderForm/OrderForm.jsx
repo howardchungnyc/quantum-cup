@@ -8,6 +8,7 @@ function OrderForm({ quantumAuth, productData }) {
 
   const navigate = useNavigate();
 
+  console.log(productData)
   useEffect(() => {
     if (!quantumAuth.isAuthenticated()) {
       navigate("/signup");
@@ -45,7 +46,7 @@ function OrderForm({ quantumAuth, productData }) {
     const buyerName = quantumAuth.getAuthentication().account.fullname;
     const productId = productData.product.id;
     const vendorId = productData.product.vendor_id;
-    const vendorName =productData.product.vendor_fullname
+    const vendorName = productData.product.vendor_fullname
     const data = {
       product_id: productId,
       buyer_id: buyerId,
@@ -138,7 +139,7 @@ function OrderForm({ quantumAuth, productData }) {
         <div className="offset-1 col-3 float">
           <div className="shadow p-4 mt-4">
             <div><strong>Sold by:</strong> {productData.product.vendor_fullname}</div>
-            <img src={productData.product.image} alt="Product" className="img-fluid"/>
+            <img src={productData.product.image} alt="Product" className="img-fluid" />
           </div>
         </div>
 

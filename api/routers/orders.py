@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from models.orders import OrderIn, OrderOut, OrderList
 from queries.orders import OrderQueries
-from authenticator import authenticator
+from .authenticator import authenticator
 
 router = APIRouter()
 

@@ -1,7 +1,8 @@
 import { React, useCallback, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function OrderList({ quantumAuth, auth }) {
+
+function OrderList({ quantumAuth }) {
 
 
     const [orderList, setOrderList] = useState([])
@@ -33,11 +34,12 @@ function OrderList({ quantumAuth, auth }) {
 
     useEffect(() => {
         // Filter orders by buyer when auth changes
-        if (quantumAuth.getAuthentication() && quantumAuth.getAuthentication().account) {
-            const ordersForBuyer = orderList.filter(order => order.buyer_id === quantumAuth.getAuthentication().account.id);
+        const authentication = quantumAuth.getAuthentication();
+        if (authentication && authentication.account) {
+            const ordersForBuyer = orderList.filter(order => order.buyer_id === authentication.account.id);
             setOrdersByBuyer(ordersForBuyer);
         }
-    }, [quantumAuth.getAuthentication(), orderList]);
+    }, [quantumAuth, orderList]);
 
     return (
 

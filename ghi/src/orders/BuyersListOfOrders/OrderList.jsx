@@ -14,7 +14,6 @@ function OrderList({ quantumAuth }) {
 
             if (res.ok) {
                 const data = await res.json();
-                console.log('data:', data);
                 setOrderList(data.orders);
 
             } else {

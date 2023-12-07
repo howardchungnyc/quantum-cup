@@ -27,7 +27,6 @@ function ProductDetail({ quantumAuth, handleClick }) {
       const response = await fetch(productUrl);
       const data = await response.json()
       if (data[0] && data.length > 0) {
-        console.log('data:', data)
         setProduct(data[0])
         setRating(Math.round(data[0].rating_sum / data[0].rating_count));
 
@@ -75,7 +74,6 @@ function ProductDetail({ quantumAuth, handleClick }) {
     if (product) {
       // Extract buyer_ids from the product reviews
       const buyerIds = product.reviews.map((review) => review.buyer_id);
-      console.log(buyerIds)
 
       // Fetch the full names of all buyers concurrently using Promise.all
       const names = await Promise.all(buyerIds.map((buyerId) => loadBuyerFullName(buyerId)));

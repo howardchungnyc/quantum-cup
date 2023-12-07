@@ -12,7 +12,6 @@ function ProductManagement({ quantumAuth, handleClick }) {
 
             if (res.ok) {
                 const data = await res.json();
-                console.log('data:', data);
                 setProductList(data.products);
             } else {
                 console.error('Failed to fetch products:', res.status);
@@ -52,7 +51,6 @@ function ProductManagement({ quantumAuth, handleClick }) {
                 // You can show a success message or update the product list after deletion
                 const updatedProducts = productsByVendor.filter(product => product.id !== productId);
                 setProductsByVendor(updatedProducts);
-                console.log('Product deleted successfully');
             } else {
                 // Handle error, show an error message
                 console.error('Failed to delete product:', response.status);

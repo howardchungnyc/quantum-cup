@@ -11,7 +11,6 @@ function ProductList({ quantumAuth }) {
 
       if (res.ok) {
         const data = await res.json();
-        console.log('data:', data);
         setProductList(data.products);
       } else {
         console.error('Failed to fetch products:', res.status);

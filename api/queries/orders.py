@@ -22,7 +22,6 @@ class OrderQueries(Queries):
         info["createdAt"] = now.strftime("%Y-%m-%d, %H:%M")
         self.collection.insert_one(info)
         info["id"] = str(info["_id"])
-        print(f"info: {info}")
         return OrderOut(**info)
 
     def get_all_orders(self) -> OrderList:

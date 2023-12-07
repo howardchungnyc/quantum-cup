@@ -8,7 +8,6 @@ function OrderForm({ quantumAuth, productData }) {
 
   const navigate = useNavigate();
 
-  console.log(productData)
   useEffect(() => {
     if (!quantumAuth.isAuthenticated()) {
       navigate("/signup");
@@ -73,7 +72,6 @@ function OrderForm({ quantumAuth, productData }) {
       });
 
       if (response.ok) {
-        console.log('Order submitted successfully!');
         setQuantity('');
         setTotal('');
       } else {

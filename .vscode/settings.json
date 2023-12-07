@@ -12,7 +12,9 @@
     "createproduct",
     "filedb",
     "filestore",
+    "Flintstone",
     "fullname",
+    "happycave",
     "indexdir",
     "jwtdown",
     "mgmt",
@@ -21,6 +23,8 @@
     "ordermgmt",
     "productmgmt",
     "qparser",
+    "signup",
+    "Stoneville",
     "zipcode"
   ],
   "[javascriptreact]": {

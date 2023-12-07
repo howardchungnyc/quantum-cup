@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 function ProductList({ quantumAuth }) {
   const [productList, setProductList] = useState([]);
+  const role = quantumAuth.getAuthentication().account.role;
+  const id = quantumAuth.getAuthentication().account.id;
 
   const loadProducts = useCallback(async () => {
     try {
@@ -11,8 +13,13 @@ function ProductList({ quantumAuth }) {
 
       if (res.ok) {
         const data = await res.json();
-        console.log('data:', data);
-        setProductList(data.products);
+        if (role === 'vendor') {
+          setProductList(data.products.filter(
+            product => product.vendor_id === id
+          ));
+        } else {
+          setProductList(data.products);
+        }
       } else {
         console.error('Failed to fetch products:', res.status);
         setProductList([]);
@@ -21,7 +28,7 @@ function ProductList({ quantumAuth }) {
       console.error('Error during product fetch:', error);
       setProductList([]);
     }
-  }, [quantumAuth.baseUrl]);
+  }, [quantumAuth.baseUrl, id, role]);
 
   useEffect(() => {
     loadProducts();

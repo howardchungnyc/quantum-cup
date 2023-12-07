@@ -27,7 +27,6 @@ function ProductDetail({ quantumAuth, handleClick }) {
       const response = await fetch(productUrl);
       const data = await response.json()
       if (data[0] && data.length > 0) {
-        console.log('data:', data)
         setProduct(data[0])
         setRating(Math.round(data[0].rating_sum / data[0].rating_count));
 
@@ -75,7 +74,6 @@ function ProductDetail({ quantumAuth, handleClick }) {
     if (product) {
       // Extract buyer_ids from the product reviews
       const buyerIds = product.reviews.map((review) => review.buyer_id);
-      console.log(buyerIds)
 
       // Fetch the full names of all buyers concurrently using Promise.all
       const names = await Promise.all(buyerIds.map((buyerId) => loadBuyerFullName(buyerId)));
@@ -133,13 +131,17 @@ function ProductDetail({ quantumAuth, handleClick }) {
               </li>
               {/* Add more details as needed */}
             </ul>
-            {providedReview === 0 &&
-              <button className="btn btn-md"
-                onClick={() => setProvidedReview(1)}>Leave Review</button>
-            }
-            {providedReview > 0 &&
-              <div className="my-3">
-                <ReviewTaker onSubmit={handleSubmitReview} />
+            {quantumAuth.getAuthentication().account.role === 'buyer' &&
+              <div>
+                {providedReview === 0 &&
+                  <button className="btn btn-md"
+                    onClick={() => setProvidedReview(1)}>Leave Review</button>
+                }
+                {providedReview > 0 &&
+                  <div className="my-3">
+                    <ReviewTaker onSubmit={handleSubmitReview} />
+                  </div>
+                }
               </div>
             }
           </div>

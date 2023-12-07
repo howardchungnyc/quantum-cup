@@ -31,26 +31,22 @@ The following user stories were used to design the system:
 1. [X] As a user, I want to be able to create a new account, either as a buyer or a vendor.
 1. [X] As a user, I want to be able to log in to the system, either as a buyer or a vendor.
 1. [X] As a user, I want to be able to log out of the system.
-1. [ ] As a user, I want to be able to view and edit my account information.
-1. [ ] As a buyer, I want to be able to view a list of all the coffee vendors in the system.
-1. [ ] As a buyer, I want to be able to view the details of a coffee shop.
-1. [ ] As a buyer, I want to be able to view a list of all the coffee products in the system.
-1. [X] As a buyer, I want to be able to view the details of a coffee product.
-1. [X] As a buyer, I want to be able to write a review for a coffee product.
-1. [ ] As a buyer, I want to be able to write a review for a coffee shop.
-1. [ ] As a buyer, I want to be able to order a coffee product.
-1. [ ] As a buyer, I want to be able to view a list of all my orders.
-1. [ ] As a buyer, I want to be able to view the details of an order.
-1. [ ] As a buyer, I want to be able to cancel an order.
-1. [ ] As a vendor, I want to be able to view a list of all the coffee products in the system.
-1. [X] As a vendor, I want to be able to view the details of a coffee product.
-1. [X] As a vendor, I want to be able to add a new coffee product.
-1. [X] As a vendor, I want to be able to edit a coffee product.
-1. [X] As a vendor, I want to be able to delete a coffee product.
-1. [ ] As a vendor, I want to be able to view a list of all the orders in the system.
-1. [ ] As a vendor, I want to be able to view the details of an order.
-1. [ ] As a vendor, I want to be able to cancel an order.
-1. [ ] As a vendor, I want to be able to mark an order as fulfilled.
+1. [X] As a buyer, I want to be able to view a list of all the vendors in the system.
+1. [X] As a buyer, I want to be able to view a list of all the products in the system.
+1. [X] As a buyer, I want to be able to view the details of a product.
+1. [X] As a buyer, I want to be able to write a review for a product.
+1. [X] As a buyer, I want to be able to order a product.
+1. [X] As a buyer, I want to be able to view a list of all my orders.
+1. [X] As a buyer, I want to be able to edit the details of an order.
+1. [X] As a buyer, I want to be able to cancel an order.
+1. [X] As a vendor, I want to be able to view the details of a product.
+1. [X] As a vendor, I want to be able to add a new product.
+1. [X] As a vendor, I want to be able to edit a product.
+1. [X] As a vendor, I want to be able to delete a product.
+1. [X] As a vendor, I want to be able to view a list of all my orders in the system.
+1. [X] As a vendor, I want to be able to edit the details of an order.
+1. [X] As a vendor, I want to be able to cancel an order.
+1. [X] As a vendor, I want to be able to mark an order as fulfilled.
 
 
 ### Architecture
@@ -186,10 +182,8 @@ Example of signing in a new user:
 #### Vendors endpoints:
 | Action                          | Method | URL                                          |
 | --------------------------------| ------ | -------------------------------------------- |
-
-#### Buyers endpoints:
-| Action                          | Method | URL                                          |
-| --------------------------------| ------ | -------------------------------------------- |
+| List all vendors                | GET    | /api/vendors                                 |
+| Get vendor detail               | GET    | /api/vendors/{vendor_id}                     |
 
 #### Search Endpoint
 | Action                          | Method | URL                                          |
@@ -229,10 +223,52 @@ example:
 #### Products endpoints:
 | Action                          | Method | URL                                          |
 | --------------------------------| ------ | -------------------------------------------- |
+| Create new product              | POST   | /api/products                                |
+| Delete product                  | DELETE | /api/products/{product_id}                   |
+| Update product                  | PUT    | /api/products/{product_id}                   |
+| List all products               | GET    | /api/products                                |
+| Get product detail              | GET    | /api/products/{product_id}                   |
+
+#### Example of creating a new product:
+```json
+{
+    "name": "Arabica Beans",
+    "description": "Arabica beans are renowned for their smooth, mild flavor and "
+                   "aromatic qualities. They are often considered the gold "
+                   "standard of coffee beans. Grown at higher elevations in "
+                   "regions like Colombia, Ethiopia, and Kenya, Arabica beans "
+                   "are known for their bright acidity and nuanced flavors, "
+                   "which can include fruity, floral, and nutty notes.",
+    "price": 12.99,
+    "unit": "lb",
+    "image": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4",
+}
+```
 
 #### Orders endpoints:
 | Action                          | Method | URL                                          |
 | --------------------------------| ------ | -------------------------------------------- |
+| Create new order                | POST   | /api/orders/create                           |
+| Get list of all orders          | GET    | /api/orders                                  |
+| Update order                    | PUT    | /api/orders/{order_id}                       |
+| Delete order                    | DELETE | /api/orders/{order_id}                       |
+
+#### Example of creating a new order:
+
+```json
+    {
+      "product_id": "str",
+      "buyer_id": "str",
+      "buyer_fullname": "str",
+      "vendor_id": "str",
+      "vendor_fullname": "str",
+      "product_name": "str",
+      "price": "float",
+      "unit": "str",
+      "quantity": "int",
+      "total": "float"
+    }
+```
 
 #### Review endpoints:
 | Action                          | Method | URL                                          |

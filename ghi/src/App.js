@@ -67,10 +67,14 @@ function App() {
 
   useEffect(() => {
     async function checkLogin() {
-      const url = baseUrl + "/token";
-      const res = await fetch(url, { method: "get", credentials: "include" });
-      let auth = await res.json();
-      quantumAuth.setAuthentication(auth);
+      try{
+        const url = baseUrl + "/token";
+        const res = await fetch(url, { method: "get", credentials: "include" });
+        let auth = await res.json();
+        quantumAuth.setAuthentication(auth);
+      }catch{
+        // no authentication yet
+      }
     }
     checkLogin();
     // eslint-disable-next-line react-hooks/exhaustive-deps

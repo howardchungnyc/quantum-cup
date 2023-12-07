@@ -26,6 +26,7 @@ lint-test-job:
 #   variables
 #     DATABASE_URL: ${DATABASE_URL}
 #     SIGNING_KEY: ${SIGNING_KEY}
+#     MONGO_DB: ${MONGO_DB}
 
 # # Build API Image:
 build-api-image:

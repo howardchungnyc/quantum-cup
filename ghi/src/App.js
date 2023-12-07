@@ -35,7 +35,7 @@ function App() {
 
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
-console.log(basename, "111")
+
   // send product data to form
   function handleClick(product) {
     setProductData(product)

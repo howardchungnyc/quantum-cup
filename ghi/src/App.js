@@ -69,7 +69,7 @@ function App() {
     async function checkLogin() {
       try {
         const url = baseUrl + "/token";
-        const res = await fetch(url, { method: "get" });
+        const res = await fetch(url, { method: "get", mode: 'no-cors'});
         let auth = await res.json();
         quantumAuth.setAuthentication(auth);
       } catch {

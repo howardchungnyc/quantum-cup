@@ -12,11 +12,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://quantum-cup-tonyspence-2c5d01037fd"
-        + "46c3b59c1cc7f412c6037bbde2851.gitlab.io",
-        "*",
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

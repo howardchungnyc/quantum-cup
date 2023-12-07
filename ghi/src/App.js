@@ -33,8 +33,8 @@ function App() {
   const isAuthenticated = () => auth !== null;
   const quantumAuth = { setAuthentication, baseUrl, getAuthentication, isAuthenticated, };
 
-   const domain = /https:\/\/[^/]+/;
-   const basename = process.env.PUBLIC_URL.replace(domain, "");
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, "");
 
   // send product data to form
   function handleClick(product) {
@@ -67,12 +67,12 @@ function App() {
 
   useEffect(() => {
     async function checkLogin() {
-      try{
+      try {
         const url = baseUrl + "/token";
-        const res = await fetch(url, { method: "get"});
+        const res = await fetch(url, { method: "get" });
         let auth = await res.json();
         quantumAuth.setAuthentication(auth);
-      }catch{
+      } catch {
         // no authentication yet
       }
     }
@@ -81,7 +81,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter basename={basename}> 
+    <BrowserRouter basename={basename}>
       <Nav quantumAuth={quantumAuth} />
       <div className='spacer'></div>
       {showAlert && !window.scrollTo(0, 0) && (

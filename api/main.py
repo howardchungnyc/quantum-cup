@@ -1,5 +1,7 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+
+# from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from routers import users, vendor, products, orders
 from routers.authenticator import authenticator
 from routers.review import router as review_router
@@ -10,7 +12,11 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://tonyspence.gitlab.io", "*"],
+    allow_origins=[
+        "https://quantum-cup-tonyspence-2c5d01037fd"
+        + "46c3b59c1cc7f412c6037bbde2851.gitlab.io",
+        "*",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

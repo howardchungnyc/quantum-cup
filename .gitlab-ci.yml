@@ -13,22 +13,23 @@ lint-test-job:
   script:
     - pip install flake8
     - flake8 api
-# # Run the unit tests
-# api-unit-tests-job:
-#   image: python:3-bullseye
-#   stage: test
-#   needs:
-#     - lint-test-job
-#   script:
-#     - cd api
-#     - pip install -r requirements.txt
-#     - python -m pytest
-#   variables
-#     DATABASE_URL: ${DATABASE_URL}
-#     SIGNING_KEY: ${SIGNING_KEY}
-#     MONGO_DB: ${MONGO_DB}
 
-# # Build API Image:
+# Run the unit tests
+api-unit-tests-job:
+  image: python:3-bullseye
+  stage: test
+  needs:
+    - lint-test-job
+  script:
+    - cd api
+    - pip install -r requirements.txt
+    - python -m pytest
+  variables:
+    DATABASE_URL: "Mocked"
+    SIGNING_KEY: "Mocked"
+    MONGO_DB: "Mocked"
+
+# Build API Image:
 build-api-image:
   stage: build
   image: docker:git
@@ -42,7 +43,7 @@ build-api-image:
     - docker push $GITLAB_IMAGE:latest
   only:
     - main
-# # Build the React/JavaScript front-end
+# Build the React/JavaScript front-end
 build-front-end-job:
   stage: build
   image: node:lts-bullseye
@@ -67,7 +68,7 @@ build-front-end-job:
     paths:
       - ghi/build/
 
-# # Deploy the React/JavaScript front-end to GitLab pages
+# Deploy the React/JavaScript front-end to GitLab pages
 pages:
   stage: deploy
   rules:

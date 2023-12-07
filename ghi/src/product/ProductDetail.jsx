@@ -131,13 +131,17 @@ function ProductDetail({ quantumAuth, handleClick }) {
               </li>
               {/* Add more details as needed */}
             </ul>
-            {providedReview === 0 &&
-              <button className="btn btn-md"
-                onClick={() => setProvidedReview(1)}>Leave Review</button>
-            }
-            {providedReview > 0 &&
-              <div className="my-3">
-                <ReviewTaker onSubmit={handleSubmitReview} />
+            {quantumAuth.getAuthentication().account.role === 'buyer' &&
+              <div>
+                {providedReview === 0 &&
+                  <button className="btn btn-md"
+                    onClick={() => setProvidedReview(1)}>Leave Review</button>
+                }
+                {providedReview > 0 &&
+                  <div className="my-3">
+                    <ReviewTaker onSubmit={handleSubmitReview} />
+                  </div>
+                }
               </div>
             }
           </div>

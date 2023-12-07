@@ -68,10 +68,10 @@ function App() {
   useEffect(() => {
     async function checkLogin() {
       try{
-        // const url = baseUrl + "/token";
-        // const res = await fetch(url, { method: "get"});
-        // let auth = await res.json();
-        // quantumAuth.setAuthentication(auth);
+        const url = baseUrl + "/token";
+        const res = await fetch(url, { method: "get"});
+        let auth = await res.json();
+        quantumAuth.setAuthentication(auth);
       }catch{
         // no authentication yet
       }

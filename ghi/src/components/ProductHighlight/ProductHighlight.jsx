@@ -104,7 +104,7 @@ function ProductHighlight({ quantumAuth, handleClick }) {
                 <div className="text-container">
                     <h4>{name}</h4>
                     <p className="mb-4">by {vendorId !== "" ?
-                        <a className="vendor-link" href={`/vendor/${vendorId}`}>{vendor}</a> :
+                        <Link className="vendor-link" to={`/vendor/${vendorId}`}>{vendor}</Link> :
                         vendor}
                     </p>
                     <p>{description}</p>

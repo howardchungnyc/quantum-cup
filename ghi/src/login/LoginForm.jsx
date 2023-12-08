@@ -46,7 +46,7 @@ function LoginForm({ setAlert, quantumAuth }) {
     redirect(quantumAuth.getAuthentication().account.role);
     return null;
   }
-  
+
   return (
     <div className="container">
       <div className="d-flex flex-column flex-md-row">
@@ -83,7 +83,7 @@ function LoginForm({ setAlert, quantumAuth }) {
           </form>
         </div>
         <div className="col-12 col-md-6 logo-signup">
-          <img src="/img/logo_light_bg.png" alt="coffee log" width={"70%"}></img>
+          <img src="https://i.imgur.com/zlzNSFj.png" alt="coffee log" width={"70%"}></img>
         </div>
       </div>
     </div>

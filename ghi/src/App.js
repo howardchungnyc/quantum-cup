@@ -29,7 +29,7 @@ function App() {
   const [productData, setProductData] = useState()
 
   const setAuthentication = (auth) => setAuth(auth);
-  const getAuthentication = () => auth;
+  const getAuthentication = () => JSON.parse(JSON.stringify(auth));
   const isAuthenticated = () => auth !== null;
   const quantumAuth = { setAuthentication, baseUrl, getAuthentication, isAuthenticated, };
 
@@ -69,7 +69,7 @@ function App() {
     async function checkLogin() {
       try {
         const url = baseUrl + "/token";
-        const res = await fetch(url, { method: "get"});
+        const res = await fetch(url, { method: "get", credentials: "include"});
         let auth = await res.json();
         quantumAuth.setAuthentication(auth);
       } catch {

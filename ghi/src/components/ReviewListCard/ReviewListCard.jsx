@@ -19,7 +19,6 @@ function ReviewListCard({ review, onClick }) {
                     </div>
                     <div className="d-flex justify-content-end col-md-3">
                         <div>
-                            {/* <a href="/" className="btn me-2">Edit</a> */}
                             <button onClick={onClick} className="btn"
                                 name="delete" data-id={review.id}>Delete</button>
                         </div>

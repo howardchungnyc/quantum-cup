@@ -26,8 +26,8 @@ function MainPage({ setAlert, quantumAuth }) {
           <img src="/img/lightlogo.png" alt="coffee logo" width={"33%"} className="mt-5"></img>
           <div className="h4 my-5 text-center">A unique community of coffee enthusiasts</div>
           <div className="d-flex">
-            <Link className="btn" href="/signup">Sign Up</Link>
-            <Link className="btn" href="/login">Login</Link>
+            <Link className="btn" to="/signup">Sign Up</Link>
+            <Link className="btn" to="/login">Login</Link>
           </div>
         </div>
         <div className="col-12 col-md-6">

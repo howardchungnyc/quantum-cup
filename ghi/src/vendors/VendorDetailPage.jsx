@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import "./VendorDetailPage.css";
 
 
@@ -55,9 +55,9 @@ function VendorDetailPage({ quantumAuth, setAlert }) {
                     <div className="ms-3">
                         {vendorProducts && vendorProducts.length > 0 ?
                             vendorProducts.map(product =>
-                                <a key={product.id} className="prod-link" href={`/products/${product.id}`}>
+                                <Link key={product.id} className="prod-link" to={`/products/${product.id}`}>
                                     <div>{product.name}</div>
-                                </a>
+                                </Link>
                             ) :
                             <p>No products found</p>
                         }

@@ -4,23 +4,6 @@ import { Link } from 'react-router-dom';
 import "./SearchBlock.css";
 
 
-function ResultList({ searchResults }) {
-    return (
-        searchResults ?
-            searchResults.length ?
-                <div className="list-group">
-                    {searchResults.map((result, ix) => (
-                        <Link key={ix} to={`/products/${result.product_id}`}
-                            className="list-group-item list-group-item-action">
-                            <strong>{result.product}</strong> <small>by {result.vendor_name}</small>
-                        </Link>
-                    ))}
-                </div>
-                : <div className="list-group-item">No results</div>
-            : <div></div>
-    );
-}
-
 /**
  * SearchBlock component
  *
@@ -52,6 +35,31 @@ function ResultList({ searchResults }) {
  */
 function SearchBlock({ placeholder, onSubmit, fieldsSelector, quantumAuth }) {
     const [searchResults, setSearchResults] = React.useState(null);
+
+
+    function ResultList({ searchResults: searchRes }) {
+        return (
+            searchRes ?
+                searchRes.length ?
+                    <div onClick={() => setSearchResults(null)} className="list-group">
+                        {searchRes.map((result, ix) => (
+                            <Link key={ix} to={`/products/${result.product_id}`}
+                                className="list-group-item list-group-item-action">
+                                <div>
+                                    <strong>{result.product}</strong>
+                                </div>
+                                <div className="ps-3" >
+                                    <small>by {result.vendor_name}</small>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                    : <div className="list-group-item">No results</div>
+                : <div></div>
+        );
+    }
+
+
     /**
      * Handle search submit
      * If the caller has provided an onSubmit handler, call it and stop,

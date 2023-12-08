@@ -11,8 +11,9 @@ class DuplicateAccountError(ValueError):
     pass
 
 
+# Class representing queries related to products
 class ProductQueries(Queries):
-    # MongoDB collection name for accounts
+    # MongoDB collection name for products
     collection_name = "products"
 
     def update_rating(self, product_id: str, rating: int) -> bool:
@@ -23,9 +24,14 @@ class ProductQueries(Queries):
         param: rating: int - the rating to add to the product
         return: bool - True if the product was updated, False otherwise
         """
+        rc = 1  # rating count increment
+        if rating < -5 or rating > 5:
+            raise ValueError("Rating must be between -5 and 5")
+        if rating < 0:
+            rc = -1
         result = self.collection.update_one(
             {"_id": ObjectId(product_id)},
-            {"$inc": {"rating_count": 1, "rating_sum": rating}},
+            {"$inc": {"rating_count": rc, "rating_sum": rating}},
         )
         return result.modified_count == 1
 

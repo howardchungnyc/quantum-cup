@@ -1,5 +1,6 @@
 import React from "react";
 import { quantumSearch } from "./quantumSearch"
+import { Link } from 'react-router-dom';
 import "./SearchBlock.css";
 
 
@@ -9,10 +10,10 @@ function ResultList({ searchResults }) {
             searchResults.length ?
                 <div className="list-group">
                     {searchResults.map((result, ix) => (
-                        <a key={ix} href={`/products/${result.product_id}`}
+                        <Link key={ix} to={`/products/${result.product_id}`}
                             className="list-group-item list-group-item-action">
                             <strong>{result.product}</strong> <small>by {result.vendor_name}</small>
-                        </a>
+                        </Link>
                     ))}
                 </div>
                 : <div className="list-group-item">No results</div>

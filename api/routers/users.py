@@ -14,7 +14,7 @@ from models.users import (
     Error,
 )
 from queries.users import AccountQueries, DuplicateAccountError
-from authenticator import authenticator
+from .authenticator import authenticator
 
 router = APIRouter()
 

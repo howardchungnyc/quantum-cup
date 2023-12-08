@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 function MainPage({ setAlert, quantumAuth }) {
@@ -21,17 +21,17 @@ function MainPage({ setAlert, quantumAuth }) {
 
   return (
     <div>
-      <div className="d-flex flex-column flex-md-row">
-        <div className="d-flex justify-content-center align-items-center hero-interaction flex-column col-12 col-md-6 ">
-          <img src="/img/logo_dark_bg.png" alt="coffee logo" width={"33%"}></img>
+      <div className="d-flex flex-column flex-md-row ">
+        <div className="d-flex align-items-center hero-interaction flex-column col-12 col-md-6 ">
+          <img src="https://i.imgur.com/jN2wPcE.png" alt="coffee logo" width={"33%"} className="mt-5"></img>
           <div className="h4 my-5 text-center">A unique community of coffee enthusiasts</div>
           <div className="d-flex">
-            <a className="btn" href="/signup">Sign Up</a>
-            <a className="btn" href="/login">Login</a>
+            <Link className="btn" to="/signup">Sign Up</Link>
+            <Link className="btn" to="/login">Login</Link>
           </div>
         </div>
         <div className="col-12 col-md-6">
-          <img src="/img/hero_img.png" alt="coffee" width={"100%"}></img>
+          <img src="https://i.imgur.com/PgiFw0h.pnggi" alt="coffee" width={"100%"}></img>
         </div>
       </div>
     </div>

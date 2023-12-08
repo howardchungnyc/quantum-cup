@@ -29,11 +29,14 @@
   border-radius: var(--block-border-radius);
 }
 
+.dropdown-menu {
+  background-color: #f2deaf;
+  ;
+}
+
 .spacer {
   height: 5rem;
 }
-
-/* Body Styling */
 
 body {
   margin: 0;
@@ -75,6 +78,12 @@ img,
 
 .dark-text {
   color: var(--color-theme-dark)
+}
+
+.vendor_link {
+  text-decoration: none;
+  color: var(--color-light-text);
+
 }
 
 /* Footer Styling */

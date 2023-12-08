@@ -1,25 +1,12 @@
-import React, { useCallback, useState, useEffect } from "react";
-import "./VendorPage.css";
-import { useNavigate, Link } from 'react-router-dom';
+import { React, useCallback, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-function VendorPage({ setAlert, quantumAuth }) {
-    const navigate = useNavigate();
-    const role = quantumAuth.getAuthentication() &&
-        quantumAuth.getAuthentication().account.role;
 
-    // Navigate to the home page if not logged in or not a vendor
-    useEffect(() => {
-        async function checkLogin() {
-            if (!quantumAuth.isAuthenticated() ||
-                quantumAuth.getAuthentication().account.role !== 'vendor') {
-                navigate('/');
-            }
-        }
-        checkLogin();
-    }, [navigate, quantumAuth]); // eslint-disable-next-line react-hooks/exhaustive-deps
+function OrderList({ quantumAuth }) {
 
-    const [orderList, setOrderList] = useState([]);
-    const [ordersByVendor, setOrdersByVendor] = useState([]);
+
+    const [orderList, setOrderList] = useState([])
+    const [ordersByBuyer, setOrdersByBuyer] = useState([])
 
     const loadOrders = useCallback(async () => {
         try {
@@ -28,8 +15,9 @@ function VendorPage({ setAlert, quantumAuth }) {
             if (res.ok) {
                 const data = await res.json();
                 setOrderList(data.orders);
+
             } else {
-                console.error('Failed to fetch orders:', res.status);
+                console.error('Failed to fetch products:', res.status);
                 setOrderList([]);
             }
         } catch (error) {
@@ -39,23 +27,21 @@ function VendorPage({ setAlert, quantumAuth }) {
     }, [quantumAuth.baseUrl]);
 
     useEffect(() => {
-        loadOrders();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        loadOrders()
+        // eslint-disable-next-line
+    }, [])
 
     useEffect(() => {
-        // Filter orders by vendor when auth changes
-        const authentication = quantumAuth.getAuthentication()
+        // Filter orders by buyer when auth changes
+        const authentication = quantumAuth.getAuthentication();
         if (authentication && authentication.account) {
-            const ordersForVendor = orderList.filter(order => order.vendor_id === authentication.account.id);
-            setOrdersByVendor(ordersForVendor);
+            const ordersForBuyer = orderList.filter(order => order.buyer_id === authentication.account.id);
+            setOrdersByBuyer(ordersForBuyer);
         }
     }, [quantumAuth, orderList]);
 
-    // If not a vendor, don't show anything
-    if (role !== 'vendor') return null;
-
     return (
+
         <div className="d-flex flex-column flex-md-row justify-content-around my-5">
             {/* left panel */}
             <div className="d-flex flex-column col-6 align-items-center">
@@ -76,7 +62,7 @@ function VendorPage({ setAlert, quantumAuth }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {ordersByVendor.map((order, i) => (
+                                {ordersByBuyer.map((order, i) => (
                                     <tr key={i}>
                                         <th scope="row">{i + 1}</th>
                                         <td>{order.buyer_fullname}</td>
@@ -86,6 +72,26 @@ function VendorPage({ setAlert, quantumAuth }) {
                                         <td>${order.price}</td>
                                         <td>${order.total}</td>
                                         <td>{order.status}</td>
+                                        <td>
+                                            <Link
+                                                role="button"
+                                                id="order-mgmt-btn"
+                                                className="btn btn-sm text-center"
+                                            // to={product.id}
+                                            >
+                                                Edit
+                                            </Link>
+                                        </td>
+                                        <td>
+                                            <Link
+                                                role="button"
+                                                id="order-mgmt-btn"
+                                                className="btn btn-sm text-center"
+                                            // to={product.id}
+                                            >
+                                                Delete
+                                            </Link>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -95,19 +101,12 @@ function VendorPage({ setAlert, quantumAuth }) {
             </div>
             {/* right panel */}
             <div className="d-flex flex-column align-items-center col-6 container">
-                <div>
-                    <Link role="button" id="product-mgmt-btn" className="btn mgmt-btn btn-lg" to="/vendor/product">
-                        Manage Products
-                    </Link>
-                </div>
-                <div>
-                    <Link role="button" id="product-mgmt-btn" className="btn mgmt-btn btn-lg" to="/vendor/orders">
-                        Manage Orders
-                    </Link>
+                <div className="col-12 col-md-6 logo-signup">
+                    <img src="https://i.imgur.com/zlzNSFj.png" alt="coffee log" className="img-fluid" />
                 </div>
             </div>
         </div>
     );
 }
 
-export default VendorPage;
+export default OrderList;

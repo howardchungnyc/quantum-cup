@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from queries.products import ProductQueries
 from models.products import ProductOut, ProductIn, ProductList
-from authenticator import authenticator
+from .authenticator import authenticator
 
 
 router = APIRouter()

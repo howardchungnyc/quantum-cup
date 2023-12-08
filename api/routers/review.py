@@ -6,7 +6,7 @@ from models.review import (
     ReviewByBuyerList,
 )
 from queries.review import ReviewQueries
-from authenticator import authenticator
+from .authenticator import authenticator
 
 router = APIRouter()
 
@@ -22,6 +22,19 @@ async def create_review(
     """
     newReview: ReviewOut = repo.create(review, account)
     return newReview
+
+
+@router.delete("/api/reviews/{review_id}")
+async def delete_review(
+    review_id: str,
+    repo: ReviewQueries = Depends(),
+    account: dict = Depends(authenticator.get_current_account_data),
+) -> None:
+    """
+    Delete a review
+    """
+    repo.delete(review_id, account)
+    return None
 
 
 @router.get("/api/reviews/buyer/{buyer_id}", response_model=ReviewByBuyerList)

@@ -99,8 +99,6 @@ function ProductDetail({ quantumAuth, handleClick }) {
     //eslint-disable-next-line
   }, [product]);
 
-
-
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -110,10 +108,15 @@ function ProductDetail({ quantumAuth, handleClick }) {
       <div className="container mt-5">
         <div className="card mb-3">
           <div className="card-body hero-interaction ">
-            <h2 className="card-title">{product.name}</h2>
-            <Link to={`/buyer/orderform`}>
-            <button onClick={()=> handleClick({product})} className="btn btn-info btn-md" > Order</button>
+            <h1 className="card-title"><strong>{product.name}</strong> </h1>
+            <Link className="vendor_link" to={`/vendor/${product.vendor_id}`}>
+              <h4><span>Sold By:</span> {product.vendor_fullname}</h4>
             </Link>
+            {quantumAuth.getAuthentication().account.role === 'buyer' &&
+              <Link to={`/buyer/orderform`}>
+                <button onClick={() => handleClick({ product })} className="btn btn-md" > Order</button>
+              </Link>
+            }
             <img src={product.image} alt="" className="img-fluid w-40 d-block mx-auto" />
             <p className="card-text">{product.description}</p>
             <ul className="list-group list-group-flush">
@@ -124,46 +127,39 @@ function ProductDetail({ quantumAuth, handleClick }) {
                 <strong>Unit:</strong> {product.unit}
               </li>
               <li className="list-group-item hero-interaction">
-                <strong>Sold By:</strong> {product.vendor_fullname}
-              </li>
-              <li className="list-group-item hero-interaction">
                 <strong>Rating:</strong>  <ShowStars rating={rating} />
               </li>
               {/* Add more details as needed */}
             </ul>
-            {providedReview === 0 &&
-              <button className="btn btn-info btn-md"
-                onClick={() => setProvidedReview(1)}>Leave Review</button>
-            }
-            {providedReview > 0 &&
-              <div className="my-3">
-                <ReviewTaker onSubmit={handleSubmitReview} />
+            {quantumAuth.getAuthentication().account.role === 'buyer' &&
+              <div>
+                {providedReview === 0 &&
+                  <button className="btn btn-md"
+                    onClick={() => setProvidedReview(1)}>Leave Review</button>
+                }
+                {providedReview > 0 &&
+                  <div className="my-3">
+                    <ReviewTaker onSubmit={handleSubmitReview} />
+                  </div>
+                }
               </div>
             }
           </div>
-
         </div>
-
       </div>
       <div className="text-center">
         <h3 className="mt-4">Comments:</h3>
         {product.reviews.map((review, i) => (
-           review.sentiment_score < 0.49 ? (
-              <div className="chat chat-start border p-4 mb-4 mt-4 hero-interaction col-6 mx-auto round" key={i}>
-                <div className="chat-header d-flex justify-content-between">
-                  <div className="chat-bubble mt-2"><span className="text-xs opacity-50">Comment: </span> {review.comment}</div>
-                  
-                  <time className="text-xs opacity-50">{formatCreatedAt(review.createdAt)}</time>
-                </div>
-                <div className="chat-bubble "><span className="text-xs opacity-50">Negative Sentiment Score:  </span> {review.sentiment_score}</div>
-
-                <div className="fw-bold"> <span className="text-xs opacity-50">Reviewed by: </span>{buyerNames[i]}</div>
-                <div className="chat-footer opacity-50 mt-2"></div>
-              </div>
-            ) : null
-          )
-          )}
-          
+          <div className="chat chat-start border p-4 mb-4 mt-4 hero-interaction col-6 mx-auto round" key={i}>
+            <div className="chat-header d-flex justify-content-between">
+              <div className="chat-bubble mt-2"><span className="text-xs opacity-50">Comment: </span> {review.comment}</div>
+              <time className="text-xs opacity-50">{formatCreatedAt(review.createdAt)}</time>
+            </div>
+            <div className="fw-bold"> <span className="text-xs opacity-50">Reviewed by: </span>{buyerNames[i]}</div>
+            <div className="chat-footer opacity-50 mt-2"></div>
+          </div>
+        )
+        )};
       </div>
     </>
   );

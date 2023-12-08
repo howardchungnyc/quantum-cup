@@ -46,7 +46,7 @@ function LoginForm({ setAlert, quantumAuth }) {
     redirect(quantumAuth.getAuthentication().account.role);
     return null;
   }
-  
+
   return (
     <div className="container">
       <div className="d-flex flex-column flex-md-row">
@@ -55,6 +55,17 @@ function LoginForm({ setAlert, quantumAuth }) {
             {/* sign selector */}
             <div className="d-flex mb-5">
               <div className="col-6 h2">Sign In</div>
+            </div>
+            {/* actual form */}
+            <div className="d-flex flex-column mb-3">
+              <div className="col-12 my-3">
+                <input type="text" className="form-control" id="username"
+                  required placeholder="Username" />
+              </div>
+              <div className="col-12 my-3">
+                <input type="password" className="form-control" id="password"
+                  required placeholder="Password" />
+              </div>
               <div className="form-check col-6 d-flex justify-content-between align-items-center">
                 <div>
                   <input className="form-check-input" type="radio" required
@@ -68,22 +79,11 @@ function LoginForm({ setAlert, quantumAuth }) {
                 </div>
               </div>
             </div>
-            {/* actual form */}
-            <div className="d-flex flex-column mb-3">
-              <div className="col-12 my-3">
-                <input type="text" className="form-control" id="username"
-                  required placeholder="Username" />
-              </div>
-              <div className="col-12 my-3">
-                <input type="password" className="form-control" id="password"
-                  required placeholder="Password" />
-              </div>
-            </div>
             <button className="btn">Sign In</button>
           </form>
         </div>
         <div className="col-12 col-md-6 logo-signup">
-          <img src="/img/logo_light_bg.png" alt="coffee log" width={"70%"}></img>
+          <img src="https://i.imgur.com/zlzNSFj.png" alt="coffee log" width={"70%"}></img>
         </div>
       </div>
     </div>

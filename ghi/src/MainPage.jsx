@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 function MainPage({ setAlert, quantumAuth }) {
@@ -26,8 +26,8 @@ function MainPage({ setAlert, quantumAuth }) {
           <img src="/img/lightlogo.png" alt="coffee logo" width={"33%"} className="mt-5"></img>
           <div className="h4 my-5 text-center">A unique community of coffee enthusiasts</div>
           <div className="d-flex">
-            <a className="btn" href="/signup">Sign Up</a>
-            <a className="btn" href="/login">Login</a>
+            <Link className="btn" to="/signup">Sign Up</Link>
+            <Link className="btn" to="/login">Login</Link>
           </div>
         </div>
         <div className="col-12 col-md-6">

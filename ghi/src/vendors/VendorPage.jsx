@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
 import "./VendorPage.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function VendorPage({ setAlert, quantumAuth }) {
     const navigate = useNavigate();
@@ -96,14 +96,14 @@ function VendorPage({ setAlert, quantumAuth }) {
             {/* right panel */}
             <div className="d-flex flex-column align-items-center col-6 container">
                 <div>
-                    <a role="button" id="product-mgmt-btn" className="btn mgmt-btn btn-lg" href="/vendor/product">
+                    <Link role="button" id="product-mgmt-btn" className="btn mgmt-btn btn-lg" to="/vendor/product">
                         Manage Products
-                    </a>
+                    </Link>
                 </div>
                 <div>
-                    <a role="button" id="product-mgmt-btn" className="btn mgmt-btn btn-lg" href="/vendor/orders">
+                    <Link role="button" id="product-mgmt-btn" className="btn mgmt-btn btn-lg" to="/vendor/orders">
                         Manage Orders
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

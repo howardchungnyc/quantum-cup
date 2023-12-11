@@ -247,8 +247,7 @@ class ProductQueries(Queries):
                                     # Convert review ID to a string.
                                     "comment": "$$review.comment",
                                     # Retrieve the review comment.
-                                    "sentiment_score":
-                                    "$$review.sentiment_score",
+                                    "sentiment_score": "$$review.sentiment_score",
                                     "buyer_id": {
                                         "$toString": "$$review.buyer_id"
                                     },

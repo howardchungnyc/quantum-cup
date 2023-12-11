@@ -25,12 +25,14 @@ mock_response = {
             "buyer_id": "6564d3cedc73e42ec7f4038c",
             "comment": "I think it is delicious!",
             "createdAt": "2023-12-08T02:21",
+            "sentiment_score": .09
         },
         {
             "id": "65727af6b8ea6759c8bff083",
             "buyer_id": "6564d3cedc73e42ec7f4038b",
             "comment": "It's awful!\n",
             "createdAt": "2023-12-08T02:09",
+            "sentiment_score": .99
         },
     ],
 }

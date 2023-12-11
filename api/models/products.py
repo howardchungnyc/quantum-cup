@@ -32,6 +32,7 @@ class ReviewForProductDetail(BaseModel):
     comment: str
     buyer_id: str
     createdAt: str
+    sentiment_score: float
 
 
 class ProductDetail(BaseModel):

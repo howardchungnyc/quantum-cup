@@ -1,41 +1,37 @@
-import { React, useCallback, useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./VendorPage.css";
 
 function ProductManagement({ quantumAuth, handleClick }) {
-    const [productList, setProductList] = useState([]);
     const [productsByVendor, setProductsByVendor] = useState([]);
+    const [triggerRedraw, setTriggerRedraw] = useState(0);
 
-    const loadProducts = useCallback(async () => {
-        try {
-            const res = await fetch(quantumAuth.baseUrl + "/api/products");
+    useEffect(() => {
+        async function loadProducts() {
+            // if not authenticated, do nothing
+            if (!quantumAuth.getAuthentication() ||
+                !quantumAuth.getAuthentication().account) return;
+            const uid = quantumAuth.getAuthentication().account.id;
 
-            if (res.ok) {
-                const data = await res.json();
-                setProductList(data.products);
-            } else {
-                console.error('Failed to fetch products:', res.status);
-                setProductList([]);
+            try {
+                const res = await fetch(quantumAuth.baseUrl + "/api/products");
+                if (res.ok) {
+                    const data = await res.json();
+                    // filter products by vendor id
+                    const productsForVendor = data.products.filter(
+                        product => product.vendor_id === uid);
+                    setProductsByVendor(productsForVendor);
+                } else {
+                    console.error('Failed to fetch products:', res.status);
+                }
+            } catch (error) {
+                console.error('Error during product fetch:', error);
             }
-        } catch (error) {
-            console.error('Error during product fetch:', error);
-            setProductList([]);
         }
-    }, [quantumAuth.baseUrl], productList);
 
-    useEffect(() => {
         loadProducts();
-        // eslint-disable-next-line
-    }, []);
+    }, [quantumAuth, triggerRedraw]);
 
-    useEffect(() => {
-        // Filter products by vendor when auth changes
-        if (quantumAuth.getAuthentication() && quantumAuth.getAuthentication().account) {
-            const productsForVendor = productList.filter(product => product.vendor_id === quantumAuth.getAuthentication().account.id);
-            setProductsByVendor(productsForVendor);
-        }
-        // eslint-disable-next-line
-    }, [quantumAuth.getAuthentication(), productList]);
 
     const handleDeleteClick = async (productId) => {
         try {
@@ -46,11 +42,9 @@ function ProductManagement({ quantumAuth, handleClick }) {
                     'Content-Type': 'application/json',
                 },
             });
-
             if (response.ok) {
                 // You can show a success message or update the product list after deletion
-                const updatedProducts = productsByVendor.filter(product => product.id !== productId);
-                setProductsByVendor(updatedProducts);
+                setTriggerRedraw(triggerRedraw + 1);
             } else {
                 // Handle error, show an error message
                 console.error('Failed to delete product:', response.status);
@@ -63,7 +57,7 @@ function ProductManagement({ quantumAuth, handleClick }) {
     return (
         <div className="d-flex flex-column flex-md-row justify-content-around my-5">
             {/* left panel */}
-            <div className="d-flex flex-column col-6 align-items-center">
+            <div className="d-flex flex-column col-8 align-items-center">
                 <h1 className="panel-title">Products</h1>
                 <div id="open-orders-id">
                     <div className="container">
@@ -116,7 +110,7 @@ function ProductManagement({ quantumAuth, handleClick }) {
                 </div>
             </div>
             {/* right panel */}
-            <div className="d-flex flex-column align-items-center col-6 container">
+            <div className="d-flex flex-column align-items-center col-4 container">
                 <div className="col-12 col-md-6 logo-signup">
                     <img src="https://i.imgur.com/zlzNSFj.png" alt="coffee log" className="img-fluid" />
                 </div>

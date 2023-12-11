@@ -10,6 +10,7 @@ from routers.search import router as search_router
 
 app = FastAPI()
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -17,6 +18,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 app.include_router(users.router, tags=["Auth"])
 app.include_router(authenticator.router, tags=["Auth"])

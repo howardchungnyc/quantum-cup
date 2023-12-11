@@ -13,6 +13,7 @@ import ProductList from "./product/ProductList"
 import ProductDetail from './product/ProductDetail';
 import { useEffect, useState } from "react";
 import ProductManagement from './vendors/ProductManagement';
+import OrderDetail from './orders/OrderDetail';
 import OrderManagement from './vendors/OrderManagement';
 import OrderForm from './orders/BuyersOrderForm/OrderForm';
 import OrderList from './orders/BuyersListOfOrders/OrderList';
@@ -29,7 +30,7 @@ function App() {
   const [productData, setProductData] = useState()
 
   const setAuthentication = (auth) => setAuth(auth);
-  const getAuthentication = () => auth;
+  const getAuthentication = () => JSON.parse(JSON.stringify(auth));
   const isAuthenticated = () => auth !== null;
   const quantumAuth = { setAuthentication, baseUrl, getAuthentication, isAuthenticated, };
 
@@ -69,7 +70,7 @@ function App() {
     async function checkLogin() {
       try {
         const url = baseUrl + "/token";
-        const res = await fetch(url, { method: "get"});
+        const res = await fetch(url, { method: "get", credentials: "include"});
         let auth = await res.json();
         quantumAuth.setAuthentication(auth);
       } catch {
@@ -102,6 +103,7 @@ function App() {
           <Route path="/logout" element={<LogoutBtn setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/product/edit/:productId" element={<ProductForm productData={productData} quantumAuth={quantumAuth} />} />
           <Route path="/products" element={<ProductList setAlert={setAlert} quantumAuth={quantumAuth} />} />
+          <Route path="/orders/:id" element={<OrderDetail productData={productData} handleClick={handleClick} setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/products/:id" element={<ProductDetail productData={productData} handleClick={handleClick} setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/signup" element={<SignupForm setAlert={setAlert} quantumAuth={quantumAuth} />} />
           <Route path="/vendor" element={<VendorPage setAlert={setAlert} quantumAuth={quantumAuth} />} />

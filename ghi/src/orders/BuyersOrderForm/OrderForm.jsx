@@ -88,6 +88,7 @@ function OrderForm({ quantumAuth, productData }) {
         <div className="offset-1 col-6">
           <div className="shadow p-4 mt-4">
             <h1 className="px-2"><b>Order Form</b></h1>
+
             <form onSubmit={handleSubmit}>
               <div>Welcome <strong>{buyer}</strong>, place your order here!</div>
               <br />
@@ -127,9 +128,11 @@ function OrderForm({ quantumAuth, productData }) {
                   </tr>
                 </tbody>
               </table>
+
               <div className="text-end">
                 <button className="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Submit</button>
               </div>
+
             </form>
           </div>
         </div>

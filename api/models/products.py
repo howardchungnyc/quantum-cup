@@ -25,3 +25,24 @@ class ProductOut(BaseModel):
 
 class ProductList(BaseModel):
     products: List[ProductOut]
+
+
+class ReviewForProductDetail(BaseModel):
+    id: str
+    comment: str
+    buyer_id: str
+    createdAt: str
+
+
+class ProductDetail(BaseModel):
+    id: str
+    name: str
+    description: str
+    image: str
+    unit: str
+    price: float
+    rating_count: int
+    rating_sum: int
+    vendor_id: str
+    vendor_fullname: Optional[str]
+    reviews: List[ReviewForProductDetail]

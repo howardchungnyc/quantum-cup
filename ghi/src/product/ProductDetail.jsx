@@ -26,9 +26,10 @@ function ProductDetail({ quantumAuth, handleClick }) {
 
       const response = await fetch(productUrl);
       const data = await response.json()
-      if (data[0] && data.length > 0) {
-        setProduct(data[0])
-        setRating(Math.round(data[0].rating_sum / data[0].rating_count));
+
+      if (data) {
+        setProduct(data)
+        setRating(Math.round(data.rating_sum / data.rating_count));
 
       } else {
         throw new Error("No products found")
@@ -70,8 +71,8 @@ function ProductDetail({ quantumAuth, handleClick }) {
 
   // loads the full names of all buyers associated with product reviews
   const loadBuyersFullNames = async () => {
-    // if there is product
-    if (product) {
+    // Check if there is a product and it has reviews
+    if (product && product.reviews) {
       // Extract buyer_ids from the product reviews
       const buyerIds = product.reviews.map((review) => review.buyer_id);
 

@@ -13,7 +13,15 @@ async function login(quantumAuth, username, password, role) {
     const form = new FormData();
     form.append("username", username + "::" + role);
     form.append("password", password);
-    let res = await fetch(url, { method: "post", credentials: "include", body: form });
+    let res;
+    try {
+        res = await fetch(url, {
+            method: "post", credentials: "include",
+            body: form
+        });
+    } catch (error) {
+        res = await fetch(url, { method: "post", body: form });
+    }
     if (res.status !== 200) return { success: false, msg: 'Invalid login' };
     res = await fetch(url, { method: "get", credentials: "include" });
     let auth = await res.json();

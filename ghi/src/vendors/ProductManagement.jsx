@@ -21,7 +21,7 @@ function ProductManagement({ quantumAuth, handleClick }) {
             console.error('Error during product fetch:', error);
             setProductList([]);
         }
-    }, [quantumAuth.baseUrl]);
+    }, [quantumAuth.baseUrl], productList);
 
     useEffect(() => {
         loadProducts();

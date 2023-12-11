@@ -16,6 +16,7 @@ class OrderIn(BaseModel):
 
 
 class OrderOut(BaseModel):
+    id: str
     product_id: str
     status: str
     buyer_id: str

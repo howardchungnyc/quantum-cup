@@ -84,7 +84,7 @@ function OrderManagement({ quantumAuth }) {
                                                 className="btn btn-sm text-center"
                                             // to={}
                                             >
-                                                Delete
+                                                Cancel
                                             </Link>
                                         </td>
                                     </tr>

@@ -104,6 +104,7 @@ function ProductDetail({ quantumAuth, handleClick }) {
   if (!product) {
     return <div>Loading...</div>;
   }
+  console.log(product.reviews)
 
   return (
     <>
@@ -160,7 +161,7 @@ function ProductDetail({ quantumAuth, handleClick }) {
                 </div>
 
                 <div className="chat-bubble mt-2">
-                  <span className="text-xs opacity-50">Sentiment: </span> {review.sentiment_score}
+                  <span className="text-xs opacity-50">Negative Sentiment: </span> {review.sentiment_score}
                 </div>
 
                 <time className="text-xs opacity-50">{formatCreatedAt(review.createdAt)}</time>

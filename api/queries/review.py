@@ -34,7 +34,7 @@ class ReviewQueries(Queries):
         print(sentiment_negative_score)
         props["buyer_id"] = account["id"]
         props["product_id"] = ObjectId(props["product_id"])
-        props["sentiment_score"] = sentiment_negative_score
+        props["git "] = sentiment_negative_score
         now = datetime.datetime.utcnow()
         props["createdAt"] = now.strftime("%Y-%m-%d, %H:%M")
         self.collection.insert_one(props)

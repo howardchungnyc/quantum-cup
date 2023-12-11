@@ -94,16 +94,18 @@ function VendorPage({ setAlert, quantumAuth }) {
                 </div>
             </div>
             {/* right panel */}
-            <div className="d-flex flex-column align-items-center col-6 container">
+            <div className="d-flex flex-column align-items-center justify-content-center col-6 container">
                 <div>
-                    <Link role="button" id="product-mgmt-btn" className="btn mgmt-btn btn-lg" to="/vendor/product">
-                        Manage Products
-                    </Link>
-                </div>
-                <div>
-                    <Link role="button" id="product-mgmt-btn" className="btn mgmt-btn btn-lg" to="/vendor/orders">
-                        Manage Orders
-                    </Link>
+                    <div className="my-3">
+                        <Link role="button" id="product-mgmt-btn" className="btn btn-lg text-center w-100 mb-4" to="/vendor/product">
+                            Manage Products
+                        </Link>
+                    </div>
+                    <div className="my-3">
+                        <Link role="button" id="order-mgmt-btn" className="btn btn-lg text-center w-100" to="/vendor/orders">
+                            Manage Orders
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>

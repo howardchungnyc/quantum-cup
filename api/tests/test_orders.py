@@ -7,6 +7,7 @@ from models.orders import OrderIn, OrderOut
 client = TestClient(app)
 
 mock_response = {
+    "id": "6573d052ac8f76b426eebc1e",
     "product_id": "65682374683a044082956a2a",
     "status": "pending",
     "buyer_id": "65651058f9b48f0981eea9e7",
@@ -59,16 +60,19 @@ def test_order():
     response = client.post(
         "/api/orders/create",
         json={
-            "product_id": "65682374683a044082956a2a",
+            "id": "6573d052ac8f76b426eebc1e",
+            "product_id": "657341539b4ec201294f2629",
             "buyer_id": "65651058f9b48f0981eea9e7",
             "buyer_fullname": "Buyer One",
-            "vendor_id": "65651099f9b48f0981eea9e8",
-            "vendor_fullname": "Vendor One",
-            "product_name": "Dark Roasted Coffee Beans",
-            "price": 19.99,
-            "unit": "oz",
-            "quantity": 3,
-            "total": 59.97,
+            "vendor_id": "656ff00b112adb0257262aeb",
+            "vendor_fullname": "Vendor Two",
+            "product_name": "Programmer Mug",
+            "price": 12.49,
+            "unit": "cup",
+            "quantity": 4,
+            "total": 49.96,
+            "status": "cancelled",
+            "createdAt": "2023-12-09, 02:26",
         },
     )
 

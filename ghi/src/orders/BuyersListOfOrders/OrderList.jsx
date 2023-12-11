@@ -1,50 +1,60 @@
-import { React, useCallback, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { React, useState, useEffect } from "react";
 
 
 function OrderList({ quantumAuth }) {
-
-
-    const [orderList, setOrderList] = useState([])
     const [ordersByBuyer, setOrdersByBuyer] = useState([])
+    const [triggerRefresh, setTriggerRefresh] = useState(0)
 
-    const loadOrders = useCallback(async () => {
-        try {
-            const res = await fetch(quantumAuth.baseUrl + "/api/orders");
+    useEffect(() => {
+        async function loadOrders() {
+            try {
+                const res = await fetch(quantumAuth.baseUrl + "/api/orders");
 
-            if (res.ok) {
-                const data = await res.json();
-                setOrderList(data.orders);
+                if (res.ok) {
+                    const data = await res.json();
 
-            } else {
-                console.error('Failed to fetch products:', res.status);
-                setOrderList([]);
+                    const authentication = quantumAuth.getAuthentication();
+                    if (authentication && authentication.account) {
+                        const ordersForBuyer = data.orders.filter(order => order.buyer_id === authentication.account.id);
+                        setOrdersByBuyer(ordersForBuyer);
+                    }
+
+                } else {
+                    console.error('Failed to fetch products:', res.status);
+                }
+            } catch (error) {
+                console.error('Error during orders fetch:', error);
             }
-        } catch (error) {
-            console.error('Error during orders fetch:', error);
-            setOrderList([]);
-        }
-    }, [quantumAuth.baseUrl]);
-
-    useEffect(() => {
+        };
         loadOrders()
-        // eslint-disable-next-line
-    }, [])
+    }, [quantumAuth, triggerRefresh])
 
-    useEffect(() => {
-        // Filter orders by buyer when auth changes
-        const authentication = quantumAuth.getAuthentication();
-        if (authentication && authentication.account) {
-            const ordersForBuyer = orderList.filter(order => order.buyer_id === authentication.account.id);
-            setOrdersByBuyer(ordersForBuyer);
+    const handleDeleteClick = async (orderId) => {
+        console.log('Deleting order with ID:', orderId);
+
+        try {
+            const response = await fetch(`${quantumAuth.baseUrl}/api/orders/${orderId}`, {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) console.error('Failed to delete order:', response.status);
+            setTriggerRefresh(triggerRefresh + 1)
+        } catch (error) {
+            console.log('Error during delete:', error);
         }
-    }, [quantumAuth, orderList]);
+    };
+
 
     return (
 
         <div className="d-flex flex-column flex-md-row justify-content-around my-5">
             {/* left panel */}
             <div className="d-flex flex-column col-6 align-items-center">
+
+
                 <h1 className="panel-title">Orders</h1>
                 <div id="open-orders-id">
                     <div className="container">
@@ -73,24 +83,21 @@ function OrderList({ quantumAuth }) {
                                         <td>${order.total}</td>
                                         <td>{order.status}</td>
                                         <td>
-                                            <Link
-                                                role="button"
-                                                id="order-mgmt-btn"
-                                                className="btn btn-sm text-center"
-                                            // to={product.id}
+                                            <button onClick={() => { }}
+                                                className="btn btn-sm"
+                                                disabled={order.status === "cancelled"}
                                             >
                                                 Edit
-                                            </Link>
+                                            </button>
                                         </td>
                                         <td>
-                                            <Link
-                                                role="button"
-                                                id="order-mgmt-btn"
-                                                className="btn btn-sm text-center"
-                                            // to={product.id}
+                                            <button onClick={() =>
+                                                handleDeleteClick(order.id)}
+                                                className="btn btn-sm"
+                                                disabled={order.status === "cancelled"}
                                             >
-                                                Delete
-                                            </Link>
+                                                Cancel
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
@@ -98,6 +105,9 @@ function OrderList({ quantumAuth }) {
                         </table>
                     </div>
                 </div>
+
+
+
             </div>
             {/* right panel */}
             <div className="d-flex flex-column align-items-center col-6 container">

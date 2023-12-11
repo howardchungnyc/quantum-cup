@@ -99,7 +99,6 @@ function ProductDetail({ quantumAuth, handleClick }) {
     loadBuyersFullNames();
     //eslint-disable-next-line
   }, [product]);
-
   console.log(product)
 
   if (!product) {
@@ -153,27 +152,27 @@ function ProductDetail({ quantumAuth, handleClick }) {
       <div className="text-center">
         <h3 className="mt-4">Comments:</h3>
         {product.reviews.map((review, i) => (
-          review.sentiment_score < 0.60 && (
-            <div className="chat chat-start border p-4 mb-4 mt-4 hero-interaction col-6 mx-auto round" key={i}>
-              <div className="chat-header d-flex justify-content-between">
-                <div className="chat-bubble mt-2">
-                  <span className="text-xs opacity-50">Comment: </span> {review.comment}
-                </div>
-
-                <div className="chat-bubble mt-2">
-                  <span className="text-xs opacity-50">Sentiment: </span> {review.sentiment_score}
-                </div>
-
-                <time className="text-xs opacity-50">{formatCreatedAt(review.createdAt)}</time>
+          // review.sentiment_score < 0.60 && (
+          <div className="chat chat-start border p-4 mb-4 mt-4 hero-interaction col-6 mx-auto round" key={i}>
+            <div className="chat-header d-flex justify-content-between">
+              <div className="chat-bubble mt-2">
+                <span className="text-xs opacity-50">Comment: </span> {review.comment}
               </div>
-              <div className="fw-bold">
-                <span className="text-xs opacity-50">Reviewed by: </span>
-                {buyerNames[i]}
+
+              <div className="chat-bubble mt-2">
+                <span className="text-xs opacity-50">Sentiment: </span> {review.sentiment_score}
               </div>
-              <div className="chat-footer opacity-50 mt-2"></div>
+
+              <time className="text-xs opacity-50">{formatCreatedAt(review.createdAt)}</time>
             </div>
-          )
-        ))};
+            <div className="fw-bold">
+              <span className="text-xs opacity-50">Reviewed by: </span>
+              {buyerNames[i]}
+            </div>
+            <div className="chat-footer opacity-50 mt-2"></div>
+          </div>
+          // )
+        ))}
       </div>
     </>
   );

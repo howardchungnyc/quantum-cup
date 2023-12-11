@@ -7,6 +7,7 @@ import os
 endpoint = os.environ.get("ENDPOINT", "")
 api_key = os.environ.get("TEXT_ANALYTICS_API_KEY", "")
 
+
 def analyze_sentiment(sendText: str = Form(...)):
     try:
         # Prepare the document for sentiment analysis
@@ -48,6 +49,7 @@ def analyze_sentiment(sendText: str = Form(...)):
         return {"results": response_data}
 
     except Exception as e:
-        # Catch any exceptions and raise an HTTPException with a 500 status code
+        # Catch any exceptions and raise an
+        # HTTPException with a 500 status code
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")

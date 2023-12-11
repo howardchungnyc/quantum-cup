@@ -1,45 +1,38 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./VendorPage.css";
 import { Link } from "react-router-dom";
 
 function OrderManagement({ quantumAuth }) {
-    const [orderList, setOrderList] = useState([]);
     const [ordersByVendor, setOrdersByVendor] = useState([]);
 
-    const loadOrders = useCallback(async () => {
-        try {
-            const res = await fetch(quantumAuth.baseUrl + "/api/orders");
+    useEffect(() => {
+        async function loadOrders() {
+            if (!quantumAuth.getAuthentication() ||
+                !quantumAuth.getAuthentication().account) return;
+            const uid = quantumAuth.getAuthentication().account.id;
 
-            if (res.ok) {
-                const data = await res.json();
-                setOrderList(data.orders);
-            } else {
-                console.error('Failed to fetch orders:', res.status);
-                setOrderList([]);
+            try {
+                const res = await fetch(quantumAuth.baseUrl + "/api/orders");
+                if (res.ok) {
+                    const data = await res.json();
+                    const ordersForVendor = data.orders.filter(
+                        order => order.vendor_id === uid);
+                    setOrdersByVendor(ordersForVendor);
+                } else {
+                    console.error('Failed to fetch orders:', res.status);
+                }
+            } catch (error) {
+                console.error('Error during orders fetch:', error);
             }
-        } catch (error) {
-            console.error('Error during orders fetch:', error);
-            setOrderList([]);
         }
-    }, [quantumAuth.baseUrl]);
 
-    useEffect(() => {
         loadOrders();
-        // eslint-disable-next-line
-    }, []);
-
-    useEffect(() => {
-        // Filter orders by vendor when auth changes
-        if (quantumAuth.getAuthentication() && quantumAuth.getAuthentication().account) {
-            const ordersForVendor = orderList.filter(order => order.vendor_id === quantumAuth.getAuthentication().account.id);
-            setOrdersByVendor(ordersForVendor);
-        } // eslint-disable-next-line
-    }, [quantumAuth.getAuthentication(), orderList]);
+    }, [quantumAuth]);
 
     return (
         <div className="d-flex flex-column flex-md-row justify-content-around my-5">
             {/* left panel */}
-            <div className="d-flex flex-column col-6 align-items-center">
+            <div className="d-flex flex-column col-8 align-items-center">
                 <h1 className="panel-title">Orders</h1>
                 <div id="open-orders-id">
                     <div className="container">
@@ -95,7 +88,7 @@ function OrderManagement({ quantumAuth }) {
                 </div>
             </div>
             {/* right panel */}
-            <div className="d-flex flex-column align-items-center col-6 container">
+            <div className="d-flex flex-column align-items-center col-4 container">
                 <div className="col-12 col-md-6 logo-signup">
                     <img src="https://i.imgur.com/zlzNSFj.png" alt="coffee log" className="img-fluid" />
                 </div>

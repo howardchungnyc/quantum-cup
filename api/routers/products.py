@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from queries.products import ProductQueries
-from models.products import ProductOut, ProductIn, ProductList
+from models.products import ProductOut, ProductIn, ProductList, ProductDetail
 from .authenticator import authenticator
 
 
@@ -39,6 +39,6 @@ def list_products(repo: ProductQueries = Depends()) -> ProductList:
     return repo.get_all_products()
 
 
-@router.get("/api/products/{product_id}")
+@router.get("/api/products/{product_id}", response_model=ProductDetail | None)
 def product_detail(product_id: str, repo: ProductQueries = Depends()):
     return repo.get_one_product(product_id)

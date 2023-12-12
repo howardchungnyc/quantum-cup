@@ -1,4 +1,4 @@
-# Quantum Cup - A Unique Community of Coffee Enthusiasts
+# [Quantum Cup - A Unique Community of Coffee Enthusiasts](https://galvanize9283031.gitlab.io/quantum-cup/)
 Quantum Cup is an app to connect coffee enthusiasts and coffee shops.
 
 ## Team
